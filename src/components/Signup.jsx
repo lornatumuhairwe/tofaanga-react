@@ -26,19 +26,35 @@ class SignupForm extends Component {
             <form className="col-md-offset-3 col-md-4" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
-                    <input type="text" className="form-control" id="name" onChange={this.handleChange.bind(this, 'name')} />
+                    <input type="text"
+                           className="form-control"
+                           id="name"
+                           value={this.state.name}
+                           onChange={this.handleChange.bind(this, 'name')} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email address:</label>
-                    <input type="email" className="form-control" id="email" onChange={this.handleChange.bind(this, 'email')} />
+                    <input type="email"
+                           className="form-control"
+                           id="email"
+                           value={this.state.email}
+                           onChange={this.handleChange.bind(this, 'email')} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="dob">Date of Birth:</label>
-                    <input type="date" className="form-control" id="dob" onChange={this.handleChange.bind(this, 'dob')}/>
+                    <input type="date"
+                           className="form-control"
+                           id="dob"
+                           value={this.state.dob}
+                           onChange={this.handleChange.bind(this, 'dob')}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="pwd">Password:</label>
-                    <input type="password" className="form-control" id="pwd" onChange={this.handleChange.bind(this, 'pwd')}/>
+                    <input type="password"
+                           className="form-control"
+                           id="pwd"
+                           value={this.state.pwd}
+                           onChange={this.handleChange.bind(this, 'pwd')}/>
                 </div>
                 <button type="submit" className="btn btn-default">Sign up</button>
                 <div>
