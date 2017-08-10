@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import LoginForm from './components/Login';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <h1>Welcome to Tofaanga</h1>
+      <ul>
+        <li><a href="/auth/login">Login</a></li>
+        <li><a href="/auth/signup">Sign Up</a></li>
+        <LoginForm />
+      </ul>
+    </div>
+  );
+};
 
 export default App;
