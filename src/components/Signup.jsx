@@ -8,10 +8,15 @@ class SignupForm extends Component {
         this.state = {name: '', email: '', dob: '', pwd:''};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this)
+        this.baseURL = 'https://tofaangapi.herokuapp.com/auth/register';
     }
     handleSubmit(event) {
-        alert( this.state.email + ' is the email of ' + this.state.name + '. She was born on ' + this.state.dob + ' and ' +
-        this.state.pwd + ' is her password.');
+        var signupForm = new FormData();
+        signupForm.append("name", this.state.name)
+        signupForm.append("email", this.state.email)
+        signupForm.append("birthdate", this.state.dob)
+        signupForm.append("password", this.state.pwd)
+        this.sendRegistration(this.baseURL, signupForm)
         event.preventDefault();
         this.setState({name: '', email: '', dob: '', pwd:''});
     }
@@ -20,6 +25,14 @@ class SignupForm extends Component {
         newState[field] = event.target.value;
         this.setState(newState);
         // this.setState({name: event.target.value});
+    }
+    sendRegistration(url, data) {
+        let postData = {
+            method: 'POST',
+            body: data,
+        }
+        fetch(url, postData)
+            .then(data => console.log(data.json()));
     }
     render(){
         return (
@@ -30,6 +43,7 @@ class SignupForm extends Component {
                            className="form-control"
                            id="name"
                            value={this.state.name}
+                           required={true}
                            onChange={this.handleChange.bind(this, 'name')} />
                 </div>
                 <div className="form-group">
@@ -38,6 +52,7 @@ class SignupForm extends Component {
                            className="form-control"
                            id="email"
                            value={this.state.email}
+                           required={true}
                            onChange={this.handleChange.bind(this, 'email')} />
                 </div>
                 <div className="form-group">
@@ -46,6 +61,7 @@ class SignupForm extends Component {
                            className="form-control"
                            id="dob"
                            value={this.state.dob}
+                           required={true}
                            onChange={this.handleChange.bind(this, 'dob')}/>
                 </div>
                 <div className="form-group">
@@ -54,6 +70,7 @@ class SignupForm extends Component {
                            className="form-control"
                            id="pwd"
                            value={this.state.pwd}
+                           required={true}
                            onChange={this.handleChange.bind(this, 'pwd')}/>
                 </div>
                 <button type="submit" className="btn btn-default">Sign up</button>
