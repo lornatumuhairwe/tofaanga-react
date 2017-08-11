@@ -1,4 +1,5 @@
 import React from 'react';
+// import fetch from 'isomorphic-fetch';
 import LoginForm from './components/Login';
 import './App.css';
 
@@ -14,5 +15,8 @@ const App = () => {
     </div>
   );
 };
+
+const url = 'https://facebook.github.io/react-native/movies.json';
+fetch(url).then(data => console.log(data.json()));
 
 export default App;
