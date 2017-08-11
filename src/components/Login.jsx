@@ -7,10 +7,15 @@ class LoginForm extends Component {
         super(props);
         this.state = {email: '', pwd:''};
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.baseURL = 'https://tofaangapi.herokuapp.com/auth/login';
     }
     handleSubmit(event) {
         alert( 'User with '+ this.state.email + ' email wants to sign in with this ' + this.state.pwd + ' password' );
+        var LoginForm = new FormData();
+        LoginForm.append("email", this.state.email)
+        LoginForm.append("password", this.state.pwd)
+        this.sendLogin(this.baseURL, LoginForm)
         event.preventDefault();
         this.setState({email: '', pwd:''});
     }
@@ -19,6 +24,14 @@ class LoginForm extends Component {
         newState[field] = event.target.value;
         this.setState(newState);
         // this.setState({name: event.target.value});
+    }
+    sendLogin(url, data){
+        let postData = {
+            method: 'POST',
+            body: data,
+        }
+        fetch(url, postData)
+            .then(data => console.log(data.json()));
     }
     render(){
         return (
