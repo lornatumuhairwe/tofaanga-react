@@ -41,6 +41,7 @@ class LoginForm extends Component {
                     <input type="email"
                            className="form-control"
                            id="email" value={this.state.email}
+                           required={true}
                            onChange={this.handleChange.bind(this, 'email')}/>
                 </div>
                 <div className="form-group">
@@ -49,6 +50,7 @@ class LoginForm extends Component {
                            className="form-control"
                            id="pwd"
                            value={this.state.pwd}
+                           required={true}
                            onChange={this.handleChange.bind(this, 'pwd')}/>
                 </div>
                 <button type="submit" className="btn btn-default">Sign up</button>
