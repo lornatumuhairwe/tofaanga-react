@@ -1,65 +1,109 @@
 import React, { Component } from 'react';
 import '../styles/css/bootstrap.min.css';
+import '../styles/font-awesome/css/font-awesome.min.css';
 import '../styles/css/style.css';
+import Bucketlist from './bucketlist';
 
 class LoginForm extends Component {
-    constructor(props){
-        super(props);
-        this.state = {email: '', pwd:''};
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.baseURL = 'https://tofaangapi.herokuapp.com/auth/login';
-    }
-    handleSubmit(event) {
-        alert( 'User with '+ this.state.email + ' email wants to sign in with this ' + this.state.pwd + ' password' );
-        var LoginForm = new FormData();
-        LoginForm.append("email", this.state.email)
-        LoginForm.append("password", this.state.pwd)
-        this.sendLogin(this.baseURL, LoginForm)
-        event.preventDefault();
-        this.setState({email: '', pwd:''});
-    }
-    handleChange(field, event) {
-        var newState = {};
-        newState[field] = event.target.value;
-        this.setState(newState);
-        // this.setState({name: event.target.value});
-    }
-    sendLogin(url, data){
-        let postData = {
-            method: 'POST',
-            body: data,
+  constructor(props) {
+    super(props);
+    this.state = { email: '', pwd: '' };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.baseURL = 'https://tofaangapi.herokuapp.com/auth/login';
+    this.displaySignupForm = this.displaySignupForm.bind(this);
+    this.token = '';
+  }
+    // getToken() {
+    //     this.props.getToken(this.token);
+    //     this.props.displaySignup(false);
+    // }
+
+  displaySignupForm() {
+    this.props.displaySignup(true);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const LoginFormData = new FormData();
+    LoginFormData.append('email', this.state.email);
+    LoginFormData.append('password', this.state.pwd);
+    this.sendLogin(this.baseURL, LoginFormData);
+    this.setState({ email: '', pwd: '' });
+    this.props.getToken(this.token);
+    // console.log(this.props, this)
+    // this.props.displaySignup(false);
+  }
+  handleChange(field, event) {
+    const newState = {};
+    newState[field] = event.target.value;
+    this.setState(newState);
+  }
+  sendLogin(url, data) {
+    const postData = {
+      method: 'POST',
+      body: data,
+    };
+    return fetch(url, postData)
+      .then(response => response.json())
+      .then((resjson) => {
+        console.log(this);
+        if (resjson.status === 'success') {
+          this.token = resjson.auth_token;
+        } else if (resjson.message === 'Password mismatch') {
+          window.location = '/auth/login';
+        } else {
+          window.location = '/auth/signup';
         }
-        fetch(url, postData)
-            .then(data => console.log(data.json()));
-    }
-    render(){
-        return (
-            <form className="col-md-offset-3 col-md-4" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email address:</label>
-                    <input type="email"
-                           className="form-control"
-                           id="email" value={this.state.email}
-                           required={true}
-                           onChange={this.handleChange.bind(this, 'email')}/>
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <ul className="navigation">
+          <button id="si" onClick={this.displaySignupForm}>Sign up</button>
+          <li><a href="#"><strong>TOFAANGA</strong></a></li>
+        </ul>
+        <div className="signupbackground">
+          <div className="overlay">
+            <div className="signinbox">
+              <div className="title"><strong>Sign in</strong></div>
+              <form onSubmit={this.handleSubmit}>
+                <div className="input-group">
+                  <span className="input-group-addon"><i className="fa fa-at" /></span>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    value={this.state.email}
+                    placeholder="email"
+                    required
+                    onChange={this.handleChange.bind(this, 'email')}
+                  />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="pwd">Password:</label>
-                    <input type="password"
-                           className="form-control"
-                           id="pwd"
-                           value={this.state.pwd}
-                           required={true}
-                           onChange={this.handleChange.bind(this, 'pwd')}/>
+                <div className="input-group">
+                  <span className="input-group-addon"><i className="fa fa-lock" /></span>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="pwd"
+                    value={this.state.pwd}
+                    required
+                    onChange={this.handleChange.bind(this, 'pwd')}
+                  />
                 </div>
-                <button type="submit" className="btn btn-default">Sign up</button>
+                <button type="submit" className="btn btn-default">Sign in</button>
                 <div>
-                    <a href="/">Back to Home</a>
+                  <a href="#">Forgot Password?</a>
                 </div>
-            </form>
-        );
-    }
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default LoginForm;
