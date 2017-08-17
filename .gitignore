@@ -22,3 +22,6 @@ yarn-error.log*
 
 #webstorm addons
 .idea/
+
+#flow config
+.flowconfig
