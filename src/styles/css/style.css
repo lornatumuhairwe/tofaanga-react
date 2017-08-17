@@ -9,7 +9,7 @@
     background-color: rgba(255, 255, 255, 0.5);
     position: absolute;
     top: 60px;
-    height: 85%;
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -25,6 +25,10 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+
+#main{
+    width: 100%;
 }
 
 .signinbox{
@@ -53,11 +57,11 @@
 }
 
 .signinbox input {
-    margin: 10px;
-    border: 1px solid #1b6d85;
-    padding: 12px;
+    /*margin: 10px;*/
+    /*border: 1px solid #1b6d85;*/
+    /*padding: 12px;*/
     border-radius: 10px;
-    width: 100%;
+    width: 50%;
 }
 
 .signinbox input[type="submit"]{
@@ -128,3 +132,8 @@
     border: 1px solid white;
     font-size: 50px;
  }
+
+#si {
+    float:right;
+    border-left: 1px solid white;
+}
