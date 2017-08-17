@@ -7,11 +7,13 @@ import Err404 from './components/Err404';
 import LoginForm from './components/Login';
 import SignupForm from './components/Signup';
 import registerServiceWorker from './registerServiceWorker';
+import Bucketlist from './components/bucketlist';
 
 ReactDOM.render(<Router history={browserHistory}>
   <Route path="/" component={App} />
   <Route path="/auth/login" component={LoginForm} />
   <Route path="/auth/signup" component={SignupForm} />
+  <Route path="/b" component={Bucketlist} />
   <Route path="*" component={Err404} />
 </Router>,
 document.getElementById('root'));
