@@ -2,12 +2,37 @@ import React, { Component } from 'react';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/style.css';
 
+class BLRow extends React.Component {
+    render() {
+        return (
+            <tr>
+              <td>{this.props.bucketlist}</td>
+            </tr>
+        );
+    }
+}
+
+class BucketlistTable extends React.Component {
+  render() {
+    console.log('Your bucketlists are: ');
+    let bls = this.props.bucketlists;
+    for (let key in bls) {
+      console.log('For loop: ');
+      if (bls.hasOwnProperty(key)) {
+        console.log(key + ' -> ' + bls[key]);
+        return (<BLRow bucketlist={bls[key]} />)
+      }
+    }
+    return (
+      <h1>Bucketlist</h1>
+    );
+  }
+}
+
 class Bucketlist extends Component {
   constructor(props) {
     super(props);
-    // this.state = { name: '', email: '', dob: '', pwd: '' };
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    this.state = { bucketlists: '' };
     this.baseURL = 'https://tofaangapi.herokuapp.com/bucketlists/';
   }
 
@@ -17,40 +42,27 @@ class Bucketlist extends Component {
       headers: { Authorization: this.props.token },
     };
     return fetch(url, getData)
-      .then(response => console.log(response.json()));
+      .then(response => response.json(),
+        // this.setState({ bucketlists: response.json() });
+      ).then(res => this.setState({ bucketlists: res }));
   }
 
   componentDidMount() {
     this.getBucketlists(this.baseURL);
   }
 
-  // handleSubmit(event) {
-  //   const signupFormData = new FormData();
-  //   signupFormData.append('name', this.state.name);
-  //   signupFormData.append('email', this.state.email);
-  //   signupFormData.append('birthdate', this.state.dob);
-  //   signupFormData.append('password', this.state.pwd);
-  //   this.sendRegistration(this.baseURL, signupFormData);
-  //   event.preventDefault();
-  //   this.setState({ name: '', email: '', dob: '', pwd: '' });
-  // }
-  // handleChange(field, event) {
-  //   const newState = {};
-  //   newState[field] = event.target.value;
-  //   this.setState(newState);
-  //   // this.setState({name: event.target.value});
-  // }
-  returnBucketlists(url) {
-    const getData = {
-      method: 'GET',
-      headers: {Authorization: this.props.token}
-    };
-    fetch(url, getData)
-      .then(response => console.log(response.json().message));
-  }
   render() {
-    return (
-      <h1>Bucketlists</h1>
+    return (<div>
+          <h1>Bucketlists</h1>
+      <table>
+        <thead>
+          <tr>Bucketlists</tr>
+        </thead>
+        <tbody>
+          <BucketlistTable bucketlists={this.state.bucketlists} />
+        </tbody>
+      </table>
+    </div>
     );
   }
 }
