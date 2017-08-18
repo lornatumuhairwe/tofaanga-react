@@ -14,11 +14,6 @@ class LoginForm extends Component {
     this.displaySignupForm = this.displaySignupForm.bind(this);
     this.token = '';
   }
-  // getToken() {
-  //     this.props.getToken(this.token);
-  //     this.props.displaySignup(false);
-  // }
-
   displaySignupForm() {
     this.props.displaySignup(true);
   }
@@ -39,7 +34,6 @@ class LoginForm extends Component {
     this.setState(newState);
   }
   sendLogin(url, data) {
-    console.log('Im sending the data');
     const postData = {
       method: 'POST',
       body: data,
@@ -48,10 +42,8 @@ class LoginForm extends Component {
       .then(response => response.json())
       .then((resjson) => {
         if (resjson.status === 'success') {
-          console.log(resjson.auth_token);
           if (resjson.auth_token.length > 0) {
             this.token = resjson.auth_token;
-            console.log(this.token);
             this.setState({ isLoggedIn: true });
           }
         } else if (resjson.message === 'Password mismatch') {

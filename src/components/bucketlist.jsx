@@ -14,17 +14,26 @@ class BLRow extends React.Component {
 
 class BucketlistTable extends React.Component {
   render() {
+    let rows = [];
     console.log('Your bucketlists are: ');
     let bls = this.props.bucketlists;
     for (let key in bls) {
       console.log('For loop: ');
       if (bls.hasOwnProperty(key)) {
         console.log(key + ' -> ' + bls[key]);
-        return (<BLRow bucketlist={bls[key]} />)
+        rows.push(<BLRow bucketlist={bls[key]} />)
       }
     }
-    return (
-      <h1>Bucketlist</h1>
+    return (<div>
+          <table>
+            <thead>
+            <tr><b>Bucketlists</b></tr>
+            </thead>
+            <tbody>
+            {rows}
+            </tbody>
+          </table>
+        </div>
     );
   }
 }
@@ -53,15 +62,7 @@ class Bucketlist extends Component {
 
   render() {
     return (<div>
-          <h1>Bucketlists</h1>
-      <table>
-        <thead>
-          <tr>Bucketlists</tr>
-        </thead>
-        <tbody>
           <BucketlistTable bucketlists={this.state.bucketlists} />
-        </tbody>
-      </table>
     </div>
     );
   }
