@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/css/bootstrap.min.css';
 import '../styles/font-awesome/css/font-awesome.min.css';
-import '../styles/css/style.css';
+import '../styles/css/login.css';
 import Bucketlist from './bucketlist';
 
 class LoginForm extends Component {
@@ -14,7 +14,8 @@ class LoginForm extends Component {
     this.displaySignupForm = this.displaySignupForm.bind(this);
     this.token = '';
   }
-  displaySignupForm() {
+  displaySignupForm(event) {
+    event.preventDefault();
     this.props.displaySignup(true);
   }
 
@@ -25,7 +26,6 @@ class LoginForm extends Component {
     LoginFormData.append('password', this.state.pwd);
     this.sendLogin(this.baseURL, LoginFormData);
     this.setState({ email: '', pwd: '' });
-    //console.log(this.props);
     this.props.getToken(this.token);
   }
   handleChange(field, event) {
@@ -57,45 +57,28 @@ class LoginForm extends Component {
   render() {
     if (!this.state.isLoggedIn) {
       return (
-        <div>
-          <ul className="navigation">
-            <button id="si" onClick={this.displaySignupForm}>Sign up</button>
-            <li><a href="#"><strong>TOFAANGA</strong></a></li>
-          </ul>
-          <div className="signupbackground">
-            <div className="overlay">
-              <div className="signinbox">
-                <div className="title"><strong>Sign in</strong></div>
-                <form onSubmit={this.handleSubmit}>
-                  <div className="input-group">
-                    <span className="input-group-addon"><i className="fa fa-at" /></span>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      value={this.state.email}
-                      placeholder="email"
-                      required
-                      onChange={this.handleChange.bind(this, 'email')}
-                    />
-                  </div>
-                  <div className="input-group">
-                    <span className="input-group-addon"><i className="fa fa-lock" /></span>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="pwd"
-                      value={this.state.pwd}
-                      required
-                      onChange={this.handleChange.bind(this, 'pwd')}
-                    />
-                  </div>
-                  <button type="submit" className="btn btn-default">Sign in</button>
-                  <div>
-                    <a href="#">Forgot Password?</a>
-                  </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-6 col-md-4 col-md-offset-4">
+              <h1 className="text-center login-title">Sign in to continue to view your bucketlists </h1>
+              <div className="account-wall">
+                <img className="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                  alt="" />
+                <form className="form-signin" onSubmit={this.handleSubmit}>
+                  <input type="text" id="email" className="form-control"
+                    placeholder="Email" value={this.state.email}
+                    required autofocus onChange={this.handleChange.bind(this, 'email')} />
+                  <input type="password"  className="form-control" id="pwd"
+                    value={this.state.pwd} placeholder="Password" required
+                    onChange={this.handleChange.bind(this, 'pwd')} />
+                  <button className="btn btn-lg btn-primary btn-block" type="submit">
+                    Sign in</button>
+                  <a href="#" className="pull-right need-help">Forgot Password? </a>
+                  <span className="clearfix"/>
                 </form>
               </div>
+              <a href="#" className="text-center new-account"
+                onClick={this.displaySignupForm}>Create an account </a>
             </div>
           </div>
         </div>
