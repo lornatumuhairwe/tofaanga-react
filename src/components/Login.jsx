@@ -113,7 +113,7 @@ class LoginForm extends Component {
       );
     }
     return (
-      <Bucketlist token={this.state.token} />
+      <Bucketlist token={this.token} />
     );
   }
 }
