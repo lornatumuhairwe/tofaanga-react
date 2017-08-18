@@ -30,10 +30,8 @@ class LoginForm extends Component {
     LoginFormData.append('password', this.state.pwd);
     this.sendLogin(this.baseURL, LoginFormData);
     this.setState({ email: '', pwd: '' });
-    console.log(this.props);
+    //console.log(this.props);
     this.props.getToken(this.token);
-    // console.log(this.props, this)
-    // this.props.displaySignup(false);
   }
   handleChange(field, event) {
     const newState = {};
@@ -49,7 +47,6 @@ class LoginForm extends Component {
     return fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {
-        console.log(this);
         if (resjson.status === 'success') {
           console.log(resjson.auth_token);
           if (resjson.auth_token.length > 0) {
