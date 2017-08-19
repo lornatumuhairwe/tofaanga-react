@@ -8,17 +8,32 @@ class BLRow extends React.Component {
     super(props);
     this.deleteBucketlist = this.deleteBucketlist.bind(this);
     this.editBucketlist = this.editBucketlist.bind(this);
+    this.deleteAction = this.deleteAction.bind(this);
     this.state = { bucketlist: '' };
+    this.baseURL = 'https://tofaangapi.herokuapp.com/bucketlists/';
   }
   deleteBucketlist(e) {
     e.preventDefault();
     const bID = this.refs.bid.value;
     alert(`Do you really want to delete this item? : ${bID}`);
+    const BlData = new FormData();
+    BlData.append('bucketlistID', bID);
+    this.deleteAction(this.baseURL + bID.toString(), BlData);
   }
   editBucketlist(e) {
     e.preventDefault();
     const bID = this.refs.bid.value;
     alert(`Editing: ${bID}`);
+  }
+
+  deleteAction(url, data) {
+    const postData = {
+      method: 'DELETE',
+      body: data,
+      headers: { Authorization: this.props.token },
+    };
+    return fetch(url, postData)
+      .then(response => response.json()).then(res => console.log(res));
   }
 
   render() {
@@ -51,7 +66,7 @@ class BucketlistTable extends React.Component {
     const bls = this.props.bucketlists;
     for (const key in bls) {
       if (bls.hasOwnProperty(key)) {
-        rows.push(<BLRow id={key} bucketlist={bls[key]} />);
+        rows.push(<BLRow id={key} bucketlist={bls[key]} token={this.props.token} />);
       }
     }
     return (<div>
@@ -67,12 +82,12 @@ class Bucketlist extends Component {
   constructor(props) {
     super(props);
     this.state = { bucketlists: '', showModal: false, bname: '' };
-    this.baseURL = 'https://tofaangapi.herokuapp.com/bucketlists/';
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.addBucketlist = this.addBucketlist.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.getName = this.getName.bind(this);
+    this.baseURL = 'https://tofaangapi.herokuapp.com/bucketlists/';
   }
 
   getBucketlists(url) {
@@ -135,7 +150,7 @@ class Bucketlist extends Component {
       </nav>
       <button className="btn btn-xs" onClick={this.openModal}>
         <i className="glyphicon glyphicon-plus-sign" /></button>
-      <BucketlistTable bucketlists={this.state.bucketlists} />
+      <BucketlistTable bucketlists={this.state.bucketlists} token={this.props.token} />
       <Modal show={this.state.showModal} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
         <Modal.Header closeButton>
           <Modal.Title>Add Bucketlist</Modal.Title>
