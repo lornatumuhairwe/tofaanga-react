@@ -67,7 +67,7 @@ class LoginForm extends Component {
                 <form className="form-signin" onSubmit={this.handleSubmit}>
                   <input type="text" id="email" className="form-control"
                     placeholder="Email" value={this.state.email}
-                    required autofocus onChange={this.handleChange.bind(this, 'email')} />
+                    required autoFocus onChange={this.handleChange.bind(this, 'email')} />
                   <input type="password"  className="form-control" id="pwd"
                     value={this.state.pwd} placeholder="Password" required
                     onChange={this.handleChange.bind(this, 'pwd')} />
