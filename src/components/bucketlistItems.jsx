@@ -23,7 +23,7 @@ class BucketlistItems extends Component {
       }
     }
     return (<div>
-      <ul className="list-group  col-md-offset-4 col-md-3">
+      <ul className="list-group">
         {rows}
       </ul>
     </div>

@@ -77,7 +77,7 @@ class Bucketlist extends Component {
         </ul>
       </nav>
       <button className="btn btn-xs" onClick={this.openModal}>
-        <i className="glyphicon glyphicon-plus-sign" /></button>
+        <i className="glyphicon glyphicon-plus-sign" />Add Bucketlist</button>
       <BucketlistTable bucketlists={this.state.bucketlists} token={this.props.token} getBucketlists={this.getBucketlists} />
       <Modal show={this.state.showModal} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
         <Modal.Header closeButton>
