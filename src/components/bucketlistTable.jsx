@@ -12,27 +12,43 @@ class BLRow extends React.Component {
     this.deleteAction = this.deleteAction.bind(this);
     this.updateAction = this.updateAction.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.openAdd = this.openAdd.bind(this);
+    this.closeAdd = this.closeAdd.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.getBucketlistItems = this.getBucketlistItems.bind(this);
     this.getBucketlistItemsAction = this.getBucketlistItemsAction.bind(this);
-    this.state = { bucketlist: '', showModal: false, newname: '', items: [] };
+    this.handleChange = this.handleChange.bind(this);
+    this.addItemToBucketlist = this.addItemToBucketlist.bind(this);
+    this.addItemToBucketlistAction = this.addItemToBucketlistAction.bind(this);
+    this.state = { bucketlist: '', showModal: false, newname: '', items: [], showAdd: false, status: '', deadline: '', title: '' };
     this.baseURL = 'https://tofaangapi.herokuapp.com/bucketlists/';
   }
+  openAdd(e) {
+    e.preventDefault();
+    this.setState({ showAdd: true });
+  }
+
   openModal(e) {
     e.preventDefault();
     this.setState({ showModal: true });
-  }
+}
 
   closeModal(e) {
     e.preventDefault();
     this.setState({ showModal: false });
   }
 
+  closeAdd(e) {
+    e.preventDefault();
+    this.setState({ showAdd: false });
+}
+
   getName(field, event) {
     const newState = {};
     newState[field] = event.target.value;
     this.setState(newState);
   }
+
   deleteBucketlist(e) {
     e.preventDefault();
     const bID = this.refs.bid.value;
@@ -45,7 +61,6 @@ class BLRow extends React.Component {
   editBucketlist(e) {
     e.preventDefault();
     const bID = this.refs.bid.value;
-    // alert(`Editing: ${bID}`);
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
     BlData.append('newname', this.state.newname);
@@ -77,7 +92,6 @@ class BLRow extends React.Component {
   getBucketlistItems(e) {
     e.preventDefault();
     const bID = this.refs.bid.value;
-    // alert(`Editing: ${bID}`);
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
     this.getBucketlistItemsAction(this.baseURL + bID.toString(), BlData);
@@ -95,11 +109,36 @@ class BLRow extends React.Component {
       },
       );
   }
+  handleChange(field, event) {
+    const newState = {};
+    newState[field] = event.target.value;
+    this.setState(newState);
+  }
+
+  addItemToBucketlist(e) {
+    e.preventDefault();
+      const bID = this.refs.bid.value;
+      const blItemData = new FormData();
+      blItemData.append('title', this.state.title);
+      blItemData.append('deadline', this.state.deadline);
+      blItemData.append('status', this.state.status);
+    this.addItemToBucketlistAction(this.baseURL + bID.toString() + '/items/', blItemData);
+  }
+
+    addItemToBucketlistAction(url, data) {
+        const postData = {
+            method: 'POST',
+            body: data,
+            headers: { Authorization: this.props.token },
+        };
+        return fetch(url, postData)
+            .then(response => response.json()).then(res => console.log(res));
+    }
 
   render() {
     return (
       <li className="list-group-item col-md-12">
-        <a href="#" onClick={this.getBucketlistItems}>{this.props.bucketlist}</a>
+        <a onClick={this.getBucketlistItems}>{this.props.bucketlist}</a>
               <div className="pull-right">
           <form className="form-inline">
                       <input
@@ -107,8 +146,10 @@ class BLRow extends React.Component {
               name="name"
               value={this.props.id}
               ref="bid"
-                          required
+              required
             />
+            <button type="submit" className="btn btn-xs"  onClick={this.openAdd}>
+              <i className="glyphicon glyphicon-plus" /></button>
             <button type="submit" className="btn btn-xs" onClick={this.openModal}>
               <i className="glyphicon glyphicon-edit" /></button>
             <button type="submit" className="btn btn-xs" onClick={this.deleteBucketlist}>
@@ -137,8 +178,51 @@ class BLRow extends React.Component {
               <Button onClick={this.closeModal}>Close</Button>
             </Modal.Footer>
           </Modal>
+          <Modal show={this.state.showAdd} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
+              <Modal.Header closeButton>
+                  <Modal.Title>Add item to {this.props.bucketlist}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  <form onSubmit={this.handleAdd}>
+                      <div className="form-group">
+                          <label htmlFor="title">Title:</label>
+                          <input
+                              type="text"
+                              className="form-control"
+                              id="name"
+                              value={this.state.title}
+                              onChange={this.handleChange.bind(this, 'title')}
+                          />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="Deadline">Deadline:</label>
+                          <input
+                              type="text"
+                              className="form-control"
+                              id="deadline"
+                              value={this.state.deadline}
+                              onChange={this.handleChange.bind(this, 'deadline')}
+                          />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="status">Status:</label>
+                          <input
+                              type="text"
+                              className="form-control"
+                              id="name"
+                              value={this.state.status}
+                              onChange={this.handleChange.bind(this, 'status')}
+                          />
+                      </div>
+                      <button type="submit" className="btn btn-default" onClick={this.addItemToBucketlist}>Add item</button>
+                  </form>
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button onClick={this.closeAdd}>Close</Button>
+              </Modal.Footer>
+          </Modal>
         </div>
-          <BucketlistItems items={this.state.items} token={this.props.token} />
+       <BucketlistItems bID={this.props.id} items={this.state.items} token={this.props.token} />
       </li>
 
     );
