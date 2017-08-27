@@ -85,7 +85,7 @@ class LoginForm extends Component {
       );
     }
     return (
-      <Bucketlist token={this.token} />
+      <Bucketlist token={this.token} isLoggedIn={this.state.isLoggedIn} />
     );
   }
 }
