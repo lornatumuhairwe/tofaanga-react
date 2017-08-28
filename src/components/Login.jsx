@@ -3,15 +3,17 @@ import '../styles/css/bootstrap.min.css';
 import '../styles/font-awesome/css/font-awesome.min.css';
 import '../styles/css/login.css';
 import Bucketlist from './bucketlist';
+import ResetPasswordForm from './ResetPassword';
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', pwd: '', isLoggedIn: false };
+    this.state = { email: '', pwd: '', isLoggedIn: false, resetpwd: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.baseURL = 'https://tofaangapi.herokuapp.com/auth/login';
     this.displaySignupForm = this.displaySignupForm.bind(this);
+    this.displayResetPasswordForm = this.displayResetPasswordForm.bind(this);
     this.token = '';
   }
   displaySignupForm(event) {
@@ -54,8 +56,16 @@ class LoginForm extends Component {
       });
   }
 
+  displayResetPasswordForm(event){
+    event.preventDefault();
+    this.setState({resetpwd: true})
+  }
+
   render() {
-    if (!this.state.isLoggedIn) {
+    if (this.state.resetpwd){
+      return (<ResetPasswordForm />);
+    }
+    else if (!this.state.isLoggedIn) {
       return (
         <div className="container">
           <div className="row">
@@ -73,7 +83,7 @@ class LoginForm extends Component {
                     onChange={this.handleChange.bind(this, 'pwd')} />
                   <button className="btn btn-lg btn-primary btn-block" type="submit">
                     Sign in</button>
-                  <a href="" className="pull-right need-help">Forgot Password? </a>
+                  <a href="" className="pull-right need-help" onClick={this.displayResetPasswordForm}>Forgot Password? </a>
                   <span className="clearfix"/>
                 </form>
               </div>
