@@ -15,7 +15,6 @@ export default class Bucketlist extends Component {
     this.addBucketlist = this.addBucketlist.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.getName = this.getName.bind(this);
-    this.baseURL = 'https://tofaangapi.herokuapp.com/bucketlists/';
     this.token = this.props.token;
     this.getBucketlists = this.getBucketlists.bind(this);
     this.LogOut = this.LogOut.bind(this);
@@ -66,6 +65,7 @@ export default class Bucketlist extends Component {
     const BlData = new FormData();
     BlData.append('name', this.state.bname);
     this.addBucketlist(`${baseUrl}bucketlists/`, BlData);
+    this.setState({ showModal: false });
     this.setState({ bname: '' });
   }
 
@@ -116,9 +116,6 @@ export default class Bucketlist extends Component {
               <button type="submit" className="btn btn-default">Add Bucketlist</button>
             </form>
           </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.closeModal}>Close</Button>
-          </Modal.Footer>
         </Modal>
       </div>
       );
