@@ -5,7 +5,7 @@ import '../styles/css/bucketlist.css';
 import BucketlistTable from './bucketlistTable';
 import LoginForm from './Login';
 
-class Bucketlist extends Component {
+export default class Bucketlist extends Component {
   constructor(props) {
     super(props);
     this.state = { bucketlists: '', showModal: false, bname: '', isLoggedIn: this.props.isLoggedIn };
@@ -117,4 +117,3 @@ class Bucketlist extends Component {
   }
 }
 
-export default Bucketlist;

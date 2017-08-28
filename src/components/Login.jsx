@@ -4,9 +4,9 @@ import '../styles/font-awesome/css/font-awesome.min.css';
 import '../styles/css/login.css';
 import Bucketlist from './bucketlist';
 import ResetPasswordForm from './ResetPassword';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
-class LoginForm extends Component {
+export default class extends Component {
   constructor(props) {
     super(props);
     this.state = { email: '', pwd: '', isLoggedIn: false, resetpwd: false, isLoading: false };
@@ -57,39 +57,66 @@ class LoginForm extends Component {
       });
   }
 
-  displayResetPasswordForm(event){
+  displayResetPasswordForm(event) {
     event.preventDefault();
-    this.setState({resetpwd: true})
+    this.setState({ resetpwd: true });
   }
 
   render() {
-    if (this.state.resetpwd){
+    if (this.state.resetpwd) {
       return (<ResetPasswordForm />);
-    }
-    else if (!this.state.isLoggedIn) {
+    } else if (!this.state.isLoggedIn) {
       return (
         <div className="container">
           <div className="row">
             <div className="col-sm-6 col-md-4 col-md-offset-4">
               <h1 className="text-center login-title">Sign in to continue to view your bucketlists </h1>
               <div className="account-wall">
-                <img className="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                  alt="" />
+                <img
+                  className="profile-img"
+                  src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                  alt=""
+                />
                 <form className="form-signin" onSubmit={this.handleSubmit}>
-                  <input type="text" id="email" className="form-control"
-                    placeholder="Email" value={this.state.email}
-                    required autoFocus onChange={this.handleChange.bind(this, 'email')} />
-                  <input type="password"  className="form-control" id="pwd"
-                    value={this.state.pwd} placeholder="Password" required
-                    onChange={this.handleChange.bind(this, 'pwd')} />
-                  <Button className="btn btn-lg btn-primary btn-block" type="submit" disabled={this.state.isLoading}>
-                      {this.state.isLoading ? 'Loading...' : 'Sign in'}</Button>
-                  <a href="" className="pull-right need-help" onClick={this.displayResetPasswordForm}>Forgot Password? </a>
-                  <span className="clearfix"/>
+                  <input
+                    type="text"
+                    id="email"
+                    className="form-control"
+                    placeholder="Email"
+                    value={this.state.email}
+                    required
+                    autoFocus
+                    onChange={this.handleChange.bind(this, 'email')}
+                  />
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="pwd"
+                    value={this.state.pwd}
+                    placeholder="Password"
+                    required
+                    onChange={this.handleChange.bind(this, 'pwd')}
+                  />
+                  <Button
+                    className="btn btn-lg btn-primary btn-block"
+                    type="submit"
+                    disabled={this.state.isLoading}
+                  >
+                    {this.state.isLoading ? 'Loading...' : 'Sign in'}</Button>
+                  <a
+                    href=""
+                    className="pull-right need-help"
+                    onClick={this.displayResetPasswordForm}
+                  >
+                    Forgot Password? </a>
+                  <span className="clearfix" />
                 </form>
               </div>
-              <a href="" className="text-center new-account"
-                onClick={this.displaySignupForm}>Create an account </a>
+              <a
+                href=""
+                className="text-center new-account"
+                onClick={this.displaySignupForm}
+              >Create an account </a>
             </div>
           </div>
         </div>
@@ -101,4 +128,3 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;

@@ -4,7 +4,7 @@ import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistItems from './bucketlistItems';
 
-class BLRow extends React.Component {
+export class BLRow extends React.Component {
   constructor(props) {
     super(props);
     this.deleteBucketlist = this.deleteBucketlist.bind(this);
@@ -229,7 +229,7 @@ class BLRow extends React.Component {
   }
 }
 
-class BucketlistTable extends React.Component {
+export default class BucketlistTable extends React.Component {
   render() {
     const rows = [];
     const bls = this.props.bucketlists;
@@ -247,4 +247,3 @@ class BucketlistTable extends React.Component {
   }
 }
 
-export default BucketlistTable;

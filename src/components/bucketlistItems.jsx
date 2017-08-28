@@ -147,7 +147,7 @@ class BLIRow extends Component {
   }
 }
 
-class BucketlistItems extends Component {
+export default class BucketlistItems extends Component {
   render() {
     const rows = [];
     const blsi = this.props.items;
@@ -165,4 +165,3 @@ class BucketlistItems extends Component {
   }
 }
 
-export default BucketlistItems;
