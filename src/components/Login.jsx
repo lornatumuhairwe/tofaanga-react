@@ -16,7 +16,7 @@ class LoginForm extends Component {
   }
   displaySignupForm(event) {
     event.preventDefault();
-    this.props.displaySignup(true);
+    this.props.displaySignup();
   }
 
   handleSubmit(event) {
@@ -73,11 +73,11 @@ class LoginForm extends Component {
                     onChange={this.handleChange.bind(this, 'pwd')} />
                   <button className="btn btn-lg btn-primary btn-block" type="submit">
                     Sign in</button>
-                  <a href="#" className="pull-right need-help">Forgot Password? </a>
+                  <a href="" className="pull-right need-help">Forgot Password? </a>
                   <span className="clearfix"/>
                 </form>
               </div>
-              <a href="#" className="text-center new-account"
+              <a href="" className="text-center new-account"
                 onClick={this.displaySignupForm}>Create an account </a>
             </div>
           </div>

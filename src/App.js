@@ -10,24 +10,29 @@ class App extends Component {
     super(props);
     // this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.state = { signIn: true, signUp: false, resetPassword: false, isLoggedIn: false, token: '' };
-    this.displaySignUp = this.displaySignUp.bind(this);
-    this.changeToken = this.changeToken.bind(this);
+    this.displaySignup = this.displaySignup.bind(this);
+    this.getToken = this.getToken.bind(this);
+    this.displayLoginForm = this.displayLoginForm.bind(this)
   }
-  displaySignUp(signUp) {
-    this.setState({ signUp: signUp });
+  displaySignup() {
+    this.setState({ signUp: true });
     this.setState({ signIn: false });
   }
-  changeToken(token) {
+  displayLoginForm() {
+        this.setState({ signUp: false });
+        this.setState({ signIn: true });
+    }
+  getToken(token) {
     this.setState({ token: token });
   }
 
   render() {
     if (this.state.signIn) {
       return (
-        <LoginForm displaySignup={this.displaySignUp} getToken={this.changeToken} />
+        <LoginForm displaySignup={this.displaySignup} getToken={this.getToken} />
       );
     } else if (this.state.signUp) {
-      return (<SignupForm getToken={this.changeToken} />);
+      return (<SignupForm getToken={this.getToken} displayLoginForm={this.displayLoginForm} />);
     }
     else if (this.state.token) {
       return (<Bucketlist token={this.state.token} />);
