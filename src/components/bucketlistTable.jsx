@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistItems from './bucketlistItems';
@@ -14,7 +14,6 @@ class BLRow extends React.Component {
     this.updateAction = this.updateAction.bind(this);
     this.openModal = this.openModal.bind(this);
     this.openAdd = this.openAdd.bind(this);
-    this.closeAdd = this.closeAdd.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.getBucketlistItems = this.getBucketlistItems.bind(this);
     this.getBucketlistItemsAction = this.getBucketlistItemsAction.bind(this);
@@ -37,12 +36,13 @@ class BLRow extends React.Component {
   closeModal(event) {
     event.preventDefault();
     this.setState({ showModal: false });
+    this.setState({ showAdd: false });
   }
 
-  closeAdd(event) {
-    event.preventDefault();
-    this.setState({ showAdd: false });
-}
+//   closeAdd(event) {
+//     event.preventDefault();
+//     this.setState({ showAdd: false });
+// }
 
   getName(field, event) {
     const newState = {};
@@ -126,7 +126,8 @@ class BLRow extends React.Component {
       blItemData.append('title', this.state.title);
       blItemData.append('deadline', this.state.deadline);
       blItemData.append('status', this.state.status);
-    this.addItemToBucketlistAction(`${baseUrl}bucketlists/` + bID.toString()+ '/items/', blItemData);
+      this.addItemToBucketlistAction(`${baseUrl}bucketlists/` + bID.toString()+ '/items/', blItemData);
+      this.setState({ showAdd: false, title:'', deadline: '', status:'' });
   }
 
     addItemToBucketlistAction(url, data) {
@@ -198,7 +199,7 @@ class BLRow extends React.Component {
                       <div className="form-group">
                           <label htmlFor="Deadline">Deadline:</label>
                           <input
-                              type="text"
+                              type="date"
                               className="form-control"
                               id="deadline"
                               value={this.state.deadline}
@@ -218,9 +219,6 @@ class BLRow extends React.Component {
                       <button type="submit" className="btn btn-default" onClick={this.addItemToBucketlist}>Add item</button>
                   </form>
               </Modal.Body>
-              <Modal.Footer>
-                  <Button onClick={this.closeAdd}>Close</Button>
-              </Modal.Footer>
           </Modal>
         </div>
        <BucketlistItems bID={this.props.id} items={this.state.items} token={this.props.token} />

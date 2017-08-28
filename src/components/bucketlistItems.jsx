@@ -83,7 +83,7 @@ class BLIRow extends Component {
   render() {
     return (
       <li className="list-group-item">
-        {this.props.bucketlist}
+        {this.props.bucketListItem}
         <div className="pull-right">
           <form className="form-inline">
             <input
@@ -100,7 +100,7 @@ class BLIRow extends Component {
             <Modal show={this.state.showUpdate} onHide={this.closeModal} {...this.props}
                    bsSize="small" aria-labelledby="contained-modal-title-sm" >
               <Modal.Header closeButton>
-                <Modal.Title>Update item: {this.props.bucketlist}</Modal.Title>
+                <Modal.Title>Update item: {this.props.bucketListItem}</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <form>
@@ -110,14 +110,14 @@ class BLIRow extends Component {
                       type="text"
                       className="form-control"
                       id="name"
-                      value={this.state.title}
+                      defaultValue={this.props.bucketListItem}
                       onChange={this.handleChange.bind(this, 'title')}
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="Deadline">Deadline:</label>
                     <input
-                      type="text"
+                      type="date"
                       className="form-control"
                       id="deadline"
                       value={this.state.deadline}
@@ -154,7 +154,7 @@ export default class BucketlistItems extends Component {
     const blsi = this.props.items;
     for (const key in blsi) {
       if (blsi.hasOwnProperty(key)) {
-        rows.push(<BLIRow bID={this.props.bID} id={key} bucketlist={blsi[key]} token={this.props.token} />);
+        rows.push(<BLIRow bID={this.props.bID} id={key} bucketListItem={blsi[key]} token={this.props.token} />);
       }
     }
     return (<div>
