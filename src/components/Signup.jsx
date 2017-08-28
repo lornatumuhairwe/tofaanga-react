@@ -3,6 +3,7 @@ import '../styles/css/bootstrap.min.css';
 import '../styles/css/style.css';
 import Bucketlist from './bucketlist';
 import { Button } from 'react-bootstrap';
+import { baseUrl } from '../constants';
 
 export default class SignupForm extends Component {
   constructor(props) {
@@ -10,8 +11,8 @@ export default class SignupForm extends Component {
     this.state = { name: '', email: '', dob: '', pwd: '', token: '', isLoggedIn: false, isLoading: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.baseURL = 'https://tofaangapi.herokuapp.com/auth/register';
   }
+
   handleSubmit(event) {
     event.preventDefault();
     const signupFormData = new FormData();
@@ -19,7 +20,7 @@ export default class SignupForm extends Component {
     signupFormData.append('email', this.state.email);
     signupFormData.append('birthdate', this.state.dob);
     signupFormData.append('password', this.state.pwd);
-    this.sendRegistration(this.baseURL, signupFormData);
+    this.sendRegistration(`${baseUrl}/auth/register`, signupFormData);
     this.setState({ isLoading: true });
   }
   handleChange(field, event) {

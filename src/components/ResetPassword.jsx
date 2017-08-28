@@ -4,6 +4,7 @@ import '../styles/css/bootstrap.min.css';
 import '../styles/font-awesome/css/font-awesome.min.css';
 import '../styles/css/login.css';
 import LoginForm from './Login';
+import { baseUrl } from '../constants';
 
 export default class ResetPasswordForm extends Component {
   constructor(props) {
@@ -11,7 +12,6 @@ export default class ResetPasswordForm extends Component {
     this.state = { email: '', pwd: '', cpwd: '', resetpwd: true, isLoading: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.baseURL = 'https://tofaangapi.herokuapp.com/auth/reset-password';
     this.displaySignupForm = this.displaySignupForm.bind(this);
   }
   displaySignupForm(event) {
@@ -26,7 +26,7 @@ export default class ResetPasswordForm extends Component {
     ResetPasswordFormData.append('email', this.state.email);
     ResetPasswordFormData.append('newpassword', this.state.pwd);
     ResetPasswordFormData.append('cnewpassword', this.state.cpwd);
-    this.sendLogin(this.baseURL, ResetPasswordFormData);
+    this.sendLogin(`${baseUrl}/auth/reset-password`, ResetPasswordFormData);
   }
   handleChange(field, event) {
     const newState = {};

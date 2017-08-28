@@ -3,8 +3,9 @@ import { Modal, Button } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistItems from './bucketlistItems';
+import { baseUrl } from "../constants";
 
-export class BLRow extends React.Component {
+class BLRow extends React.Component {
   constructor(props) {
     super(props);
     this.deleteBucketlist = this.deleteBucketlist.bind(this);
@@ -55,8 +56,8 @@ export class BLRow extends React.Component {
     alert(`Do you really want to delete this item? : ${bID}`);
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
-    this.deleteAction(this.baseURL + bID.toString(), BlData);
-    this.props.getBucketlists(this.baseURL);
+    this.deleteAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
+    this.props.getBucketlists(`${baseUrl}/bucketlists/`);
   }
   editBucketlist(e) {
     e.preventDefault();
@@ -64,8 +65,8 @@ export class BLRow extends React.Component {
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
     BlData.append('newname', this.state.newname);
-    this.updateAction(this.baseURL + bID.toString(), BlData);
-    this.props.getBucketlists(this.baseURL);
+    this.updateAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
+    this.props.getBucketlists(`${baseUrl}/bucketlists/`);
     this.setState({ newname: '' });
   }
 
@@ -94,7 +95,7 @@ export class BLRow extends React.Component {
     const bID = this.refs.bid.value;
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
-    this.getBucketlistItemsAction(this.baseURL + bID.toString(), BlData);
+    this.getBucketlistItemsAction(`${baseUrl}/bucketlists/`+ bID.toString(), BlData);
   }
 
   getBucketlistItemsAction(url) {
@@ -122,7 +123,7 @@ export class BLRow extends React.Component {
       blItemData.append('title', this.state.title);
       blItemData.append('deadline', this.state.deadline);
       blItemData.append('status', this.state.status);
-    this.addItemToBucketlistAction(this.baseURL + bID.toString() + '/items/', blItemData);
+    this.addItemToBucketlistAction(`${baseUrl}bucketlists/` + bID.toString()+ '/items/', blItemData);
   }
 
     addItemToBucketlistAction(url, data) {

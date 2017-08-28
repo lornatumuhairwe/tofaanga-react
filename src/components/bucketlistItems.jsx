@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
+import { baseUrl} from "../constants";
 
 class BLIRow extends Component {
   constructor(props) {
@@ -14,7 +15,6 @@ class BLIRow extends Component {
     this.updateBucketlistItemsAction = this.updateBucketlistItemsAction.bind(this);
     this.deleteBucketlistItemsAction = this.deleteBucketlistItemsAction.bind(this);
     this.state = { showUpdate: false, title: '', deadline: '', status: '' };
-    this.baseURL = 'https://tofaangapi.herokuapp.com/bucketlists/';
   }
 
   deleteBucketlistItem(e) {
@@ -22,7 +22,7 @@ class BLIRow extends Component {
     alert('Delete Bucketlist item');
     const blitemID = this.refs.bid.value;
     const bID = this.props.bID;
-    this.deleteBucketlistItemsAction(this.baseURL + bID.toString() + '/items/' + blitemID.toString());
+    this.deleteBucketlistItemsAction(`${baseUrl}bucketlists/` + bID.toString() + '/items/' + blitemID.toString());
   }
 
   deleteBucketlistItemsAction(url){
@@ -57,7 +57,7 @@ class BLIRow extends Component {
     blItemData.append('deadline', this.state.deadline);
     blItemData.append('status', this.state.status);
     console.log(blitemID, bID);
-    this.updateBucketlistItemsAction(this.baseURL + bID.toString() + '/items/' + blitemID.toString(), blItemData);
+    this.updateBucketlistItemsAction(`${baseUrl}bucketlists/` + bID.toString() + '/items/' + blitemID.toString(), blItemData);
   }
 
   updateBucketlistItemsAction(url, data) {
@@ -97,7 +97,8 @@ class BLIRow extends Component {
               <i className="glyphicon glyphicon-edit" /></button>
             <button type="submit" className="btn btn-xs" onClick={this.deleteBucketlistItem}>
               <i className="glyphicon glyphicon-trash" /></button>
-            <Modal show={this.state.showUpdate} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
+            <Modal show={this.state.showUpdate} onHide={this.closeModal} {...this.props}
+                   bsSize="small" aria-labelledby="contained-modal-title-sm" >
               <Modal.Header closeButton>
                 <Modal.Title>Update item: {this.props.bucketlist}</Modal.Title>
               </Modal.Header>

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/font-awesome/css/font-awesome.min.css';
 import '../styles/css/login.css';
 import Bucketlist from './bucketlist';
 import ResetPasswordForm from './ResetPassword';
-import { Button } from 'react-bootstrap';
+import { baseUrl } from '../constants';
 
 export default class extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class extends Component {
     const LoginFormData = new FormData();
     LoginFormData.append('email', this.state.email);
     LoginFormData.append('password', this.state.pwd);
-    this.sendLogin(this.baseURL, LoginFormData);
+    this.sendLogin(`${baseUrl}/auth/login`, LoginFormData);
     this.setState({ isLoading: true });
     this.props.getToken(this.token);
   }
