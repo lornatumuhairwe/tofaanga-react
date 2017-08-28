@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistTable from './bucketlistTable';
@@ -72,6 +72,13 @@ export default class Bucketlist extends Component {
   componentDidMount() {
     this.getBucketlists(`${baseUrl}bucketlists/`);
   }
+
+  // componentDidUpdate(this.state.bucketlist , prevState) {
+  //   // only update chart if the data has changed
+  //   if (prevProps.data !== this.props.data) {
+  //
+  //   }
+  // }
 
   render() {
     if (this.state.isLoggedIn) {

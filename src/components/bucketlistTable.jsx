@@ -22,7 +22,6 @@ class BLRow extends React.Component {
     this.addItemToBucketlist = this.addItemToBucketlist.bind(this);
     this.addItemToBucketlistAction = this.addItemToBucketlistAction.bind(this);
     this.state = { bucketlist: '', showModal: false, newname: '', items: [], showAdd: false, status: '', deadline: '', title: '' };
-    this.baseURL = 'https://tofaangapi.herokuapp.com/bucketlists/';
   }
   openAdd(e) {
     e.preventDefault();
@@ -57,7 +56,6 @@ class BLRow extends React.Component {
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
     this.deleteAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
-    this.props.getBucketlists(`${baseUrl}/bucketlists/`);
   }
   editBucketlist(e) {
     e.preventDefault();
@@ -66,8 +64,7 @@ class BLRow extends React.Component {
     BlData.append('bucketlistID', bID);
     BlData.append('newname', this.state.newname);
     this.updateAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
-    this.props.getBucketlists(`${baseUrl}/bucketlists/`);
-    this.setState({ newname: '' });
+    this.setState({ newname: '', showModal: false });
   }
 
   updateAction(url, data) {
@@ -77,7 +74,10 @@ class BLRow extends React.Component {
       headers: { Authorization: this.props.token },
     };
     return fetch(url, updateData)
-      .then(response => response.json()).then(res => console.log(res));
+      .then(response => response.json()).then(res => {
+          this.props.getBucketlists(`${baseUrl}/bucketlists/`);
+          console.log(res)
+        });
   }
 
   deleteAction(url, data) {
@@ -87,7 +87,9 @@ class BLRow extends React.Component {
       headers: { Authorization: this.props.token },
     };
     return fetch(url, deleteData)
-      .then(response => response.json()).then(res => console.log(res));
+      .then(response => response.json()).then(res => {
+          this.props.getBucketlists(`${baseUrl}/bucketlists/`);
+          console.log(res)});
   }
 
   getBucketlistItems(e) {
@@ -175,9 +177,6 @@ class BLRow extends React.Component {
                 <button type="submit" className="btn btn-default" onClick={this.editBucketlist}>Update Bucketlist</button>
               </form>
             </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={this.closeModal}>Close</Button>
-            </Modal.Footer>
           </Modal>
           <Modal show={this.state.showAdd} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
               <Modal.Header closeButton>
@@ -236,7 +235,7 @@ export default class BucketlistTable extends React.Component {
     const bls = this.props.bucketlists;
     for (const key in bls) {
       if (bls.hasOwnProperty(key)) {
-        rows.push(<BLRow id={key} bucketlist={bls[key]} token={this.props.token} getBucketlists={this.props.getBucketlists} />);
+        rows.push(<BLRow key={key} id={key} bucketlist={bls[key]} token={this.props.token} getBucketlists={this.props.getBucketlists} />);
       }
     }
     return (<div>
