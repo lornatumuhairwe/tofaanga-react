@@ -4,6 +4,7 @@ import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistTable from './bucketlistTable';
 import LoginForm from './Login';
+import { baseUrl } from '../constants';
 
 export default class Bucketlist extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ export default class Bucketlist extends Component {
       .then((resjson) => {
         if (resjson.bucketlist) {
           console.log(resjson.bucketlist);
-          this.getBucketlists(this.baseURL);
+          this.getBucketlists(`${baseUrl}bucketlists/`);
         }
       });
   }
@@ -64,12 +65,12 @@ export default class Bucketlist extends Component {
     e.preventDefault();
     const BlData = new FormData();
     BlData.append('name', this.state.bname);
-    this.addBucketlist(this.baseURL, BlData);
+    this.addBucketlist(`${baseUrl}bucketlists/`, BlData);
     this.setState({ bname: '' });
   }
 
   componentDidMount() {
-    this.getBucketlists(this.baseURL);
+    this.getBucketlists(`${baseUrl}bucketlists/`);
   }
 
   render() {
@@ -85,8 +86,18 @@ export default class Bucketlist extends Component {
         </nav>
         <button className="btn btn-xs" onClick={this.openModal}>
           <i className="glyphicon glyphicon-plus-sign" />Add Bucketlist</button>
-        <BucketlistTable bucketlists={this.state.bucketlists} token={this.props.token} getBucketlists={this.getBucketlists} />
-        <Modal show={this.state.showModal} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
+        <BucketlistTable
+          bucketlists={this.state.bucketlists}
+          token={this.props.token}
+          getBucketlists={this.getBucketlists}
+        />
+        <Modal
+          show={this.state.showModal}
+          onHide={this.closeModal}
+          {...this.props}
+          bsSize="small"
+          aria-labelledby="contained-modal-title-sm"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Add Bucketlist</Modal.Title>
           </Modal.Header>
