@@ -27,7 +27,6 @@ class ResetPasswordForm extends Component {
         ResetPasswordFormData.append('newpassword', this.state.pwd);
         ResetPasswordFormData.append('cnewpassword', this.state.cpwd);
         this.sendLogin(this.baseURL, ResetPasswordFormData);
-        // this.setState({ email: '', pwd: '' , cpwd: '' });
     }
     handleChange(field, event) {
         const newState = {};
@@ -49,10 +48,6 @@ class ResetPasswordForm extends Component {
             }
             });
     }
-
-    // handleClick() {
-    //     this.setState({isLoading: true});
-    // }
 
     render() {
         if (this.state.resetpwd) {

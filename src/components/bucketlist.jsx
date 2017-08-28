@@ -43,7 +43,6 @@ class Bucketlist extends Component {
   }
   LogOut(e) {
     e.preventDefault();
-    alert(`Log me out ${this.state.isLoggedIn}`);
     this.setState({ isLoggedIn: false });
   }
   addBucketlist(url, data) {

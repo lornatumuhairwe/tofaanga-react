@@ -4,11 +4,12 @@ import '../styles/font-awesome/css/font-awesome.min.css';
 import '../styles/css/login.css';
 import Bucketlist from './bucketlist';
 import ResetPasswordForm from './ResetPassword';
+import {Button} from 'react-bootstrap';
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', pwd: '', isLoggedIn: false, resetpwd: false };
+    this.state = { email: '', pwd: '', isLoggedIn: false, resetpwd: false, isLoading: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.baseURL = 'https://tofaangapi.herokuapp.com/auth/login';
@@ -27,7 +28,7 @@ class LoginForm extends Component {
     LoginFormData.append('email', this.state.email);
     LoginFormData.append('password', this.state.pwd);
     this.sendLogin(this.baseURL, LoginFormData);
-    this.setState({ email: '', pwd: '' });
+    this.setState({ isLoading: true });
     this.props.getToken(this.token);
   }
   handleChange(field, event) {
@@ -46,7 +47,7 @@ class LoginForm extends Component {
         if (resjson.status === 'success') {
           if (resjson.auth_token.length > 0) {
             this.token = resjson.auth_token;
-            this.setState({ isLoggedIn: true });
+            this.setState({ isLoggedIn: true, email: '', pwd: '' });
           }
         } else if (resjson.message === 'Password mismatch') {
           window.location = '/auth/login';
@@ -81,8 +82,8 @@ class LoginForm extends Component {
                   <input type="password"  className="form-control" id="pwd"
                     value={this.state.pwd} placeholder="Password" required
                     onChange={this.handleChange.bind(this, 'pwd')} />
-                  <button className="btn btn-lg btn-primary btn-block" type="submit">
-                    Sign in</button>
+                  <Button className="btn btn-lg btn-primary btn-block" type="submit" disabled={this.state.isLoading}>
+                      {this.state.isLoading ? 'Loading...' : 'Sign in'}</Button>
                   <a href="" className="pull-right need-help" onClick={this.displayResetPasswordForm}>Forgot Password? </a>
                   <span className="clearfix"/>
                 </form>

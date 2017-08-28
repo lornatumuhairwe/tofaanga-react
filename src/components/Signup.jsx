@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/style.css';
 import Bucketlist from './bucketlist';
+import {Button} from 'react-bootstrap';
 
 class SignupForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '', dob: '', pwd: '', token: '', isLoggedIn: false };
+    this.state = { name: '', email: '', dob: '', pwd: '', token: '', isLoggedIn: false, isLoading: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.baseURL = 'https://tofaangapi.herokuapp.com/auth/register';
@@ -19,13 +20,12 @@ class SignupForm extends Component {
     signupFormData.append('birthdate', this.state.dob);
     signupFormData.append('password', this.state.pwd);
     this.sendRegistration(this.baseURL, signupFormData);
-    this.setState({ name: '', email: '', dob: '', pwd: '' });
+    this.setState({ isLoading: true });
   }
   handleChange(field, event) {
     const newState = {};
     newState[field] = event.target.value;
     this.setState(newState);
-    // this.setState({name: event.target.value});
   }
   sendRegistration(url, data) {
     const postData = {
@@ -37,7 +37,7 @@ class SignupForm extends Component {
         .then(resjson => {
           if (resjson.message==='Registration Sucessful')
           {
-            this.setState({isLoggedIn: true, token: resjson.auth_token})
+            this.setState({isLoggedIn: true, token: resjson.auth_token, name: '', email: '', dob: '', pwd: '' })
           }
         }
   )
@@ -63,8 +63,8 @@ class SignupForm extends Component {
                       <input type="password"  className="form-control" id="pwd"
                              value={this.state.pwd} placeholder="Password" required
                              onChange={this.handleChange.bind(this, 'pwd')} />
-                      <button className="btn btn-lg btn-primary btn-block" type="submit">
-                        Sign up</button>
+                      <Button disabled={this.state.isLoading} className="btn btn-lg btn-primary btn-block" type="submit">
+                          {this.state.isLoading ? 'Loading...' : 'Sign up'}</Button>
                       <a href="" className="pull-right need-help">Forgot Password? </a>
                       <span className="clearfix"/>
                     </form>
