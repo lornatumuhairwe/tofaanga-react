@@ -21,25 +21,26 @@ class BLRow extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.addItemToBucketlist = this.addItemToBucketlist.bind(this);
     this.addItemToBucketlistAction = this.addItemToBucketlistAction.bind(this);
-    this.state = { bucketlist: '', showModal: false, newname: '', items: [], showAdd: false, status: '', deadline: '', title: '' };
+    this.state = { bucketlist: '', showModal: false, newname: '', items: [], showAdd: false, status: '',
+        deadline: '', title: '' };
   }
-  openAdd(e) {
-    e.preventDefault();
+  openAdd(event) {
+    event.preventDefault();
     this.setState({ showAdd: true });
   }
 
-  openModal(e) {
-    e.preventDefault();
+  openModal(event) {
+    event.preventDefault();
     this.setState({ showModal: true });
 }
 
-  closeModal(e) {
-    e.preventDefault();
+  closeModal(event) {
+    event.preventDefault();
     this.setState({ showModal: false });
   }
 
-  closeAdd(e) {
-    e.preventDefault();
+  closeAdd(event) {
+    event.preventDefault();
     this.setState({ showAdd: false });
 }
 
@@ -49,16 +50,16 @@ class BLRow extends React.Component {
     this.setState(newState);
   }
 
-  deleteBucketlist(e) {
-    e.preventDefault();
+  deleteBucketlist(event) {
+    event.preventDefault();
     const bID = this.refs.bid.value;
     alert(`Do you really want to delete this item? : ${bID}`);
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
     this.deleteAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
   }
-  editBucketlist(e) {
-    e.preventDefault();
+  editBucketlist(event) {
+    event.preventDefault();
     const bID = this.refs.bid.value;
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
@@ -92,8 +93,8 @@ class BLRow extends React.Component {
           console.log(res)});
   }
 
-  getBucketlistItems(e) {
-    e.preventDefault();
+  getBucketlistItems(event) {
+    event.preventDefault();
     const bID = this.refs.bid.value;
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
@@ -118,8 +119,8 @@ class BLRow extends React.Component {
     this.setState(newState);
   }
 
-  addItemToBucketlist(e) {
-    e.preventDefault();
+  addItemToBucketlist(event) {
+    event.preventDefault();
       const bID = this.refs.bid.value;
       const blItemData = new FormData();
       blItemData.append('title', this.state.title);
@@ -170,7 +171,7 @@ class BLRow extends React.Component {
                     type="text"
                     className="form-control"
                                       id="name"
-                                      value={this.state.newname}
+                                      defaultValue={this.props.bucketlist}
                     onChange={this.getName.bind(this, 'newname')}
                   />
                 </div>
