@@ -4,6 +4,7 @@ import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistItems from './bucketlistItems';
 import { baseUrl } from "../constants";
+import NotificationSystem from 'react-notification-system';
 
 class BLRow extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class BLRow extends React.Component {
     this.addItemToBucketlist = this.addItemToBucketlist.bind(this);
     this.addItemToBucketlistAction = this.addItemToBucketlistAction.bind(this);
     this.state = { bucketlist: '', showModal: false, newname: '', items: [], showAdd: false, status: '',
-        deadline: '', title: '' };
+        deadline: '', title: '', notificationSystem: null };
   }
   openAdd(event) {
     event.preventDefault();
@@ -81,6 +82,10 @@ class BLRow extends React.Component {
         });
   }
 
+  componentDidMount(){
+      this.setState({ notificationSystem: this.refs.notificationSystem });
+  }
+
   deleteAction(url, data) {
     const deleteData = {
       method: 'DELETE',
@@ -109,7 +114,14 @@ class BLRow extends React.Component {
     return fetch(url, getData)
       .then(response => response.json()).then((res) => {
         this.setState({ items: res });
-        console.log(this.state.items, '-------------------------------');
+        if (Object.keys(this.state.items).length===0){
+            this.state.notificationSystem.addNotification({
+                message: 'Bucketlist is Empty!',
+                level: 'info'
+            });
+        } else {
+            console.log(this.state.items);
+        }
       },
       );
   }
@@ -221,6 +233,7 @@ class BLRow extends React.Component {
               </Modal.Body>
           </Modal>
         </div>
+        <NotificationSystem ref="notificationSystem" />
        <BucketlistItems bID={this.props.id} items={this.state.items} token={this.props.token} />
       </li>
 
