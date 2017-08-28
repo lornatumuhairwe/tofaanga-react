@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Panel } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import { baseUrl} from "../constants";
@@ -17,8 +17,8 @@ class BLIRow extends Component {
     this.state = { showUpdate: false, title: '', deadline: '', status: '' };
   }
 
-  deleteBucketlistItem(e) {
-    e.preventDefault();
+  deleteBucketlistItem(event) {
+    event.preventDefault();
     alert('Delete Bucketlist item');
     const blitemID = this.refs.bid.value;
     const bID = this.props.bID;
@@ -38,18 +38,18 @@ class BLIRow extends Component {
           );
   }
 
-  openModal(e) {
-    e.preventDefault();
+  openModal(event) {
+    event.preventDefault();
     this.setState({ showUpdate: true });
   }
 
-  closeModal(e) {
-    e.preventDefault();
+  closeModal(event) {
+    event.preventDefault();
     this.setState({ showUpdate: false });
   }
 
-  handleUpdate(e) {
-    e.preventDefault();
+  handleUpdate(event) {
+    event.preventDefault();
     const blitemID = this.refs.bid.value;
     const bID = this.props.bID;
     const blItemData = new FormData();
@@ -152,15 +152,20 @@ export default class BucketlistItems extends Component {
   render() {
     const rows = [];
     const blsi = this.props.items;
+    const title = (
+        <h4>Items</h4>
+    );
     for (const key in blsi) {
       if (blsi.hasOwnProperty(key)) {
         rows.push(<BLIRow bID={this.props.bID} id={key} bucketListItem={blsi[key]} token={this.props.token} />);
       }
     }
-    return (<div>
-      <ul className="list-group">
-        {rows}
-      </ul>
+    return (<div className="panel">
+            <ul className="list-group">
+              <Panel header={title}>
+              {rows}
+              </Panel>
+            </ul>
     </div>
     );
   }

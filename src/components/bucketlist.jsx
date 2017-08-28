@@ -41,8 +41,8 @@ export default class Bucketlist extends Component {
     newState[field] = event.target.value;
     this.setState(newState);
   }
-  LogOut(e) {
-    e.preventDefault();
+  LogOut(event) {
+    event.preventDefault();
     this.setState({ isLoggedIn: false });
   }
   addBucketlist(url, data) {
@@ -60,8 +60,8 @@ export default class Bucketlist extends Component {
         }
       });
   }
-  handleAdd(e) {
-    e.preventDefault();
+  handleAdd(event) {
+    event.preventDefault();
     const BlData = new FormData();
     BlData.append('name', this.state.bname);
     this.addBucketlist(`${baseUrl}bucketlists/`, BlData);
