@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Panel } from 'react-bootstrap';
+import { Modal, Panel } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import { baseUrl} from "../constants";
@@ -23,6 +23,7 @@ class BLIRow extends Component {
     const blitemID = this.refs.bid.value;
     const bID = this.props.bID;
     this.deleteBucketlistItemsAction(`${baseUrl}bucketlists/` + bID.toString() + '/items/' + blitemID.toString());
+    this.props.getBucketlistItems(event);
   }
 
   deleteBucketlistItemsAction(url){
@@ -57,6 +58,8 @@ class BLIRow extends Component {
     blItemData.append('deadline', this.state.deadline);
     blItemData.append('status', this.state.status);
     console.log(blitemID, bID);
+    this.props.getBucketlistItems(event);
+    this.setState({ showUpdate: false });
     this.updateBucketlistItemsAction(`${baseUrl}bucketlists/` + bID.toString() + '/items/' + blitemID.toString(), blItemData);
   }
 
@@ -137,9 +140,6 @@ class BLIRow extends Component {
                   <button type="submit" className="btn btn-default" onClick={this.handleUpdate}>Update item</button>
                 </form>
               </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={this.closeModal}>Close</Button>
-              </Modal.Footer>
             </Modal>
           </form>
         </div>
@@ -149,23 +149,23 @@ class BLIRow extends Component {
 }
 
 export default class BucketlistItems extends Component {
+
   render() {
     const rows = [];
     const blsi = this.props.items;
-    const title = (
-        <h4>Items</h4>
-    );
     for (const key in blsi) {
       if (blsi.hasOwnProperty(key)) {
-        rows.push(<BLIRow bID={this.props.bID} id={key} bucketListItem={blsi[key]} token={this.props.token} />);
+        rows.push(<BLIRow bID={this.props.bID} id={key}
+                          bucketListItem={blsi[key]} token={this.props.token}
+                          getBucketlistItems={this.props.getBucketlistItems} />);
       }
     }
     return (<div className="panel">
+          <Panel collapsible expanded={this.props.showItemPanel} bsStyle="info">
             <ul className="list-group">
-              <Panel header={title}>
               {rows}
-              </Panel>
             </ul>
+        </Panel>
     </div>
     );
   }

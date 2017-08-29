@@ -22,7 +22,7 @@ class BLRow extends React.Component {
     this.addItemToBucketlist = this.addItemToBucketlist.bind(this);
     this.addItemToBucketlistAction = this.addItemToBucketlistAction.bind(this);
     this.state = { bucketlist: '', showModal: false, newname: '', items: [], showAdd: false, status: '',
-        deadline: '', title: '', notificationSystem: null };
+        deadline: '', title: '', notificationSystem: null, showItemPanel: false };
   }
   openAdd(event) {
     event.preventDefault();
@@ -104,6 +104,7 @@ class BLRow extends React.Component {
     const BlData = new FormData();
     BlData.append('bucketlistID', bID);
     this.getBucketlistItemsAction(`${baseUrl}/bucketlists/`+ bID.toString(), BlData);
+    this.setState({ showItemPanel: !this.state.showItemPanel })
   }
 
   getBucketlistItemsAction(url) {
@@ -139,7 +140,7 @@ class BLRow extends React.Component {
       blItemData.append('deadline', this.state.deadline);
       blItemData.append('status', this.state.status);
       this.addItemToBucketlistAction(`${baseUrl}bucketlists/` + bID.toString()+ '/items/', blItemData);
-      this.setState({ showAdd: false, title:'', deadline: '', status:'' });
+      this.setState({ showAdd: false, title:'', deadline: '', status:'', showItemPanel: false });
   }
 
     addItemToBucketlistAction(url, data) {
@@ -234,9 +235,12 @@ class BLRow extends React.Component {
           </Modal>
         </div>
         <NotificationSystem ref="notificationSystem" />
-       <BucketlistItems bID={this.props.id} items={this.state.items} token={this.props.token} />
+       <BucketlistItems bID={this.props.id} items={this.state.items}
+            token={this.props.token}
+            showItemPanel={this.state.showItemPanel}
+            getBucketlistItems={this.getBucketlistItems}
+       />
       </li>
-
     );
   }
 }
