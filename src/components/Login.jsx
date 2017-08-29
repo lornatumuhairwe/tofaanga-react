@@ -30,7 +30,7 @@ export default class extends Component {
     LoginFormData.append('password', this.state.pwd);
     this.sendLogin(`${baseUrl}/auth/login`, LoginFormData);
     this.setState({ isLoading: true });
-    this.props.getToken(this.token);
+    // this.props.getToken(this.token);
   }
   handleChange(field, event) {
     const newState = {};
@@ -48,6 +48,7 @@ export default class extends Component {
         if (resjson.status === 'success') {
           if (resjson.auth_token.length > 0) {
             this.token = resjson.auth_token;
+            localStorage.setItem('token', resjson.auth_token);
             this.setState({ isLoggedIn: true, email: '', pwd: '' });
           }
         } else if (resjson.message === 'Password mismatch') {
@@ -65,7 +66,7 @@ export default class extends Component {
 
   render() {
     if (this.state.resetpwd) {
-      return (<ResetPasswordForm />);
+      return (<ResetPasswordForm displaySignupForm={this.displaySignupForm} />);
     } else if (!this.state.isLoggedIn) {
       return (
         <div className="container">
@@ -124,7 +125,7 @@ export default class extends Component {
       );
     }
     return (
-      <Bucketlist token={this.token} isLoggedIn={this.state.isLoggedIn} />
+      <Bucketlist token={this.token} isLoggedIn={this.state.isLoggedIn} displaySignup={this.props.displaySignup}/>
     );
   }
 }

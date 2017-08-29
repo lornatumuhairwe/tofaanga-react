@@ -12,12 +12,12 @@ export default class ResetPasswordForm extends Component {
     this.state = { email: '', pwd: '', cpwd: '', resetpwd: true, isLoading: false };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.displaySignupForm = this.displaySignupForm.bind(this);
+    // this.displaySignupForm = this.displaySignupForm.bind(this);
   }
-  displaySignupForm(event) {
-    event.preventDefault();
-    this.props.displaySignup();
-  }
+  // displaySignupForm(event) {
+  //   event.preventDefault();
+  //   this.props.displaySignupForm();
+  // }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -101,7 +101,7 @@ export default class ResetPasswordForm extends Component {
               <a
                 href=""
                 className="text-center new-account"
-                onClick={this.displaySignupForm}
+                onClick={this.props.displaySignupForm}
               >Create an account </a>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default class ResetPasswordForm extends Component {
       );
     }
     return (
-      <LoginForm />
+      <LoginForm displaySignup={this.props.displaySignupForm} />
     );
   }
 }

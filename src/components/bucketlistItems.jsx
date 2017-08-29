@@ -29,7 +29,7 @@ class BLIRow extends Component {
   deleteBucketlistItemsAction(url){
       const putData = {
           method: 'DELETE',
-          headers: { Authorization: this.props.token },
+          headers: { Authorization: localStorage.getItem('token') },
       };
       return fetch(url, putData)
           .then(response => response.json()).then((res) => {
@@ -67,7 +67,7 @@ class BLIRow extends Component {
     const putData = {
         method: 'PUT',
         body: data,
-        headers: { Authorization: this.props.token },
+        headers: { Authorization: localStorage.getItem('token') },
     };
     return fetch(url, putData)
         .then(response => response.json()).then((res) => {

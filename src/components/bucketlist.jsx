@@ -15,7 +15,6 @@ export default class Bucketlist extends Component {
     this.addBucketlist = this.addBucketlist.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.getName = this.getName.bind(this);
-    this.token = this.props.token;
     this.getBucketlists = this.getBucketlists.bind(this);
     this.LogOut = this.LogOut.bind(this);
   }
@@ -23,10 +22,13 @@ export default class Bucketlist extends Component {
   getBucketlists(url) {
     const getData = {
       method: 'GET',
-      headers: { Authorization: this.token },
+      headers: { Authorization: localStorage.getItem('token') },
     };
     return fetch(url, getData)
-      .then(response => response.json()).then(res => this.setState({ bucketlists: res }));
+      .then(response => response.json()).then(res => {
+        this.setState({ bucketlists: res });
+            },
+        )
   }
 
   closeModal() {
@@ -42,6 +44,7 @@ export default class Bucketlist extends Component {
     this.setState(newState);
   }
   LogOut(event) {
+    localStorage.removeItem('token');
     event.preventDefault();
     this.setState({ isLoggedIn: false });
   }
@@ -49,7 +52,7 @@ export default class Bucketlist extends Component {
     const postData = {
       method: 'POST',
       body: data,
-      headers: { Authorization: this.props.token },
+      headers: { Authorization: localStorage.getItem('token') },
     };
     return fetch(url, postData)
       .then(response => response.json())
@@ -95,7 +98,7 @@ export default class Bucketlist extends Component {
           <i className="glyphicon glyphicon-plus-sign" />Add Bucketlist</button>
         <BucketlistTable
           bucketlists={this.state.bucketlists}
-          token={this.props.token}
+          token={localStorage.getItem('token')}
           getBucketlists={this.getBucketlists}
         />
         <Modal
@@ -128,7 +131,7 @@ export default class Bucketlist extends Component {
       );
     }
 
-    return (<LoginForm />);
+    return (<LoginForm displaySignup={this.props.displaySignup}/>);
   }
 }
 

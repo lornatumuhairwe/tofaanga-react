@@ -12,7 +12,6 @@ export default class SignupForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
   handleSubmit(event) {
     event.preventDefault();
     const signupFormData = new FormData();
@@ -73,7 +72,6 @@ type="password" className="form-control" id="pwd"
                       />
                   <Button disabled={this.state.isLoading} className="btn btn-lg btn-primary btn-block" type="submit">
                     {this.state.isLoading ? 'Loading...' : 'Sign up'}</Button>
-                  <a href="" className="pull-right need-help">Forgot Password? </a>
                   <span className="clearfix" />
                 </form>
               </div>

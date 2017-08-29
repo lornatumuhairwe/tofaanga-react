@@ -73,7 +73,7 @@ class BLRow extends React.Component {
     const updateData = {
       method: 'PUT',
       body: data,
-      headers: { Authorization: this.props.token },
+      headers: { Authorization: localStorage.getItem('token') },
     };
     return fetch(url, updateData)
       .then(response => response.json()).then(res => {
@@ -90,7 +90,7 @@ class BLRow extends React.Component {
     const deleteData = {
       method: 'DELETE',
       body: data,
-      headers: { Authorization: this.props.token },
+      headers: { Authorization: localStorage.getItem('token') },
     };
     return fetch(url, deleteData)
       .then(response => response.json()).then(res => {
@@ -110,15 +110,16 @@ class BLRow extends React.Component {
   getBucketlistItemsAction(url) {
     const getData = {
       method: 'GET',
-      headers: { Authorization: this.props.token },
+      headers: { Authorization: localStorage.getItem('token') },
     };
     return fetch(url, getData)
       .then(response => response.json()).then((res) => {
         this.setState({ items: res });
         if (Object.keys(this.state.items).length===0){
+            this.setState({showItemPanel: false});
             this.state.notificationSystem.addNotification({
                 message: 'Bucketlist is Empty!',
-                level: 'info'
+                level: 'warning'
             });
         } else {
             console.log(this.state.items);
@@ -147,7 +148,7 @@ class BLRow extends React.Component {
         const postData = {
             method: 'POST',
             body: data,
-            headers: { Authorization: this.props.token },
+            headers: { Authorization: localStorage.getItem('token') },
         };
         return fetch(url, postData)
             .then(response => response.json()).then(res => console.log(res));
