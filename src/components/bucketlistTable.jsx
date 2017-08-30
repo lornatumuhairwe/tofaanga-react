@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistItems from './bucketlistItems';
+import PaginationComp from './pagination';
 import { baseUrl } from "../constants";
 import NotificationSystem from 'react-notification-system';
 
@@ -140,7 +141,7 @@ class BLRow extends React.Component {
       blItemData.append('title', this.state.title);
       blItemData.append('deadline', this.state.deadline);
       blItemData.append('status', this.state.status);
-      this.addItemToBucketlistAction(`${baseUrl}bucketlists/` + bID.toString()+ '/items/', blItemData);
+      this.addItemToBucketlistAction(`${baseUrl}/bucketlists/` + bID.toString()+ '/items/', blItemData);
       this.setState({ showAdd: false, title:'', deadline: '', status:'', showItemPanel: false });
   }
 
@@ -250,16 +251,25 @@ export default class BucketlistTable extends React.Component {
   render() {
     const rows = [];
     const bls = this.props.bucketlists;
+    // const details = this.props.details;
     for (const key in bls) {
       if (bls.hasOwnProperty(key)) {
         rows.push(<BLRow key={key} id={key} bucketlist={bls[key]} token={this.props.token} getBucketlists={this.props.getBucketlists} />);
       }
     }
+
+    // if (details['next_url']){
+    //     console.log(details['next_url'])
+    // }
+    // if (details['prev_url']){
+    //     console.log(details['prev_url'])
+    // }
     return (<div>
       <ul className="list-group col-md-12" id="bucketlists">
         {rows}
       </ul>
-    </div>
+        <PaginationComp details={this.props.details} getBucketlists={this.props.getBucketlists} />
+        </div>
     );
   }
 }

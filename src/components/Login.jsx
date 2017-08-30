@@ -6,14 +6,19 @@ import '../styles/css/login.css';
 import Bucketlist from './bucketlist';
 import ResetPasswordForm from './ResetPassword';
 import { baseUrl } from '../constants';
+import NotificationSystem from 'react-notification-system';
 
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', pwd: '', isLoggedIn: false, resetpwd: false, isLoading: false };
+    this.state = { email: '',
+      pwd: '',
+      isLoggedIn: false,
+      resetpwd: false,
+      isLoading: false,
+      notificationSystem: null };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.baseURL = 'https://tofaangapi.herokuapp.com/auth/login';
     this.displaySignupForm = this.displaySignupForm.bind(this);
     this.displayResetPasswordForm = this.displayResetPasswordForm.bind(this);
     this.token = '';
@@ -21,6 +26,9 @@ export default class extends Component {
   displaySignupForm(event) {
     event.preventDefault();
     this.props.displaySignup();
+  }
+  componentDidMount() {
+    this.setState({ notificationSystem: this.refs.notificationSystem });
   }
 
   handleSubmit(event) {
@@ -45,11 +53,16 @@ export default class extends Component {
     return fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {
+        console.log(resjson);
         if (resjson.status === 'success') {
           if (resjson.auth_token.length > 0) {
             this.token = resjson.auth_token;
             localStorage.setItem('token', resjson.auth_token);
             this.setState({ isLoggedIn: true, email: '', pwd: '' });
+            this.state.notificationSystem.addNotification({
+              message: 'Login Successful!!',
+              level: 'success',
+            });
           }
         } else if (resjson.message === 'Password mismatch') {
           window.location = '/auth/login';
@@ -120,12 +133,17 @@ export default class extends Component {
                 onClick={this.displaySignupForm}
               >Create an account </a>
             </div>
+            <NotificationSystem ref="notificationSystem" />
           </div>
         </div>
       );
     }
     return (
-      <Bucketlist token={this.token} isLoggedIn={this.state.isLoggedIn} displaySignup={this.props.displaySignup}/>
+      <Bucketlist
+        token={this.token}
+        isLoggedIn={this.state.isLoggedIn}
+        displaySignup={this.props.displaySignup}
+      />
     );
   }
 }

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Modal } from 'react-bootstrap';
+import { Modal} from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistTable from './bucketlistTable';
 import LoginForm from './Login';
 import { baseUrl } from '../constants';
+import Search from './search';
 
 export default class Bucketlist extends Component {
   constructor(props) {
     super(props);
-    this.state = { bucketlists: '', showModal: false, bname: '', isLoggedIn: this.props.isLoggedIn };
+    this.state = { bucketlists: '', showModal: false, bname: '', isLoggedIn: this.props.isLoggedIn, details: '' };
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.addBucketlist = this.addBucketlist.bind(this);
@@ -26,7 +27,8 @@ export default class Bucketlist extends Component {
     };
     return fetch(url, getData)
       .then(response => response.json()).then(res => {
-        this.setState({ bucketlists: res });
+                // console.log(res);
+        this.setState({ bucketlists: res['bucketlists'], details: res['details'] });
             },
         )
   }
@@ -59,7 +61,7 @@ export default class Bucketlist extends Component {
       .then((resjson) => {
         if (resjson.bucketlist) {
           console.log(resjson.bucketlist);
-          this.getBucketlists(`${baseUrl}bucketlists/`);
+          this.getBucketlists(`${baseUrl}/bucketlists/`);
         }
       });
   }
@@ -67,25 +69,19 @@ export default class Bucketlist extends Component {
     event.preventDefault();
     const BlData = new FormData();
     BlData.append('name', this.state.bname);
-    this.addBucketlist(`${baseUrl}bucketlists/`, BlData);
+    this.addBucketlist(`${baseUrl}/bucketlists/`, BlData);
     this.setState({ showModal: false });
     this.setState({ bname: '' });
   }
 
   componentDidMount() {
-    this.getBucketlists(`${baseUrl}bucketlists/`);
+    this.getBucketlists(`${baseUrl}/bucketlists/`);
   }
-
-  // componentDidUpdate(this.state.bucketlist , prevState) {
-  //   // only update chart if the data has changed
-  //   if (prevProps.data !== this.props.data) {
-  //
-  //   }
-  // }
 
   render() {
     if (this.state.isLoggedIn) {
       return (<div>
+
         <nav className="navbar navbar-inverse">
           <ul className="nav navbar-nav">
             <li><a href="">TOFAANGA</a></li>
@@ -94,12 +90,14 @@ export default class Bucketlist extends Component {
             <li><a onClick={this.LogOut}>Logout</a></li>
           </ul>
         </nav>
-        <button className="btn btn-xs" onClick={this.openModal}>
-          <i className="glyphicon glyphicon-plus-sign" />Add Bucketlist</button>
+            <button className="btn btn-sm col-md-offset-1 col-md-1" onClick={this.openModal}>
+              <i className="glyphicon glyphicon-plus-sign" />Add Bucketlist</button>
+            <Search getBucketlists={this.getBucketlists} />
         <BucketlistTable
           bucketlists={this.state.bucketlists}
           token={localStorage.getItem('token')}
           getBucketlists={this.getBucketlists}
+          details={this.state.details}
         />
         <Modal
           show={this.state.showModal}
