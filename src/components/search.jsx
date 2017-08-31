@@ -18,7 +18,7 @@ export default class Search extends Component {
   }
 
   handleSearch() {
-    this.props.getBucketlists(`${baseUrl}bucketlists/?q=${this.state.search}`);
+    this.props.getBucketlists(`${baseUrl}/bucketlists/?q=${this.state.search}`);
   }
 
   render() {
