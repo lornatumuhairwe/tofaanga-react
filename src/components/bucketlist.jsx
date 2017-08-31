@@ -27,8 +27,9 @@ export default class Bucketlist extends Component {
     };
     return fetch(url, getData)
       .then(response => response.json()).then(res => {
-                // console.log(res);
-        this.setState({ bucketlists: res['bucketlists'], details: res['details'] });
+            if (res['bucketlists']){
+                this.setState({ bucketlists: res['bucketlists'], details: res['details'] });
+            }
             },
         )
   }

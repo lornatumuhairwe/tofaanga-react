@@ -35,7 +35,7 @@ export default class SignupForm extends Component {
     fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {
-        if (resjson.message === 'Registration Sucessful') {
+        if (resjson.message === 'Registration Successful') {
           this.setState({ isLoggedIn: true, token: resjson.auth_token, name: '', email: '', dob: '', pwd: '' });
         }
       },
