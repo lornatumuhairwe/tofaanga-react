@@ -23,12 +23,15 @@ export default class extends Component {
     this.displayResetPasswordForm = this.displayResetPasswordForm.bind(this);
     this.token = '';
   }
+
+  componentDidMount() {
+    this.setState({ notificationSystem: this.refs.notificationSystem });
+  }
+
+
   displaySignupForm(event) {
     event.preventDefault();
     this.props.displaySignup();
-  }
-  componentDidMount() {
-    this.setState({ notificationSystem: this.refs.notificationSystem });
   }
 
   handleSubmit(event) {
@@ -37,7 +40,6 @@ export default class extends Component {
     LoginFormData.append('email', this.state.email);
     LoginFormData.append('password', this.state.pwd);
     this.sendLogin(`${baseUrl}/auth/login`, LoginFormData);
-    this.setState({ isLoading: true });
     // this.props.getToken(this.token);
   }
   handleChange(field, event) {
@@ -58,16 +60,20 @@ export default class extends Component {
           if (resjson.auth_token.length > 0) {
             this.token = resjson.auth_token;
             localStorage.setItem('token', resjson.auth_token);
-            this.setState({ isLoggedIn: true, email: '', pwd: '' });
-            this.state.notificationSystem.addNotification({
-              message: 'Login Successful!!',
-              level: 'success',
-            });
+            this.setState({ isLoggedIn: true, email: '', pwd: '', isLoading: true });
           }
         } else if (resjson.message === 'Password mismatch') {
-          window.location = '/auth/login';
+          this.state.notificationSystem.addNotification({
+            message: 'Password Mismatch. Try Again or Forgot password?',
+            level: 'error',
+          });
+          this.setState({ pwd: '' });
         } else {
-          window.location = '/auth/signup';
+          this.state.notificationSystem.addNotification({
+            message: 'User Not found. Sign up!',
+            level: 'error',
+          });
+          this.setState({ email: '', pwd: '' });
         }
       });
   }
@@ -85,7 +91,9 @@ export default class extends Component {
         <div className="container">
           <div className="row">
             <div className="col-sm-6 col-md-4 col-md-offset-4">
-              <h1 className="text-center login-title">Sign in to continue to view your bucketlists </h1>
+              <NotificationSystem ref="notificationSystem" />
+              <h1 className="text-center login-title">
+                Sign in to continue to view your bucketlists </h1>
               <div className="account-wall">
                 <img
                   className="profile-img"
@@ -133,14 +141,12 @@ export default class extends Component {
                 onClick={this.displaySignupForm}
               >Create an account </a>
             </div>
-            <NotificationSystem ref="notificationSystem" />
           </div>
         </div>
       );
     }
     return (
       <Bucketlist
-        token={this.token}
         isLoggedIn={this.state.isLoggedIn}
         displaySignup={this.props.displaySignup}
       />

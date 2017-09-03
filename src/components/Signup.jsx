@@ -4,14 +4,22 @@ import '../styles/css/style.css';
 import Bucketlist from './bucketlist';
 import { Button } from 'react-bootstrap';
 import { baseUrl } from '../constants';
+import NotificationSystem from 'react-notification-system';
 
 export default class SignupForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '', dob: '', pwd: '', token: '', isLoggedIn: false, isLoading: false };
+    this.state = { name: '', email: '', dob: '', pwd: '',
+        token: '', isLoggedIn: false, isLoading: false,
+        notificationSystem: null  };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
+  componentDidMount() {
+      this.setState({ notificationSystem: this.refs.notificationSystem });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     const signupFormData = new FormData();
@@ -20,7 +28,7 @@ export default class SignupForm extends Component {
     signupFormData.append('birthdate', this.state.dob);
     signupFormData.append('password', this.state.pwd);
     this.sendRegistration(`${baseUrl}/auth/register`, signupFormData);
-    this.setState({ isLoading: true });
+    // this.setState({ isLoading: true });
   }
   handleChange(field, event) {
     const newState = {};
@@ -35,8 +43,19 @@ export default class SignupForm extends Component {
     fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {
+        console.log(resjson);
         if (resjson.message === 'Registration Successful') {
-          this.setState({ isLoggedIn: true, token: resjson.auth_token, name: '', email: '', dob: '', pwd: '' });
+            console.log('Found 201');
+            localStorage.setItem('token', resjson.auth_token);
+          this.setState({ isLoggedIn: true, name: '', email: '', dob: '', pwd: '', isLoading: true });
+        }
+        else if (resjson.message ){
+          console.log('Found 400');
+            this.state.notificationSystem.addNotification({
+                message: resjson.message,
+                level: 'error',
+            });
+            this.setState({ email: '', pwd: '' });
         }
       },
       );
@@ -49,6 +68,7 @@ export default class SignupForm extends Component {
             <div className="col-sm-6 col-md-4 col-md-offset-4">
               <h1 className="text-center login-title">Sign up start keeping track of your bucketlists </h1>
               <div className="account-wall">
+                <NotificationSystem ref="notificationSystem" />
                 <form className="form-signin" onSubmit={this.handleSubmit}>
                   <input
 type="text" id="name" className="form-control"
@@ -86,7 +106,7 @@ href="" className="text-center new-account"
     }
 
     return (
-      <Bucketlist token={this.token} isLoggedIn={this.state.isLoggedIn} />
+      <Bucketlist isLoggedIn={this.state.isLoggedIn}  displayLoginForm={this.props.displayLoginForm}/>
     );
   }
 }
