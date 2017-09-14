@@ -41,11 +41,6 @@ class BLRow extends React.Component {
     this.setState({ showAdd: false });
   }
 
-//   closeAdd(event) {
-//     event.preventDefault();
-//     this.setState({ showAdd: false });
-// }
-
   getName(field, event) {
     const newState = {};
     newState[field] = event.target.value;
@@ -96,7 +91,8 @@ class BLRow extends React.Component {
     return fetch(url, deleteData)
       .then(response => response.json()).then(res => {
           this.props.getBucketlists(`${baseUrl}/bucketlists/`);
-          console.log(res)});
+          // console.log(res)
+            });
   }
 
   getBucketlistItems(event) {
@@ -115,16 +111,19 @@ class BLRow extends React.Component {
     };
     return fetch(url, getData)
       .then(response => response.json()).then((res) => {
-        this.setState({ items: res });
+        if (!res['message']){
+            this.setState({ items: res });
+        }
+
         if (Object.keys(this.state.items).length===0){
             this.setState({showItemPanel: false});
             this.state.notificationSystem.addNotification({
                 message: 'Bucketlist is Empty!',
                 level: 'warning'
             });
-        } else {
-            console.log(this.state.items);
-        }
+        } // else {
+            // console.log(this.state.items);
+        // }
       },
       );
   }

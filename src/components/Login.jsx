@@ -55,11 +55,14 @@ export default class extends Component {
     return fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {
-        console.log(resjson);
         if (resjson.status === 'success') {
           if (resjson.auth_token.length > 0) {
             this.token = resjson.auth_token;
             localStorage.setItem('token', resjson.auth_token);
+            this.state.notificationSystem.addNotification({
+              message: 'Login successful',
+              level: 'success',
+            });
             this.setState({ isLoggedIn: true, email: '', pwd: '', isLoading: true });
           }
         } else if (resjson.message === 'Password mismatch') {

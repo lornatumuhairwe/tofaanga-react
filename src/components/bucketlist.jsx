@@ -6,11 +6,13 @@ import BucketlistTable from './bucketlistTable';
 import LoginForm from './Login';
 import { baseUrl } from '../constants';
 import Search from './search';
+import NotificationSystem from 'react-notification-system';
 
 export default class Bucketlist extends Component {
   constructor(props) {
     super(props);
-    this.state = { bucketlists: '', showModal: false, bname: '', isLoggedIn: this.props.isLoggedIn, details: '' };
+    this.state = { bucketlists: '', showModal: false, bname: '', isLoggedIn: this.props.isLoggedIn, details: '',
+        notificationSystem: null };
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.addBucketlist = this.addBucketlist.bind(this);
@@ -19,6 +21,10 @@ export default class Bucketlist extends Component {
     this.getBucketlists = this.getBucketlists.bind(this);
     this.LogOut = this.LogOut.bind(this);
   }
+
+    componentDidMount() {
+        this.setState({ notificationSystem: this.refs.notificationSystem });
+    }
 
   getBucketlists(url) {
     const getData = {
@@ -61,8 +67,17 @@ export default class Bucketlist extends Component {
       .then(response => response.json())
       .then((resjson) => {
         if (resjson.bucketlist) {
-          console.log(resjson.bucketlist);
+            this.state.notificationSystem.addNotification({
+                message: 'Bucketlist added successfully',
+                level: 'success',
+            });
           this.getBucketlists(`${baseUrl}/bucketlists/`);
+        }
+        else {
+            this.state.notificationSystem.addNotification({
+                message: resjson.message,
+                level: 'error',
+            });
         }
       });
   }
@@ -75,14 +90,14 @@ export default class Bucketlist extends Component {
     this.setState({ bname: '' });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getBucketlists(`${baseUrl}/bucketlists/`);
   }
 
   render() {
     if (this.state.isLoggedIn) {
       return (<div>
-
+        <NotificationSystem ref="notificationSystem" />
         <nav className="navbar navbar-inverse">
           <ul className="nav navbar-nav">
             <li><a href="">TOFAANGA</a></li>
