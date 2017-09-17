@@ -33,7 +33,6 @@ export default class PaginationComp extends React.Component {
           <li className="pull-left"><a onClick={this.handleSelectPrev} >Prev &laquo; </a></li>
         </ul></div>);
     } else if (details.next_url) {
-      console.log(details);
       this.setState({ next: details.next_url });
       return (<div>
         <ul className="pagination">
@@ -48,7 +47,6 @@ export default class PaginationComp extends React.Component {
           <li className="pull-left"><a onClick={this.handleSelectPrev} >Prev &laquo; </a></li>
         </ul></div>);
     }
-
 
     return (<div />);
   }

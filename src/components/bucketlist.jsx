@@ -3,7 +3,7 @@ import { Modal} from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/bucketlist.css';
 import BucketlistTable from './bucketlistTable';
-import LoginForm from './Login';
+import LoginForm from './Login/Login';
 import { baseUrl } from '../constants';
 import Search from './search';
 import NotificationSystem from 'react-notification-system';

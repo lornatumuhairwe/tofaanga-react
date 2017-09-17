@@ -22,7 +22,7 @@ class BLIRow extends Component {
     alert('Delete Bucketlist item');
     const blitemID = this.refs.bid.value;
     const bID = this.props.bID;
-    this.deleteBucketlistItemsAction(`${baseUrl}bucketlists/` + bID.toString() + '/items/' + blitemID.toString());
+    this.deleteBucketlistItemsAction(`${baseUrl}/bucketlists/` + bID.toString() + '/items/' + blitemID.toString());
     this.props.getBucketlistItems(event);
   }
 
@@ -34,7 +34,6 @@ class BLIRow extends Component {
       return fetch(url, putData)
           .then(response => response.json()).then((res) => {
                   // this.setState({ items: res });
-                  console.log(res, '-------------------------------');
               },
           );
   }
@@ -57,10 +56,9 @@ class BLIRow extends Component {
     blItemData.append('title', this.state.title);
     blItemData.append('deadline', this.state.deadline);
     blItemData.append('status', this.state.status);
-    console.log(blitemID, bID);
     this.props.getBucketlistItems(event);
     this.setState({ showUpdate: false });
-    this.updateBucketlistItemsAction(`${baseUrl}bucketlists/` + bID.toString() + '/items/' + blitemID.toString(), blItemData);
+    this.updateBucketlistItemsAction(`${baseUrl}/bucketlists/` + bID.toString() + '/items/' + blitemID.toString(), blItemData);
   }
 
   updateBucketlistItemsAction(url, data) {
@@ -72,7 +70,6 @@ class BLIRow extends Component {
     return fetch(url, putData)
         .then(response => response.json()).then((res) => {
             // this.setState({ items: res });
-                console.log(res, '-------------------------------');
             },
         );
 }
@@ -85,9 +82,11 @@ class BLIRow extends Component {
 
   render() {
     return (
-      <li className="list-group-item">
-        {this.props.bucketListItem}
-        <div className="pull-right">
+      <tr>
+        <td>{this.props.bucketListItem[0]}</td>
+        <td>{this.props.bucketListItem[1]}</td>
+        <td>{this.props.bucketListItem[2]}</td>
+        <td><div className="pull-right">
           <form className="form-inline">
             <input
               type="hidden"
@@ -103,7 +102,7 @@ class BLIRow extends Component {
             <Modal show={this.state.showUpdate} onHide={this.closeModal} {...this.props}
                    bsSize="small" aria-labelledby="contained-modal-title-sm" >
               <Modal.Header closeButton>
-                <Modal.Title>Update item: {this.props.bucketListItem}</Modal.Title>
+                <Modal.Title>Update item: {this.props.bucketListItem[0]}</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <form>
@@ -113,7 +112,7 @@ class BLIRow extends Component {
                       type="text"
                       className="form-control"
                       id="name"
-                      defaultValue={this.props.bucketListItem}
+                      defaultValue={this.props.bucketListItem[0]}
                       onChange={this.handleChange.bind(this, 'title')}
                     />
                   </div>
@@ -123,7 +122,7 @@ class BLIRow extends Component {
                       type="date"
                       className="form-control"
                       id="deadline"
-                      value={this.state.deadline}
+                      defaultValue={this.props.bucketListItem[1]}
                       onChange={this.handleChange.bind(this, 'deadline')}
                     />
                   </div>
@@ -133,7 +132,7 @@ class BLIRow extends Component {
                       type="text"
                       className="form-control"
                       id="name"
-                      value={this.state.status}
+                      defaultValue={this.props.bucketListItem[2]}
                       onChange={this.handleChange.bind(this, 'status')}
                     />
                   </div>
@@ -143,7 +142,8 @@ class BLIRow extends Component {
             </Modal>
           </form>
         </div>
-      </li>
+        </td>
+      </tr>
     );
   }
 }
@@ -162,9 +162,18 @@ export default class BucketlistItems extends Component {
     }
     return (<div className="panel">
           <Panel collapsible expanded={this.props.showItemPanel} bsStyle="info">
-            <ul className="list-group">
+            <table className="table">
+              <thead>
+              <tr>
+                <th>Item</th>
+                <th>Deadline</th>
+                <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
               {rows}
-            </ul>
+              </tbody>
+            </table>
         </Panel>
     </div>
     );

@@ -74,7 +74,6 @@ class BLRow extends React.Component {
     return fetch(url, updateData)
       .then(response => response.json()).then(res => {
           this.props.getBucketlists(`${baseUrl}/bucketlists/`);
-          console.log(res)
         });
   }
 
@@ -151,9 +150,8 @@ class BLRow extends React.Component {
             headers: { Authorization: localStorage.getItem('token') },
         };
         return fetch(url, postData)
-            .then(response => response.json()).then(res => console.log(res));
+            .then(response => response.json());
     }
-
   render() {
     return (
       <li className="list-group-item col-md-12">
@@ -257,12 +255,6 @@ export default class BucketlistTable extends React.Component {
       }
     }
 
-    // if (details['next_url']){
-    //     console.log(details['next_url'])
-    // }
-    // if (details['prev_url']){
-    //     console.log(details['prev_url'])
-    // }
     return (<div>
       <ul className="list-group col-md-12" id="bucketlists">
         {rows}

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import '../styles/css/bootstrap.min.css';
-import '../styles/font-awesome/css/font-awesome.min.css';
-import '../styles/css/login.css';
-import Bucketlist from './bucketlist';
-import ResetPasswordForm from './ResetPassword';
-import { baseUrl } from '../constants';
+import '../../styles/css/bootstrap.min.css';
+import '../../styles/font-awesome/css/font-awesome.min.css';
+import '../../styles/css/login.css';
+import Bucketlist from '../bucketlist';
+import ResetPasswordForm from '../ResetPassword';
+import { baseUrl } from '../../constants';
 import NotificationSystem from 'react-notification-system';
 
 export default class extends Component {

@@ -4,7 +4,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import './index.css';
 import App from './App';
 import Err404 from './components/Err404';
-import LoginForm from './components/Login';
+import LoginForm from './components/Login/Login';
 import SignupForm from './components/Signup';
 import registerServiceWorker from './registerServiceWorker';
 import Bucketlist from './components/bucketlist';
