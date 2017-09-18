@@ -7,12 +7,13 @@ import LoginForm from './Login/Login';
 import { baseUrl } from '../constants';
 import Search from './search';
 import NotificationSystem from 'react-notification-system';
+import Loader from './loader'
 
 export default class Bucketlist extends Component {
   constructor(props) {
     super(props);
     this.state = { bucketlists: '', showModal: false, bname: '', isLoggedIn: this.props.isLoggedIn, details: '',
-        notificationSystem: null };
+        notificationSystem: null, loading: true };
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.addBucketlist = this.addBucketlist.bind(this);
@@ -22,11 +23,12 @@ export default class Bucketlist extends Component {
     this.LogOut = this.LogOut.bind(this);
   }
 
-    componentDidMount() {
-        this.setState({ notificationSystem: this.refs.notificationSystem });
-    }
+  componentDidMount() {
+      this.setState({ notificationSystem: this.refs.notificationSystem});
+  }
 
   getBucketlists(url) {
+
     const getData = {
       method: 'GET',
       headers: { Authorization: localStorage.getItem('token') },
@@ -34,7 +36,7 @@ export default class Bucketlist extends Component {
     return fetch(url, getData)
       .then(response => response.json()).then(res => {
             if (res['bucketlists']){
-                this.setState({ bucketlists: res['bucketlists'], details: res['details'] });
+                this.setState({ bucketlists: res['bucketlists'], details: res['details'], loading: false });
             }
             },
         )
@@ -109,6 +111,10 @@ export default class Bucketlist extends Component {
             <button className="btn btn-sm col-md-offset-1 col-md-1" onClick={this.openModal}>
               <i className="glyphicon glyphicon-plus-sign" />Add Bucketlist</button>
             <Search getBucketlists={this.getBucketlists} />
+              {this.state.loading
+                  ? <Loader/>
+                  : null
+              }
         <BucketlistTable
           bucketlists={this.state.bucketlists}
           token={localStorage.getItem('token')}
