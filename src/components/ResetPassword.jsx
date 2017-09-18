@@ -3,13 +3,19 @@ import { Button } from 'react-bootstrap';
 import '../styles/css/bootstrap.min.css';
 import '../styles/font-awesome/css/font-awesome.min.css';
 import '../styles/css/login.css';
-import LoginForm from './Login';
+import LoginForm from './Login/Login';
 import { baseUrl } from '../constants';
+import NotificationSystem from 'react-notification-system';
 
 export default class ResetPasswordForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', pwd: '', cpwd: '', resetpwd: true, isLoading: false };
+    this.state = { email: '',
+      pwd: '',
+      cpwd: '',
+      resetpwd: true,
+      isLoading: false,
+      notificationSystem: null };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     // this.displaySignupForm = this.displaySignupForm.bind(this);
@@ -18,6 +24,10 @@ export default class ResetPasswordForm extends Component {
   //   event.preventDefault();
   //   this.props.displaySignupForm();
   // }
+
+  componentDidMount() {
+    this.setState({ notificationSystem: this.refs.notificationSystem });
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -43,7 +53,17 @@ export default class ResetPasswordForm extends Component {
       .then((resjson) => {
         console.log(resjson);
         if (resjson.message === 'Password reset successful') {
+          this.state.notificationSystem.addNotification({
+            message: 'Password reset successful',
+            level: 'success',
+          });
           this.setState({ resetpwd: false, email: '', pwd: '', cpwd: '' });
+        } else {
+          this.state.notificationSystem.addNotification({
+            message: resjson.message,
+            level: 'error',
+          });
+          this.setState({ isLoading: false });
         }
       });
   }
@@ -54,7 +74,8 @@ export default class ResetPasswordForm extends Component {
         <div className="container">
           <div className="row">
             <div className="col-sm-6 col-md-4 col-md-offset-4">
-              <h1 className="text-center login-title">Sign in to continue to view your bucketlists </h1>
+              <h1 className="text-center login-title">Reset your password</h1>
+              <NotificationSystem ref="notificationSystem" />
               <div className="account-wall">
                 <img
                   className="profile-img"

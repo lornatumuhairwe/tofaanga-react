@@ -55,7 +55,7 @@ export default class SignupForm extends Component {
                 message: resjson.message,
                 level: 'error',
             });
-            this.setState({ email: '', pwd: '' });
+            this.setState({ email: ''});
         }
       },
       );
