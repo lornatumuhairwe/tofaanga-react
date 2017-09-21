@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Modal, Panel } from 'react-bootstrap';
-import '../styles/css/bootstrap.min.css';
-import '../styles/css/bucketlist.css';
-import { baseUrl} from "../constants";
+import '../../styles/css/bootstrap.min.css';
+import '../../styles/css/bucketlist.css';
+import { baseUrl} from "../../constants";
 
 class BLIRow extends Component {
   constructor(props) {
@@ -155,7 +155,7 @@ export default class BucketlistItems extends Component {
     const blsi = this.props.items;
     for (const key in blsi) {
       if (blsi.hasOwnProperty(key)) {
-        rows.push(<BLIRow bID={this.props.bID} id={key}
+        rows.push(<BLIRow bID={this.props.bID} id={key} key={key}
                           bucketListItem={blsi[key]} token={this.props.token}
                           getBucketlistItems={this.props.getBucketlistItems} />);
       }

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`search snapshot matches snapshot 1`] = `
+<div>
+  <form
+    className="col-md-offset-4 col-md-4"
+  >
+    <div
+      className="form-group"
+    >
+      <span
+        className="input-group"
+      >
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          type="text"
+        />
+        <span
+          className="input-group-btn"
+        >
+          <button
+            className="btn btn-default"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <i
+              className="glyphicon glyphicon-search"
+            />
+          </button>
+        </span>
+      </span>
+    </div>
+  </form>
+</div>
+`;

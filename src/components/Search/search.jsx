@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../styles/css/bootstrap.min.css';
+import '../../styles/css/bootstrap.min.css';
 import { FormGroup, Button, InputGroup, FormControl } from 'react-bootstrap';
-import { baseUrl } from '../constants';
+import { baseUrl } from '../../constants';
 
 export default class Search extends Component {
   constructor(props) {

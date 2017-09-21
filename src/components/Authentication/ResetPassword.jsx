@@ -3,44 +3,40 @@ import { Button } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/font-awesome/css/font-awesome.min.css';
 import '../../styles/css/login.css';
-import Bucketlist from '../bucketlist';
-import ResetPasswordForm from '../ResetPassword';
+import LoginForm from '.././Authentication/Login';
 import { baseUrl } from '../../constants';
 import NotificationSystem from 'react-notification-system';
 
-export default class extends Component {
+export default class ResetPasswordForm extends Component {
   constructor(props) {
     super(props);
     this.state = { email: '',
       pwd: '',
-      isLoggedIn: false,
-      resetpwd: false,
+      cpwd: '',
+      resetpwd: true,
       isLoading: false,
       notificationSystem: null };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.displaySignupForm = this.displaySignupForm.bind(this);
-    this.displayResetPasswordForm = this.displayResetPasswordForm.bind(this);
-    this.token = '';
+    // this.displaySignupForm = this.displaySignupForm.bind(this);
   }
+  // displaySignupForm(event) {
+  //   event.preventDefault();
+  //   this.props.displaySignupForm();
+  // }
 
   componentDidMount() {
     this.setState({ notificationSystem: this.refs.notificationSystem });
   }
 
-
-  displaySignupForm(event) {
-    event.preventDefault();
-    this.props.displaySignup();
-  }
-
   handleSubmit(event) {
     event.preventDefault();
-    const LoginFormData = new FormData();
-    LoginFormData.append('email', this.state.email);
-    LoginFormData.append('password', this.state.pwd);
-    this.sendLogin(`${baseUrl}/auth/login`, LoginFormData);
-    // this.props.getToken(this.token);
+    this.setState({ isLoading: true });
+    const ResetPasswordFormData = new FormData();
+    ResetPasswordFormData.append('email', this.state.email);
+    ResetPasswordFormData.append('newpassword', this.state.pwd);
+    ResetPasswordFormData.append('cnewpassword', this.state.cpwd);
+    this.sendLogin(`${baseUrl}/auth/reset-password`, ResetPasswordFormData);
   }
   handleChange(field, event) {
     const newState = {};
@@ -55,48 +51,31 @@ export default class extends Component {
     return fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {
-        if (resjson.status === 'success') {
-          if (resjson.auth_token.length > 0) {
-            this.token = resjson.auth_token;
-            localStorage.setItem('token', resjson.auth_token);
-            this.state.notificationSystem.addNotification({
-              message: 'Login successful',
-              level: 'success',
-            });
-            this.setState({ isLoggedIn: true, email: '', pwd: '', isLoading: true });
-          }
-        } else if (resjson.message === 'Password mismatch') {
+        console.log(resjson);
+        if (resjson.message === 'Password reset successful') {
           this.state.notificationSystem.addNotification({
-            message: 'Password Mismatch. Try Again or Forgot password?',
-            level: 'error',
+            message: 'Password reset successful',
+            level: 'success',
           });
-          this.setState({ pwd: '' });
+          this.setState({ resetpwd: false, email: '', pwd: '', cpwd: '' });
         } else {
           this.state.notificationSystem.addNotification({
-            message: 'User Not found. Sign up!',
+            message: resjson.message,
             level: 'error',
           });
-          this.setState({ email: '', pwd: '' });
+          this.setState({ isLoading: false });
         }
       });
   }
 
-  displayResetPasswordForm(event) {
-    event.preventDefault();
-    this.setState({ resetpwd: true });
-  }
-
   render() {
     if (this.state.resetpwd) {
-      return (<ResetPasswordForm displaySignupForm={this.displaySignupForm} />);
-    } else if (!this.state.isLoggedIn) {
       return (
         <div className="container">
           <div className="row">
             <div className="col-sm-6 col-md-4 col-md-offset-4">
+              <h1 className="text-center login-title">Reset your password</h1>
               <NotificationSystem ref="notificationSystem" />
-              <h1 className="text-center login-title">
-                Sign in to continue to view your bucketlists </h1>
               <div className="account-wall">
                 <img
                   className="profile-img"
@@ -123,25 +102,27 @@ export default class extends Component {
                     required
                     onChange={this.handleChange.bind(this, 'pwd')}
                   />
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="pwd"
+                    value={this.state.cpwd}
+                    placeholder="Confirm Password"
+                    required
+                    onChange={this.handleChange.bind(this, 'cpwd')}
+                  />
                   <Button
+                    disabled={this.state.isLoading}
                     className="btn btn-lg btn-primary btn-block"
                     type="submit"
-                    disabled={this.state.isLoading}
                   >
-                    {this.state.isLoading ? 'Loading...' : 'Sign in'}</Button>
-                  <a
-                    href=""
-                    className="pull-right need-help"
-                    onClick={this.displayResetPasswordForm}
-                  >
-                    Forgot Password? </a>
-                  <span className="clearfix" />
+                    {this.state.isLoading ? 'Loading...' : 'Reset Password'}</Button>
                 </form>
               </div>
               <a
                 href=""
                 className="text-center new-account"
-                onClick={this.displaySignupForm}
+                onClick={this.props.displaySignupForm}
               >Create an account </a>
             </div>
           </div>
@@ -149,10 +130,7 @@ export default class extends Component {
       );
     }
     return (
-      <Bucketlist
-        isLoggedIn={this.state.isLoggedIn}
-        displaySignup={this.props.displaySignup}
-      />
+      <LoginForm displaySignup={this.props.displaySignupForm} />
     );
   }
 }

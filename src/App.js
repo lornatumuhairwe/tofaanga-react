@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
-import SignupForm from './components/Signup';
-import LoginForm from './components/Login/Login';
+import SignupForm from './components/Authentication/Signup';
+import LoginForm from './components/Authentication/Login';
 import './App.css';
-import Bucketlist from './components/bucketlist';
+import Bucketlist from './components/Bucketlist/bucketlist';
 
 class App extends Component {
   constructor(props) {
@@ -18,13 +18,11 @@ class App extends Component {
   }
 
   displaySignup() {
-    this.setState({ signUp: true });
-    this.setState({ signIn: false });
+    this.setState({ signIn: false, signUp: true });
   }
 
   displayLoginForm() {
-    this.setState({ signUp: false });
-    this.setState({ signIn: true });
+    this.setState({ signIn: true, signUp: true });
   }
 
   getToken(token) {

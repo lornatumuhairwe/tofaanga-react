@@ -6,7 +6,7 @@ import '../styles/css/bucketlist.css';
 export default class Loader extends Component {
   render() {
     return (
-      <ReactLoading className="loader" type={'spin'} color={'red'} height="50" width="50" delay={0} />
+      <ReactLoading className="loader" type={'spin'} color={'red'} height={50} width={50} delay={0} />
     );
   }
 }

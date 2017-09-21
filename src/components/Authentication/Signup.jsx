@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../styles/css/bootstrap.min.css';
-import '../styles/css/style.css';
-import Bucketlist from './bucketlist';
+import '../../styles/css/bootstrap.min.css';
+import '../../styles/css/style.css';
+import Bucketlist from '../Bucketlist/bucketlist';
 import { Button } from 'react-bootstrap';
-import { baseUrl } from '../constants';
+import { baseUrl } from '../../constants';
 import NotificationSystem from 'react-notification-system';
 
 export default class SignupForm extends Component {
