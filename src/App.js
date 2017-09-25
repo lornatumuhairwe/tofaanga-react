@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import SignupForm from './components/Authentication/Signup';
-import LoginForm from './components/Authentication/Login';
+import LoginForm from './components/Authentication/Login/Login';
 import './App.css';
 import Bucketlist from './components/Bucketlist/bucketlist';
 

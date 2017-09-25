@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Pager } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
 import { baseUrl } from '../../constants';
@@ -33,25 +33,26 @@ export default class PaginationComp extends React.Component {
     if (details.next_url && details.prev_url) {
       return (
         <div>
-          <ul className="pagination">
-            <li className="pull-right"><a onClick={this.handleSelectNext}>Next &raquo; </a></li>
-            <li className="pull-left"><a onClick={this.handleSelectPrev} >Prev &laquo; </a></li>
-          </ul>
+          <Pager>
+            <Pager.Item previous onClick={this.handleSelectPrev}>&larr; Previous</Pager.Item>
+            <Pager.Item next onClick={this.handleSelectNext} >Next &rarr;</Pager.Item>
+          </Pager>
         </div>
       );
     } else if (details.next_url) {
       return (
         <div>
-          <ul className="pagination">
-            <li className="pull-right"><a onClick={this.handleSelectNext}>Next &raquo;</a></li>
-          </ul>
+          <Pager>
+            <Pager.Item next onClick={this.handleSelectNext} >Next &rarr;</Pager.Item>
+          </Pager>
         </div>
       );
     } else if (details.prev_url) {
       return (<div>
-        <ul className="pagination">
-          <li className="pull-left"><a onClick={this.handleSelectPrev}>Prev &laquo; </a></li>
-        </ul></div>);
+        <Pager>
+          <Pager.Item previous onClick={this.handleSelectPrev}>&larr; Previous</Pager.Item>
+        </Pager>
+      </div>);
     }
     return (null);
   }

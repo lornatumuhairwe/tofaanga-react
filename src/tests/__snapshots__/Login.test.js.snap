@@ -38,7 +38,7 @@ exports[`LoginForm snapshot Login Form renders snapshot 1`] = `
             onChange={[Function]}
             placeholder="Email"
             required={true}
-            type="text"
+            type="email"
             value=""
           />
           <input
@@ -72,6 +72,7 @@ exports[`LoginForm snapshot Login Form renders snapshot 1`] = `
       <a
         className="text-center new-account"
         href=""
+        id="sp"
         onClick={[Function]}
       >
         Create an account 

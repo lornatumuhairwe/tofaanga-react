@@ -23,7 +23,7 @@ export default class Search extends Component {
 
   render() {
     return (<div>
-      <form className="col-md-offset-4 col-md-4">
+      <form className="navbar-form navbar-right">
         <FormGroup>
           <InputGroup>
             <FormControl type="text" onChange={this.handleChange.bind(this, 'search')} />

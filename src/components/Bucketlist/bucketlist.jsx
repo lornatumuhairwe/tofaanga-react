@@ -3,7 +3,7 @@ import {Modal} from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
 import BucketlistTable from './bucketlistTable';
-import LoginForm from '../Authentication/Login';
+import LoginForm from '../Authentication/Login/Login';
 import {baseUrl} from '../../constants';
 import Search from '../Search/search';
 import NotificationSystem from 'react-notification-system';
@@ -121,18 +121,18 @@ export default class Bucketlist extends Component {
         if (this.state.isLoggedIn) {
             return (<div>
                     <NotificationSystem ref="notificationSystem"/>
-                    <nav className="navbar navbar-trans">
+                    <nav className="navbar navbar-inverse">
                         <ul className="nav navbar-nav">
                             <li><a href="">TOFAANGA</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                            <li><a onClick={this.LogOut}>Logout</a></li>
+                            <li id="logoutBtn"><a onClick={this.LogOut}><span className="glyphicon glyphicon-log-out"/></a></li>
                         </ul>
+                        <Search getBucketlists={this.getBucketlists}/>
                     </nav>
                     <button className="btn btn-sm col-md-offset-1 col-md-1" onClick={this.openModal}>
                         <i className="glyphicon glyphicon-plus-sign"/>Add Bucketlist
                     </button>
-                    <Search getBucketlists={this.getBucketlists}/>
                     {this.state.loading
                         ? <Loader/>
                         : null

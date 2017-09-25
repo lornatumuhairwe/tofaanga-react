@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/font-awesome/css/font-awesome.min.css';
 import '../../styles/css/login.css';
-import LoginForm from '.././Authentication/Login';
+import LoginForm from './Login/Login';
 import { baseUrl } from '../../constants';
 import NotificationSystem from 'react-notification-system';
 
