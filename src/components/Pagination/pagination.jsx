@@ -34,8 +34,12 @@ export default class PaginationComp extends React.Component {
       return (
         <div>
           <Pager>
-            <Pager.Item previous onClick={this.handleSelectPrev}>&larr; Previous</Pager.Item>
-            <Pager.Item next onClick={this.handleSelectNext} >Next &rarr;</Pager.Item>
+            <div className="paginationItem">
+              <Pager.Item previous id="next" onClick={this.handleSelectPrev}>&larr; Previous</Pager.Item>
+            </div>
+            <div className="paginationItem">
+              <Pager.Item next id="prev" onClick={this.handleSelectNext} >Next &rarr;</Pager.Item>
+            </div>
           </Pager>
         </div>
       );

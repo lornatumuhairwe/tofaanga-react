@@ -4,7 +4,7 @@ import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
 import { baseUrl} from "../../constants";
 
-class BLIRow extends Component {
+export class BLIRow extends Component {
   constructor(props) {
     super(props);
     this.openModal = this.openModal.bind(this);

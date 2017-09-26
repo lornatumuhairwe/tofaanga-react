@@ -105,7 +105,7 @@ export default class ResetPasswordForm extends Component {
                   <input
                     type="password"
                     className="form-control"
-                    id="pwd"
+                    id="cpwd"
                     value={this.state.cpwd}
                     placeholder="Confirm Password"
                     required

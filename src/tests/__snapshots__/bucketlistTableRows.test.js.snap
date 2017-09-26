@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bucketlist row snapshot matches snapshot 1`] = `
+<li
+  className="list-group-item col-md-12"
+>
+  <a
+    onClick={[Function]}
+  />
+  <div
+    className="pull-right"
+  >
+    <form
+      className="form-inline"
+    >
+      <input
+        name="name"
+        required={true}
+        type="hidden"
+        value={undefined}
+      />
+      <button
+        className="btn btn-xs"
+        onClick={[Function]}
+        type="submit"
+      >
+        <i
+          className="glyphicon glyphicon-plus"
+        />
+      </button>
+      <button
+        className="btn btn-xs"
+        onClick={[Function]}
+        type="submit"
+      >
+        <i
+          className="glyphicon glyphicon-edit"
+        />
+      </button>
+      <button
+        className="btn btn-xs"
+        onClick={[Function]}
+        type="submit"
+      >
+        <i
+          className="glyphicon glyphicon-trash"
+        />
+      </button>
+    </form>
+  </div>
+  <div
+    className="notifications-wrapper"
+    style={Object {}}
+  />
+  <div
+    className="panel"
+  >
+    <div
+      className="panel panel-info"
+      id={null}
+    >
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role={undefined}
+      >
+        <div
+          className="panel-body"
+        >
+          <table
+            className="table"
+          >
+            <thead>
+              <tr>
+                <th>
+                  Item
+                </th>
+                <th>
+                  Deadline
+                </th>
+                <th>
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody />
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
+`;

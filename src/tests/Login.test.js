@@ -25,16 +25,16 @@ describe('Button changes the text after click', () => {
     Login = mount(<LoginForm displaySignup={displaySignup} />);
   });
 
-  it('loads in when both parameter are put', () => {
+  it('captures parameters in the input fields', () => {
     const loginButton = Login.find('Button');
     Login.instance().sendLogin = jest.fn();
     const loginForm = Login.find('form');
     const emailInput = loginForm.find('[type="email"]');
     const passwordInput = loginForm.find('[type="password"]');
     expect(loginButton.text()).toEqual('Sign in');
-    emailInput.simulate('change', { target: { value: 'ltumuhairwe@gmail.com' } });
+    emailInput.simulate('change', { target: { value: 'ltt@gmail.com' } });
     passwordInput.simulate('change', { target: { value: 'test' } });
-    expect(Login.state().email).toEqual('ltumuhairwe@gmail.com');
+    expect(Login.state().email).toEqual('ltt@gmail.com');
     expect(Login.state().pwd).toEqual('test');
     loginButton.simulate('submit'); // submit
     expect(Login.state().isLoading).toEqual(true);
@@ -48,13 +48,13 @@ describe('Button changes the text after click', () => {
     expect(Login.state().resetpwd).toEqual(true);
   });
 
-//   it('displays signup form when link is clicked', () => {
-//     const Appi = mount(<App />);
-//     console.log(Appi.state());
-//     Login.instance().displaySignup = jest.fn();
-//     const signuplink = Login.find('#sp');
-//     signuplink.simulate('click');
-//     console.log(Appi.state());
-//   });
+  it('displays signup form when link is clicked', () => {
+    const Appi = mount(<App />);
+    // console.log(Appi.state());
+    Login.instance().displaySignup = jest.fn();
+    const signuplink = Login.find('#sp');
+    signuplink.simulate('click');
+    // console.log(Appi.state());
+  });
 });
 

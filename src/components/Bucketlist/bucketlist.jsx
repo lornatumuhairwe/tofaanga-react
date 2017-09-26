@@ -130,7 +130,7 @@ export default class Bucketlist extends Component {
                         </ul>
                         <Search getBucketlists={this.getBucketlists}/>
                     </nav>
-                    <button className="btn btn-sm col-md-offset-1 col-md-1" onClick={this.openModal}>
+                    <button id="addBucketlist" className="btn btn-sm col-md-offset-1 col-md-1" onClick={this.openModal}>
                         <i className="glyphicon glyphicon-plus-sign"/>Add Bucketlist
                     </button>
                     {this.state.loading
