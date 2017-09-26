@@ -84,7 +84,7 @@ export default class ResetPasswordForm extends Component {
                 />
                 <form className="form-signin" onSubmit={this.handleSubmit}>
                   <input
-                    type="text"
+                    type="email"
                     id="email"
                     className="form-control"
                     placeholder="Email"

@@ -21,30 +21,36 @@ exports[`bucketlist row snapshot matches snapshot 1`] = `
       />
       <button
         className="btn btn-xs"
+        id="add"
         onClick={[Function]}
         type="submit"
       >
         <i
           className="glyphicon glyphicon-plus"
         />
+        Add
       </button>
       <button
         className="btn btn-xs"
+        id="edit"
         onClick={[Function]}
         type="submit"
       >
         <i
           className="glyphicon glyphicon-edit"
         />
+        Edit
       </button>
       <button
         className="btn btn-xs"
+        id="delete"
         onClick={[Function]}
         type="submit"
       >
         <i
           className="glyphicon glyphicon-trash"
         />
+        Delete
       </button>
     </form>
   </div>

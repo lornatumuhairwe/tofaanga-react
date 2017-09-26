@@ -53,6 +53,7 @@ export default class BLRow extends React.Component {
         alert(`Do you really want to delete this item? : ${bID}`);
         const BlData = new FormData();
         BlData.append('bucketlistID', bID);
+
         this.deleteAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
     }
     editBucketlist(event) {
@@ -80,18 +81,27 @@ export default class BLRow extends React.Component {
     componentDidMount(){
         this.setState({ notificationSystem: this.refs.notificationSystem });
     }
+    delete(url, data) {
+        return fetch(url, data)
+            .then(response => response.json()).then(res => {
+                this.props.getBucketlists(`${baseUrl}/bucketlists/`);
+                // console.log(res)
+            });
+    }
 
     deleteAction(url, data) {
+        // console.log('URL', url);
         const deleteData = {
             method: 'DELETE',
             body: data,
             headers: { Authorization: localStorage.getItem('token') },
         };
-        return fetch(url, deleteData)
-            .then(response => response.json()).then(res => {
-                this.props.getBucketlists(`${baseUrl}/bucketlists/`);
-                // console.log(res)
-            });
+        return this.delete(url, deleteData)
+        // return fetch(url, deleteData)
+        //     .then(response => response.json()).then(res => {
+        //         this.props.getBucketlists(`${baseUrl}/bucketlists/`);
+        //         // console.log(res)
+        //     });
     }
 
     getBucketlistItems(event) {
@@ -165,12 +175,12 @@ export default class BLRow extends React.Component {
                             ref="bid"
                             required
                         />
-                        <button type="submit" className="btn btn-xs"  onClick={this.openAdd}>
-                            <i className="glyphicon glyphicon-plus" /></button>
-                        <button type="submit" className="btn btn-xs" onClick={this.openModal}>
-                            <i className="glyphicon glyphicon-edit" /></button>
-                        <button type="submit" className="btn btn-xs" onClick={this.deleteBucketlist}>
-                            <i className="glyphicon glyphicon-trash" /></button>
+                        <button type="submit" className="btn btn-xs"  id="add" onClick={this.openAdd}>
+                            <i className="glyphicon glyphicon-plus" />Add</button>
+                        <button type="submit" className="btn btn-xs" id="edit" onClick={this.openModal}>
+                            <i className="glyphicon glyphicon-edit" />Edit</button>
+                        <button type="submit" className="btn btn-xs" id="delete" onClick={this.deleteBucketlist}>
+                            <i className="glyphicon glyphicon-trash" />Delete</button>
                     </form>
                     <Modal show={this.state.showModal} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
                         <Modal.Header closeButton>

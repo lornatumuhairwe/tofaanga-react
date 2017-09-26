@@ -11,19 +11,32 @@ describe('Reset password Form snapshot', () => {
 });
 
 describe('Reset password function', () => {
-  let ResetPasswordFormm;
+  let ResetPassword;
   beforeEach(() => {
-    ResetPasswordFormm = mount(<ResetPasswordForm />);
+    ResetPassword = mount(<ResetPasswordForm />);
+    ResetPassword.instance().sendLogin = jest.fn();
   });
 
   it('Captures values in the fields', () => {
-    const form = ResetPasswordFormm.find('form');
+    const form = ResetPassword.find('form');
     const emailInput = form.find('[type="email"]');
     const passwordInput = form.find('#pwd');
     const cpasswordInput = form.find('#cpwd');
-    // emailInput.simulate('change', { target: { value: 'ltumuhairwe@gmail.com' } });
-    // passwordInput.simulate('change', { target: { value: 'test' } });
-    // cpasswordInput.simulate('change', { target: { value: 'test' } });
-    // console.log(ResetPasswordFormm.state());
+    const resetPwdButton = form.find('Button');
+    expect(ResetPassword.state().email).toBe('');
+    expect(ResetPassword.state().pwd).toBe('');
+    expect(ResetPassword.state().cpwd).toBe('');
+    expect(ResetPassword.state().resetpwd).toBe(true);
+    expect(ResetPassword.state().isLoading).toBe(false);
+    expect(resetPwdButton.text()).toBe('Reset Password');
+    expect(emailInput.length).toEqual(1);
+    emailInput.simulate('change', { target: { value: 'ltt@gmail.com' } });
+    passwordInput.simulate('change', { target: { value: 'test' } });
+    cpasswordInput.simulate('change', { target: { value: 'test' } });
+    expect(ResetPassword.state().email).toBe('ltt@gmail.com');
+    expect(ResetPassword.state().pwd).toBe('test');
+    expect(ResetPassword.state().cpwd).toBe('test');
+    resetPwdButton.simulate('submit');
+    expect(resetPwdButton.text()).toBe('Loading...');
   });
 });

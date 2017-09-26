@@ -43,7 +43,7 @@ exports[`Signup snapshot renders snapshot appropriately 1`] = `
             onChange={[Function]}
             placeholder="Email"
             required={true}
-            type="text"
+            type="email"
             value=""
           />
           <input

@@ -28,7 +28,7 @@ export default class SignupForm extends Component {
     signupFormData.append('birthdate', this.state.dob);
     signupFormData.append('password', this.state.pwd);
     this.sendRegistration(`${baseUrl}/auth/register`, signupFormData);
-    // this.setState({ isLoading: true });
+    this.setState({ isLoading: true });
   }
   handleChange(field, event) {
     const newState = {};
@@ -76,7 +76,7 @@ type="text" id="name" className="form-control"
                     required autoFocus onChange={this.handleChange.bind(this, 'name')}
                       />
                   <input
-type="text" id="email" className="form-control"
+type="email" id="email" className="form-control"
                     placeholder="Email" value={this.state.email}
                     required autoFocus onChange={this.handleChange.bind(this, 'email')}
                       />
