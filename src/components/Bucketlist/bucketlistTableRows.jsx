@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import { Modal, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
 import BucketlistItems from './bucketlistItems';
@@ -163,8 +163,17 @@ export default class BLRow extends React.Component {
             .then(response => response.json());
     }
     render() {
+        const addBucketlistItemtooltip = (
+            <Tooltip id="tooltip">Add item to this bucketlist</Tooltip>
+        );
+        const editBucketlisttooltip = (
+            <Tooltip id="tooltip">Edit bucketlist</Tooltip>
+        );
+        const deleteBucketlisttooltip = (
+            <Tooltip id="tooltip">Delete bucketlist.</Tooltip>
+        );
         return (
-            <li className="list-group-item col-md-12">
+            <li className="list-group-item col-md-12 item">
                 <a onClick={this.getBucketlistItems}>{this.props.bucketlist}</a>
                 <div className="pull-right">
                     <form className="form-inline">
@@ -175,12 +184,18 @@ export default class BLRow extends React.Component {
                             ref="bid"
                             required
                         />
-                        <button type="submit" className="btn btn-xs"  id="add" onClick={this.openAdd}>
-                            <i className="glyphicon glyphicon-plus" />Add</button>
-                        <button type="submit" className="btn btn-xs" id="edit" onClick={this.openModal}>
-                            <i className="glyphicon glyphicon-edit" />Edit</button>
-                        <button type="submit" className="btn btn-xs" id="delete" onClick={this.deleteBucketlist}>
-                            <i className="glyphicon glyphicon-trash" />Delete</button>
+                        <OverlayTrigger placement="top" overlay={addBucketlistItemtooltip}>
+                        <Button type="submit" className="btn btn-sm btn-success btn-circle"  id="add" onClick={this.openAdd}>
+                            <i className="glyphicon glyphicon-plus" /></Button>
+                        </OverlayTrigger>
+                        <OverlayTrigger placement="top" overlay={editBucketlisttooltip}>
+                        <Button type="submit" className="btn btn-sm btn-primary btn-circle" id="edit" onClick={this.openModal}>
+                            <i className="glyphicon glyphicon-edit" /></Button>
+                        </OverlayTrigger>
+                        <OverlayTrigger placement="top" overlay={deleteBucketlisttooltip}>
+                        <Button type="submit" className="btn btn-sm btn-danger btn-circle" id="delete" onClick={this.deleteBucketlist}>
+                            <i className="glyphicon glyphicon-trash" /></Button>
+                        </OverlayTrigger>
                     </form>
                     <Modal show={this.state.showModal} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
                         <Modal.Header closeButton>
@@ -207,7 +222,7 @@ export default class BLRow extends React.Component {
                             <Modal.Title>Add item to {this.props.bucketlist}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <form onSubmit={this.handleAdd}>
+                            <form onSubmit={this.addItemToBucketlist}>
                                 <div className="form-group">
                                     <label htmlFor="title">Title:</label>
                                     <input
@@ -230,15 +245,15 @@ export default class BLRow extends React.Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="status">Status:</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="name"
-                                        value={this.state.status}
-                                        onChange={this.handleChange.bind(this, 'status')}
-                                    />
+                                    <select name="status"
+                                            onChange={this.handleChange.bind(this, 'status')}
+                                            value={this.state.status}>
+                                        <option value="">Select option</option>
+                                        <option value="Incomplete">Incomplete</option>
+                                        <option value="Complete">Complete</option>
+                                    </select>
                                 </div>
-                                <button type="submit" className="btn btn-default" onClick={this.addItemToBucketlist}>Add item</button>
+                                <button type="submit" className="btn btn-default">Add item</button>
                             </form>
                         </Modal.Body>
                     </Modal>

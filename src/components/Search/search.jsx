@@ -17,18 +17,23 @@ export default class Search extends Component {
     this.setState(newState);
   }
 
-  handleSearch() {
+  search() {
     this.props.getBucketlists(`${baseUrl}/bucketlists/?q=${this.state.search}`);
+  }
+
+  handleSearch(event) {
+    event.preventDefault();
+    this.search();
   }
 
   render() {
     return (<div>
-      <form className="navbar-form navbar-right">
+      <form className="navbar-form navbar-right" onSubmit={this.handleSearch}>
         <FormGroup>
           <InputGroup>
             <FormControl type="text" onChange={this.handleChange.bind(this, 'search')} />
             <InputGroup.Button>
-              <Button onClick={this.handleSearch}>
+              <Button type="submit">
                 <i className="glyphicon glyphicon-search" />
               </Button>
             </InputGroup.Button>

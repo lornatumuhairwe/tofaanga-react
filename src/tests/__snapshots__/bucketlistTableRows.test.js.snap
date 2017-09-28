@@ -2,7 +2,7 @@
 
 exports[`bucketlist row snapshot matches snapshot 1`] = `
 <li
-  className="list-group-item col-md-12"
+  className="list-group-item col-md-12 item"
 >
   <a
     onClick={[Function]}
@@ -20,37 +20,49 @@ exports[`bucketlist row snapshot matches snapshot 1`] = `
         value={undefined}
       />
       <button
-        className="btn btn-xs"
+        className="btn btn-sm btn-success btn-circle btn btn-default"
+        disabled={false}
         id="add"
+        onBlur={[Function]}
         onClick={[Function]}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
         type="submit"
       >
         <i
           className="glyphicon glyphicon-plus"
         />
-        Add
       </button>
       <button
-        className="btn btn-xs"
+        className="btn btn-sm btn-primary btn-circle btn btn-default"
+        disabled={false}
         id="edit"
+        onBlur={[Function]}
         onClick={[Function]}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
         type="submit"
       >
         <i
           className="glyphicon glyphicon-edit"
         />
-        Edit
       </button>
       <button
-        className="btn btn-xs"
+        className="btn btn-sm btn-danger btn-circle btn btn-default"
+        disabled={false}
         id="delete"
+        onBlur={[Function]}
         onClick={[Function]}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
         type="submit"
       >
         <i
           className="glyphicon glyphicon-trash"
         />
-        Delete
       </button>
     </form>
   </div>
@@ -62,7 +74,7 @@ exports[`bucketlist row snapshot matches snapshot 1`] = `
     className="panel"
   >
     <div
-      className="panel panel-info"
+      className="panelpanel panel panel-default"
       id={null}
     >
       <div
@@ -76,7 +88,7 @@ exports[`bucketlist row snapshot matches snapshot 1`] = `
           className="panel-body"
         >
           <table
-            className="table"
+            className="table table-responsive table-hover"
           >
             <thead>
               <tr>

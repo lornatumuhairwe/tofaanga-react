@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal} from 'react-bootstrap';
+import { Modal, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
 import BucketlistTable from './bucketlistTable';
@@ -118,6 +118,9 @@ export default class Bucketlist extends Component {
     }
 
     render() {
+        const addBucketlisttooltip = (
+            <Tooltip id="tooltip">Add bucketlist.</Tooltip>
+        );
         if (this.state.isLoggedIn) {
             return (<div>
                     <NotificationSystem ref="notificationSystem"/>
@@ -126,13 +129,16 @@ export default class Bucketlist extends Component {
                             <li><a href="">TOFAANGA</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                            <li id="logoutBtn"><a onClick={this.LogOut}><span className="glyphicon glyphicon-log-out"/></a></li>
+                            <li id="logoutBtn"><a onClick={this.LogOut}>Logout</a></li>
                         </ul>
                         <Search getBucketlists={this.getBucketlists}/>
                     </nav>
-                    <button id="addBucketlist" className="btn btn-sm col-md-offset-1 col-md-1" onClick={this.openModal}>
-                        <i className="glyphicon glyphicon-plus-sign"/>Add Bucketlist
-                    </button>
+                    <div className="container">
+                    <OverlayTrigger placement="top" overlay={addBucketlisttooltip}>
+                        <Button id="addBucketlist" className="btn btn-lg btn-primary btn-circle fixed" onClick={this.openModal}>
+                            <i className="glyphicon glyphicon-plus"/>
+                        </Button>
+                    </OverlayTrigger>
                     {this.state.loading
                         ? <Loader/>
                         : null
@@ -166,10 +172,11 @@ export default class Bucketlist extends Component {
                                         onChange={this.getName.bind(this, 'bname')}
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-default">Add Bucketlist</button>
+                                <button type="submit" id="addBLBtn" className="btn btn-default">Add Bucketlist</button>
                             </form>
                         </Modal.Body>
                     </Modal>
+                    </div>
                 </div>
             );
         }

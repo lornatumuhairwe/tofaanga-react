@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Panel } from 'react-bootstrap';
+import { Modal, Panel, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
 import { baseUrl} from "../../constants";
@@ -81,6 +81,12 @@ export class BLIRow extends Component {
   }
 
   render() {
+      const editItemtooltip = (
+          <Tooltip id="tooltip">Edit bucketlist item.</Tooltip>
+      );
+      const deleteItemtooltip = (
+          <Tooltip id="tooltip">Delete bucketlist item.</Tooltip>
+      );
     return (
       <tr>
         <td>{this.props.bucketListItem[0]}</td>
@@ -95,10 +101,14 @@ export class BLIRow extends Component {
               ref="bid"
               required
             />
-            <button type="submit" className="btn btn-xs" onClick={this.openModal}>
-              <i className="glyphicon glyphicon-edit" /></button>
-            <button type="submit" className="btn btn-xs" onClick={this.deleteBucketlistItem}>
-              <i className="glyphicon glyphicon-trash" /></button>
+            <OverlayTrigger placement="top" overlay={editItemtooltip}>
+            <Button type="submit" className="btn btn-xs btn-primary btn-circle " onClick={this.openModal}>
+              <i className="glyphicon glyphicon-edit" /></Button>
+            </OverlayTrigger>
+            <OverlayTrigger placement="top" overlay={deleteItemtooltip}>
+            <Button type="submit" className="btn btn-xs btn-danger btn-circle" onClick={this.deleteBucketlistItem}>
+              <i className="glyphicon glyphicon-trash" /></Button>
+            </OverlayTrigger>
             <Modal show={this.state.showUpdate} onHide={this.closeModal} {...this.props}
                    bsSize="small" aria-labelledby="contained-modal-title-sm" >
               <Modal.Header closeButton>
@@ -127,14 +137,14 @@ export class BLIRow extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="status">Status:</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="name"
-                      defaultValue={this.props.bucketListItem[2]}
-                      onChange={this.handleChange.bind(this, 'status')}
-                    />
+                    <label htmlFor="status">Status: </label>
+                    <select name="status"
+                            onChange={this.handleChange.bind(this, 'status')}
+                            value={this.state.status}>
+                      <option value={this.props.bucketListItem[2]}>{this.props.bucketListItem[2]}</option>
+                      <option value="Incomplete">Incomplete</option>
+                      <option value="Complete">Complete</option>
+                    </select>
                   </div>
                   <button type="submit" className="btn btn-default" onClick={this.handleUpdate}>Update item</button>
                 </form>
@@ -161,8 +171,8 @@ export default class BucketlistItems extends Component {
       }
     }
     return (<div className="panel">
-          <Panel collapsible expanded={this.props.showItemPanel} bsStyle="info">
-            <table className="table">
+          <Panel className="panelpanel" collapsible expanded={this.props.showItemPanel} >
+            <table className="table table-responsive table-hover">
               <thead>
               <tr>
                 <th>Item</th>

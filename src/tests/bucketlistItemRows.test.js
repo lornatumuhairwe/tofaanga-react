@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {BLIRow} from "../components/Bucketlist/bucketlistItems";
+import {mount} from 'enzyme';
 
 describe('bucketlist items row snapshot', () => {
     let bID=0;
@@ -13,4 +14,24 @@ describe('bucketlist items row snapshot', () => {
         },
 
     );
+});
+
+describe('fxns', () => {
+    let BLIRowComponent;
+    const getBucketlistItems = () => {
+        return true;
+    };
+    let bID=0;
+    let key;
+    let bucketListItem;
+    beforeEach(() => {
+        BLIRowComponent = mount(<BLIRow bID={bID} id={key} key={key}
+                                        bucketListItem={bucketListItem}
+                                        getBucketlistItems={getBucketlistItems} />);
+    });
+
+    // it('captures fields in form', () => {
+    //     const updateForm = BLIRowComponent;
+    //     console.log(updateForm)
+    // });
 });

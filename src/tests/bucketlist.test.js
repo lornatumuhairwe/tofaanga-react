@@ -23,3 +23,21 @@ describe('bucketlist snapshot', () => {
   //   const bucketlist = mount(<Bucketlist />);
   // });
 });
+
+describe('bucketlist functions', () => {
+  let bucketlist;
+  beforeEach(() => {
+    bucketlist = mount(<Bucketlist />);
+  });
+  // it('changes state when handling add', () => {
+  // const input = bucketlist.find('div');
+  // input.simulate('submit');
+  // input.simulate('click', { target: { value: 'bucketlist 1' } });
+  // console.log(input.length);
+  // });
+
+    it('calls logout fxn', () => {
+        const logoutBtn = bucketlist.find('nav');
+        //console.log(bucketlist)
+    })
+});

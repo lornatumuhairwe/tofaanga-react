@@ -18,12 +18,7 @@ export default class ResetPasswordForm extends Component {
       notificationSystem: null };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    // this.displaySignupForm = this.displaySignupForm.bind(this);
   }
-  // displaySignupForm(event) {
-  //   event.preventDefault();
-  //   this.props.displaySignupForm();
-  // }
 
   componentDidMount() {
     this.setState({ notificationSystem: this.refs.notificationSystem });
@@ -43,11 +38,16 @@ export default class ResetPasswordForm extends Component {
     newState[field] = event.target.value;
     this.setState(newState);
   }
+
+  fetchh() {
+    return true;
+  }
   sendLogin(url, data) {
     const postData = {
       method: 'POST',
       body: data,
     };
+    this.fetchh();
     return fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {

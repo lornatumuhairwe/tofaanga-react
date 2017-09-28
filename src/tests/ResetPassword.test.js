@@ -1,7 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+import { stub } from 'sinon';
 import ResetPasswordForm from '../components/Authentication/ResetPassword';
+
 
 describe('Reset password Form snapshot', () => {
   it('Login Form renders snapshot', () => {
@@ -38,5 +40,14 @@ describe('Reset password function', () => {
     expect(ResetPassword.state().cpwd).toBe('test');
     resetPwdButton.simulate('submit');
     expect(resetPwdButton.text()).toBe('Loading...');
+  });
+
+  it('is fetch called', () => {
+    const spy = stub(ResetPasswordForm.prototype, 'fetchh').returns(true);
+    stub(ResetPasswordForm.prototype, 'sendLogin').returns(true);
+    const form = ResetPassword.find('form');
+    const resetPwdButton = form.find('Button');
+    resetPwdButton.simulate('submit');
+    expect(spy.called).toBe(false);
   });
 });

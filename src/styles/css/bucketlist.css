@@ -4,8 +4,55 @@
 
 #bucketlists{
     margin-left: 7px;
+    font-size: 16px;
 }
 
 #logoutBtn{
     padding: 6px;
 }
+
+.item {
+    margin: 13px;
+    padding: 20px;
+}
+
+.panelpanel{
+    border-color: rgba(255, 255, 2555, 0);
+}
+
+.panel{
+    border: 0 transparent !important;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+.table>thead>tr>th{
+    border-bottom: 0;
+}
+
+.fixed {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 20px;
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.list-group-item a {
+    cursor: pointer;
+    text-decoration: none;
+}
+

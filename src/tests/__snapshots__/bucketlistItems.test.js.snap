@@ -5,7 +5,7 @@ exports[`bucketlist items snapshot matches snapshot 1`] = `
   className="panel"
 >
   <div
-    className="panel panel-info"
+    className="panelpanel panel panel-default"
     id={null}
   >
     <div
@@ -19,7 +19,7 @@ exports[`bucketlist items snapshot matches snapshot 1`] = `
         className="panel-body"
       >
         <table
-          className="table"
+          className="table table-responsive table-hover"
         >
           <thead>
             <tr>

@@ -4,6 +4,7 @@ exports[`search snapshot matches snapshot 1`] = `
 <div>
   <form
     className="navbar-form navbar-right"
+    onSubmit={[Function]}
   >
     <div
       className="form-group"
@@ -23,8 +24,7 @@ exports[`search snapshot matches snapshot 1`] = `
           <button
             className="btn btn-default"
             disabled={false}
-            onClick={[Function]}
-            type="button"
+            type="submit"
           >
             <i
               className="glyphicon glyphicon-search"

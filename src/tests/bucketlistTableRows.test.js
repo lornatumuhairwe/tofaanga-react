@@ -58,33 +58,19 @@ describe('bucketlist table row and functions', () => {
     });
 
     it("calls the delete function", () => {
-        // const del = new Promise(r=>r());
-        // const deleteSpy = sinon.spy(BLRow.prototype, 'deleteBucketlist');
-        // console.log(Object.keys(spy));
-         //BLRow.prototype.delete = deleteBucketlist;
-        // bltr.instance().deleteAction = jest.fn();
-        // stub(BLRow.prototype, "dummy").returns(true);
-        // const dummy = () => {};
         spy = stub(BLRow.prototype, "delete").returns(true);
-        let spy2 = stub(BLRow.prototype, "deleteAction").returns(true);
-
-        // stub(BLRow.prototype, "deleteBucketlist").returns(true);
+        // let spy2 = stub(BLRow.prototype, "deleteAction").returns(true);
         const element = bltr.find('li');
         expect(element.length).toBe(1);
         const deleteBLButton = element.find('#delete');
-        // console.log(deleteBLButton.text());
         expect(deleteBLButton.length).toBe(1);
         deleteBLButton.simulate('click',{
             preventDefault: () => {
             }
         });
 
-        //sinon.assert.called(spy);
-        //.log(spy.getCalls());
-        // expect(BLRow.prototype.deleteBucketlist.calledOnce).toBe(true);
         expect(spy.called).toBe(true);
         spy.restore();
-        // stubb.restore();
     });
 
 });
