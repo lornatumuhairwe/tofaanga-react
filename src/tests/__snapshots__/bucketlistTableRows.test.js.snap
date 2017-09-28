@@ -11,7 +11,7 @@ exports[`bucketlist row snapshot matches snapshot 1`] = `
     className="pull-right"
   >
     <form
-      className="form-inline"
+      className="form-inline pull-right"
     >
       <input
         name="name"

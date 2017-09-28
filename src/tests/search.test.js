@@ -37,3 +37,34 @@ describe('search functions', () => {
 
   })
 });
+
+// describe('test fetch', () => {
+//     let wrapper;
+//     const getBucketlists = () => {
+//     };
+//     beforeEach(function () {
+//         wrapper = shallow(<Search getBucketlists={getBucketlists}/>);
+//         global.fetch = jest.fn().mockImplementation(() => {
+//             let p = new Promise((resolve, reject) => {
+//                 resolve({
+//                     ok: true,
+//                     Id: '123',
+//                     json: function () {
+//                         return {
+//                             "buckelist Item": "get",
+//                             "message": "Bucketlist item added successfully"
+//                         }
+//                     }
+//                 });
+//             });
+//
+//             return p;
+//         });
+//
+//     });
+//
+//     it("searches bucketlist items", async function () {
+//         const response = await wrapper.instance().props.getBucketlists('foo');
+//         expect(response.message).toBe("Bucketlist item added successfully");
+//     });
+// });

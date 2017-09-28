@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Bucketlist from '../components/Bucketlist/bucketlist';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { stub } from 'sinon';
 
 global.localStorage = {
-  setItem: () => {}, getItem: () => {},
+  setItem: () => {}, getItem: () => {}, removeItem: () => {},
 };
 
 describe('bucketlist snapshot', () => {
@@ -18,26 +18,78 @@ describe('bucketlist snapshot', () => {
     const bucketlist = renderer.create(<Bucketlist isLoggedIn={isLoggedIn} displaySignup={displaySignup} />);
     expect(bucketlist.toJSON()).toMatchSnapshot();
   });
-
-  // it('button opens modal onclick', () => {
-  //   const bucketlist = mount(<Bucketlist />);
-  // });
 });
 
 describe('bucketlist functions', () => {
-  let bucketlist;
+  let wrapper;
   beforeEach(() => {
-    bucketlist = mount(<Bucketlist />);
+    wrapper = shallow(<Bucketlist />);
   });
-  // it('changes state when handling add', () => {
-  // const input = bucketlist.find('div');
-  // input.simulate('submit');
-  // input.simulate('click', { target: { value: 'bucketlist 1' } });
-  // console.log(input.length);
-  // });
 
-    it('calls logout fxn', () => {
-        const logoutBtn = bucketlist.find('nav');
-        //console.log(bucketlist)
-    })
+  it('closes modal', () => {
+    wrapper.instance().closeModal();
+    expect(wrapper.state().showModal).toBe(false);
+  });
+
+  it('opens modal', () => {
+    wrapper.instance().openModal();
+    expect(wrapper.state().showModal).toBe(true);
+  });
+
+  it('closes modal', () => {
+    wrapper.instance().LogOut({ preventDefault: () => {} });
+    expect(wrapper.state().isLoggedIn).toBe(false);
+  });
+
+  it('can handle addition of bucketlist', () => {
+    wrapper.instance().addBucketlist = jest.fn();
+    wrapper.instance().handleAdd({ preventDefault: () => {} });
+    expect(wrapper.state().showModal).toBe(false);
+    expect(wrapper.instance().addBucketlist).toHaveBeenCalled();
+  });
 });
+
+// describe('test fetch', () => {
+//     let wrapper;
+//     beforeEach(function() {
+//         wrapper = shallow(<Bucketlist />);
+//         global.fetch = jest.fn().mockImplementation(() => {
+//             let p = new Promise((resolve, reject) => {
+//                 resolve({
+//                     "bucketlists": {
+//                         "38": "Revie",
+//                         "40": "tr",
+//                         "41": "Lorna Tumuhairwe",
+//                         "42": "taylor"
+//                     },
+//                     "details": {
+//                         "next_url": "/api/v1/bucketlists/page/2?limit=4",
+//                         "page": 1,
+//                         "pages": 3,
+//                         "per_page": 4,
+//                         "total": 10
+//                     }
+//                 });
+//             });
+//
+//             return p;
+//         });
+//
+//     });
+//
+//     it("gets bucketlist", async function() {
+//         const response = await wrapper.instance().getBucketlists('foo');
+//         // expect(wrapper.state().bucketlists).toBe({
+//         //     "38": "Revie",
+//         //     "40": "tr",
+//         //     "41": "Lorna Tumuhairwe",
+//         //     "42": "taylor"
+//         // });
+//         expect(response.bucketlists).toBe({
+//             "38": "Revie",
+//             "40": "tr",
+//             "41": "Lorna Tumuhairwe",
+//             "42": "taylor"
+//         });
+//     });
+// });

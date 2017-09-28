@@ -153,6 +153,11 @@ export default class BLRow extends React.Component {
         this.setState({ showAdd: false, title:'', deadline: '', status:'', showItemPanel: false });
     }
 
+    // fetchh(url, postData){
+    //     return fetch(url, postData)
+    //         .then(response => response.json())
+    // }
+
     addItemToBucketlistAction(url, data) {
         const postData = {
             method: 'POST',
@@ -160,7 +165,7 @@ export default class BLRow extends React.Component {
             headers: { Authorization: localStorage.getItem('token') },
         };
         return fetch(url, postData)
-            .then(response => response.json());
+                 .then(response => response.json())
     }
     render() {
         const addBucketlistItemtooltip = (
@@ -176,7 +181,7 @@ export default class BLRow extends React.Component {
             <li className="list-group-item col-md-12 item">
                 <a onClick={this.getBucketlistItems}>{this.props.bucketlist}</a>
                 <div className="pull-right">
-                    <form className="form-inline">
+                    <form className="form-inline pull-right" >
                         <input
                             type="hidden"
                             name="name"
@@ -217,12 +222,12 @@ export default class BLRow extends React.Component {
                             </form>
                         </Modal.Body>
                     </Modal>
-                    <Modal show={this.state.showAdd} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
+                    <Modal show={this.state.showAdd} onHide={this.closeModal} bsSize="small" aria-labelledby="contained-modal-title-sm">
                         <Modal.Header closeButton>
                             <Modal.Title>Add item to {this.props.bucketlist}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <form onSubmit={this.addItemToBucketlist}>
+                            <form onSubmit={this.addItemToBucketlist} className="addItemForm">
                                 <div className="form-group">
                                     <label htmlFor="title">Title:</label>
                                     <input

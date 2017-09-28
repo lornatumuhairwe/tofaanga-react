@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import BucketlistItems from "../components/Bucketlist/bucketlistItems";
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 
 describe('bucketlist items snapshot', () => {
     it('matches snapshot', () => {
@@ -25,3 +25,33 @@ describe('bucketlist items snapshot', () => {
     //     console.log(updateForm)
     // });
 //});
+
+// describe('bucketlist methods', () => {
+//     // it('calls deleteBucketlistItemsAction method', () => {
+//     //     const wrapper = shallow(<BucketlistItems />);
+//     //     wrapper.instance().deleteBucketlistItemsAction = jest.fn();
+//     //     wrapper.instance().refs = {
+//     //         bid: {value: ''}
+//     //     };
+//     //     const deleteBucketlistItemsActionInstance = wrapper.instance();
+//     //     deleteBucketlistItemsActionInstance.deleteBucketlistItem({preventDefault:() => {}});
+//     //     expect(wrapper.instance().deleteBucketlistItemsAction).toHaveBeenCalled();
+//     //
+//     // });
+//
+//     it('opens modal', () => {
+//         const wrapper = shallow(<BucketlistItems />);
+//         wrapper.instance().openModal({preventDefault:() => {}});
+//         expect(wrapper.state().showUpdate).toBe(true);
+//     });
+//
+//     // it('gets all bucketlist items', () => {
+//     //     const wrapper = shallow(<BucketlistItems />);
+//     //     wrapper.instance().getBucketlistItemsAction = jest.fn();
+//     //     wrapper.instance().refs = {
+//     //         bid: {value: ''}
+//     //     };
+//     //     wrapper.instance().getBucketlistItems({preventDefault:() => {}});
+//     //     expect(wrapper.instance().getBucketlistItemsAction).toHaveBeenCalled();
+//     // })
+// });
