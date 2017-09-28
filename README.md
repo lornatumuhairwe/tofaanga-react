@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lornatumuhairwe/tofaanga-react.svg?branch=master)](https://travis-ci.org/lornatumuhairwe/tofaanga-react)
+[![Coverage Status](https://coveralls.io/repos/github/lornatumuhairwe/tofaanga-react/badge.svg?branch=master)](https://coveralls.io/github/lornatumuhairwe/tofaanga-react?branch=master)
 # TOFAANGA
 
 This repository contains a react front end that consumes a flask API. 

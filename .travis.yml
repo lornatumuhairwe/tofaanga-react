@@ -11,3 +11,4 @@ cache:
 script:
   - npm test -- --coverage --collectCoverageFrom=src/**/*.jsx
 after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+after_success: coveralls
