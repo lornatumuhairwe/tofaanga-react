@@ -5,6 +5,7 @@ import Bucketlist from '../Bucketlist/bucketlist';
 import { Button } from 'react-bootstrap';
 import { baseUrl } from '../../constants';
 import NotificationSystem from 'react-notification-system';
+import Notifications, {notify} from 'react-notify-toast';
 
 export default class SignupForm extends Component {
   constructor(props) {
@@ -51,10 +52,11 @@ export default class SignupForm extends Component {
         }
         else if (resjson.message ){
           console.log('Found 400');
-            this.state.notificationSystem.addNotification({
-                message: resjson.message,
-                level: 'error',
-            });
+            // this.state.notificationSystem.addNotification({
+            //     message: resjson.message,
+            //     level: 'error',
+            // });
+            notify.show(resjson.message, 'success', 0);
             this.setState({ email: ''});
         }
       },
@@ -68,6 +70,7 @@ export default class SignupForm extends Component {
             <div className="col-sm-6 col-md-4 col-md-offset-4">
               <h1 className="text-center login-title">Sign up start keeping track of your bucketlists </h1>
               <div className="account-wall">
+                <Notifications />
                 <NotificationSystem ref="notificationSystem" />
                 <form className="form-signin" onSubmit={this.handleSubmit}>
                   <input

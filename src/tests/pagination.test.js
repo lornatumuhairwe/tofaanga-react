@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PaginationComp from "../components/Pagination/pagination";
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import sinon, {spy} from 'sinon';
 
 
@@ -33,9 +33,25 @@ describe('pagination snapshot', () => {
         const paginationComponent = pagination.find('Pager');
         const paginationItem = paginationComponent.find('Pager.Item');
         expect(paginationComponent.length).toEqual(1);
-        paginationComponent.simulate('click');
+        //paginationComponent.simulate('click');
         // console.log(paginationItem);
         // expect(pagination.instance().displaySignup).toHaveBeenCalled();
 
     });
+});
+
+describe('functions', () => {
+    const details = {next_url: 'qwertyuiopasdfghjk', prev_url: 'asdfghjklsdfgsdfgh'};
+    const getBucketlists = () => {};
+    it('calls prev functions', () => {
+        const wrapper = shallow(<PaginationComp details={details} getBucketlists={getBucketlists} />);
+        wrapper.instance().handleSelectPrev({preventDefault:() => {}});
+        expect(wrapper.state().prev).toBe(true);
+    })
+
+    it('calls next functions', () => {
+        const wrapper = shallow(<PaginationComp details={details} getBucketlists={getBucketlists} />);
+        wrapper.instance().handleSelectNext({preventDefault:() => {}});
+        expect(wrapper.state().next).toBe(true);
+    })
 });

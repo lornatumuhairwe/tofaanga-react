@@ -19,6 +19,9 @@ exports[`Signup snapshot renders snapshot appropriately 1`] = `
         className="account-wall"
       >
         <div
+          id="notification-wrapper"
+        />
+        <div
           className="notifications-wrapper"
           style={Object {}}
         />

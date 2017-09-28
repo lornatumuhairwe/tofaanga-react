@@ -118,6 +118,12 @@ describe('bucketlist methods', () => {
 
     });
 
+    it('gets all bucketlist items', () => {
+        const wrapper = shallow(<BLRow />);
+        wrapper.instance().getName('title', { target: { value: 'Me' } });
+        expect(wrapper.state().title).toBe('Me');
+    });
+
     it('closes modal', () => {
         const wrapper = shallow(<BLRow />);
         wrapper.instance().closeModal({preventDefault:() => {}});

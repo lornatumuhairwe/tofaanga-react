@@ -82,15 +82,11 @@ describe('bucketlist methods', () => {
         expect(wrapper.state().showUpdate).toBe(false);
     });
 
-    // it('gets all bucketlist items', () => {
-    //     const wrapper = shallow(<BucketlistItems />);
-    //     wrapper.instance().getBucketlistItemsAction = jest.fn();
-    //     wrapper.instance().refs = {
-    //         bid: {value: ''}
-    //     };
-    //     wrapper.instance().getBucketlistItems({preventDefault:() => {}});
-    //     expect(wrapper.instance().getBucketlistItemsAction).toHaveBeenCalled();
-    // })
+    it('gets all bucketlist items', () => {
+        const wrapper = shallow(<BLIRow bID={bID} id={id} key={key} bucketListItem={bucketListItem} />);
+        wrapper.instance().handleChange( 'title', {target:{ value: 'Me' }});
+        expect(wrapper.state().title).toBe('Me');
+    });
 });
 
 // describe('test fetch', () => {
@@ -99,13 +95,14 @@ describe('bucketlist methods', () => {
 //     let id=0;
 //     let key=0;
 //     let bucketListItem=0;
-//     let getBucketlistItems = () => {};
+//     //let getBucketlistItems = () => {};
 //     beforeEach(function() {
 //         wrapper = shallow(<BLIRow bID={bID} id={id} key={key} bucketListItem={bucketListItem} /> );
 //         global.fetch = jest.fn().mockImplementation(() => {
 //             let p = new Promise((resolve, reject) => {
 //                 resolve({
 //                     json: function() {
+//
 //                         return {
 //                             "Deadline": "1/1/2016",
 //                             "buckelist Item": "one",
@@ -121,7 +118,7 @@ describe('bucketlist methods', () => {
 //     });
 //
 //     it("update bucketlist items", async function() {
-//         const response = await wrapper.instance().updateBucketlistItemsAction('foo', 'bar');
+//         const response = await wrapper.instance().delete('foo', 'bar');
 //         console.log(response);
 //         expect(response.status).toBe("COMplete");
 //     });

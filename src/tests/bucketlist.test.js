@@ -47,6 +47,11 @@ describe('bucketlist functions', () => {
     expect(wrapper.state().showModal).toBe(false);
     expect(wrapper.instance().addBucketlist).toHaveBeenCalled();
   });
+
+  it('gets all bucketlist items', () => {
+    wrapper.instance().getName('bname', { target: { value: 'Me' } });
+    expect(wrapper.state().bname).toBe('Me');
+  });
 });
 
 // describe('test fetch', () => {

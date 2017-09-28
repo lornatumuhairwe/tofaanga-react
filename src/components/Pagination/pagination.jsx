@@ -19,12 +19,14 @@ export default class PaginationComp extends React.Component {
     const { details } = this.props;
     event.preventDefault();
     this.props.getBucketlists(`${baseUrl}${details.next_url.slice(7)}`);
+    this.setState({next: true, prev: false });
   }
 
   handleSelectPrev(event) {
     const { details } = this.props;
     event.preventDefault();
     this.props.getBucketlists(`${baseUrl}${details.prev_url.slice(7)}`);
+    this.setState({next: false, prev: true });
   }
 
   render() {
