@@ -37,6 +37,7 @@ class App extends Component {
   }
 
   renderItems() {
+
     if (this.state.token) {
       return (<Bucketlist token={localStorage.getItem('token')} isLoggedIn={!this.state.isLoggedIn} displaySignup={this.displaySignup} />);
     } else if (this.state.signIn) {

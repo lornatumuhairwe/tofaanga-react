@@ -3,7 +3,7 @@
 exports[`search snapshot matches snapshot 1`] = `
 <div>
   <form
-    className="navbar-form navbar-right"
+    className="navbar-form navbar-right search"
     onSubmit={[Function]}
   >
     <div

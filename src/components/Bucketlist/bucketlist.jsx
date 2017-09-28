@@ -153,7 +153,6 @@ export default class Bucketlist extends Component {
                     <Modal
                         show={this.state.showModal}
                         onHide={this.closeModal}
-                        {...this.props}
                         bsSize="small"
                         aria-labelledby="contained-modal-title-sm"
                     >

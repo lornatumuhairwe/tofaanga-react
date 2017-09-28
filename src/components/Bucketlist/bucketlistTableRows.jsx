@@ -202,7 +202,7 @@ export default class BLRow extends React.Component {
                             <i className="glyphicon glyphicon-trash" /></Button>
                         </OverlayTrigger>
                     </form>
-                    <Modal show={this.state.showModal} onHide={this.closeModal} {...this.props} bsSize="small" aria-labelledby="contained-modal-title-sm" >
+                    <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="small" aria-labelledby="contained-modal-title-sm" >
                         <Modal.Header closeButton>
                             <Modal.Title>Update Bucketlist: {this.props.bucketlist}</Modal.Title>
                         </Modal.Header>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/css/bootstrap.min.css';
+import '../../styles/css/bucketlist.css';
 import { FormGroup, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { baseUrl } from '../../constants';
 
@@ -28,7 +29,7 @@ export default class Search extends Component {
 
   render() {
     return (<div>
-      <form className="navbar-form navbar-right" onSubmit={this.handleSearch}>
+      <form className="navbar-form navbar-right search" onSubmit={this.handleSearch}>
         <FormGroup>
           <InputGroup>
             <FormControl type="text" onChange={this.handleChange.bind(this, 'search')} />

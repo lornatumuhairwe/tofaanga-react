@@ -9,6 +9,7 @@
 
 #logoutBtn{
     padding: 6px;
+    margin-right: 40px;
 }
 
 .item {
@@ -56,3 +57,22 @@
     text-decoration: none;
 }
 
+.search {
+    padding-top: 5px;
+    margin-right: 10px;
+}
+
+.navbar {
+    border-radius: 0;
+    color: #fff;
+    font-size: 20px;
+}
+
+.navbar li a{
+    cursor: pointer;
+}
+
+.navbar-inverse {
+    background-color: #286090;
+    border-color: #204d74;
+}

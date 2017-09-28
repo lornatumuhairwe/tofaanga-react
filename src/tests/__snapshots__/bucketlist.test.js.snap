@@ -35,7 +35,7 @@ exports[`bucketlist snapshot renders 1`] = `
     </ul>
     <div>
       <form
-        className="navbar-form navbar-right"
+        className="navbar-form navbar-right search"
         onSubmit={[Function]}
       >
         <div
