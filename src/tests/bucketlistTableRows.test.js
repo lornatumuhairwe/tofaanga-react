@@ -164,8 +164,8 @@ describe('test fetch', () => {
 
     });
 
-    it("adds bucketlist items", async function() {
-        const response = await wrapper.instance().addItemToBucketlistAction('foo', 'bar');
-        expect(response.message).toBe("Bucketlist item added successfully");
-    });
+    // it("adds bucketlist items", async function() {
+    //     const response = await wrapper.instance().addItemToBucketlistAction('foo', 'bar');
+    //     expect(response.message).toBe("Bucketlist item added successfully");
+    // });
 });

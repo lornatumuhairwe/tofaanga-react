@@ -93,6 +93,7 @@ export default class Bucketlist extends Component {
                         message: 'Bucketlist added successfully',
                         level: 'success',
                     });
+                    this.setState({showModal: false});
                     this.getBucketlists(`${baseUrl}/bucketlists/`);
                 }
                 else {
@@ -109,7 +110,7 @@ export default class Bucketlist extends Component {
         const BlData = new FormData();
         BlData.append('name', this.state.bname);
         this.addBucketlist(`${baseUrl}/bucketlists/`, BlData);
-        this.setState({showModal: false});
+        // this.setState({showModal: false});
         this.setState({bname: ''});
     }
 

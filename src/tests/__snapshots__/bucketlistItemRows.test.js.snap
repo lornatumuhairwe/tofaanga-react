@@ -9,6 +9,10 @@ exports[`bucketlist items row snapshot matches snapshot 1`] = `
     <div
       className="pull-right"
     >
+      <div
+        className="notifications-wrapper"
+        style={Object {}}
+      />
       <form
         className="form-inline"
       >

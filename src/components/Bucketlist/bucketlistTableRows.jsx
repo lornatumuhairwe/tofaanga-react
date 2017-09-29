@@ -63,7 +63,7 @@ export default class BLRow extends React.Component {
         BlData.append('bucketlistID', bID);
         BlData.append('newname', this.state.newname);
         this.updateAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
-        this.setState({ newname: '', showModal: false });
+        // this.setState({ newname: '', showModal: false });
     }
 
     updateAction(url, data) {
@@ -75,6 +75,19 @@ export default class BLRow extends React.Component {
         return fetch(url, updateData)
             .then(response => response.json()).then(res => {
                 this.props.getBucketlists(`${baseUrl}/bucketlists/`);
+                if (res.message === 'Bucketlist updated successfully'){
+                    this.state.notificationSystem.addNotification({
+                        message: res.message,
+                        level: 'success'
+                    });
+                    this.setState({ newname: '', showModal: false });
+                } else {
+                    this.state.notificationSystem.addNotification({
+                        message: res.message,
+                        level: 'error'
+                    });
+                    this.setState({ newname: '' });
+                }
             });
     }
 
@@ -85,7 +98,7 @@ export default class BLRow extends React.Component {
         return fetch(url, data)
             .then(response => response.json()).then(res => {
                 this.props.getBucketlists(`${baseUrl}/bucketlists/`);
-                // console.log(res)
+                console.log(res)
             });
     }
 
@@ -153,11 +166,6 @@ export default class BLRow extends React.Component {
         this.setState({ showAdd: false, title:'', deadline: '', status:'', showItemPanel: false });
     }
 
-    // fetchh(url, postData){
-    //     return fetch(url, postData)
-    //         .then(response => response.json())
-    // }
-
     addItemToBucketlistAction(url, data) {
         const postData = {
             method: 'POST',
@@ -165,7 +173,19 @@ export default class BLRow extends React.Component {
             headers: { Authorization: localStorage.getItem('token') },
         };
         return fetch(url, postData)
-                 .then(response => response.json())
+                 .then(response => response.json()).then((response) => {
+            if(response.message === "Bucketlist item added successfully"){
+                this.state.notificationSystem.addNotification({
+                    message: 'Bucketlist item added successfully!',
+                    level: 'success'
+                });
+            } else {
+                this.state.notificationSystem.addNotification({
+                    message: response.message,
+                    level: 'error'
+                });
+            }
+            })
     }
     render() {
         const addBucketlistItemtooltip = (

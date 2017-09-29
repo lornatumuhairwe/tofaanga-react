@@ -3,6 +3,7 @@ import { Modal, Panel, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
 import { baseUrl} from "../../constants";
+import NotificationSystem from 'react-notification-system';
 
 export class BLIRow extends Component {
   constructor(props) {
@@ -14,8 +15,12 @@ export class BLIRow extends Component {
     this.deleteBucketlistItem = this.deleteBucketlistItem.bind(this);
     this.updateBucketlistItemsAction = this.updateBucketlistItemsAction.bind(this);
     this.deleteBucketlistItemsAction = this.deleteBucketlistItemsAction.bind(this);
-    this.state = { showUpdate: false, title: '', deadline: '', status: '' };
+    this.state = { showUpdate: false, title: '', deadline: '', status: '', notificationSystem: null };
   }
+
+    componentDidMount(){
+        this.setState({ notificationSystem: this.refs.notificationSystem });
+    }
 
   deleteBucketlistItem(event) {
     event.preventDefault();
@@ -57,7 +62,7 @@ export class BLIRow extends Component {
     blItemData.append('deadline', this.state.deadline);
     blItemData.append('status', this.state.status);
     this.props.getBucketlistItems(event);
-    this.setState({ showUpdate: false });
+    // this.setState({ showUpdate: false });
     this.updateBucketlistItemsAction(`${baseUrl}/bucketlists/` + bID.toString() + '/items/' + blitemID.toString(), blItemData);
   }
 
@@ -69,7 +74,18 @@ export class BLIRow extends Component {
     };
     return fetch(url, putData)
         .then(response => response.json()).then((res) => {
-            // this.setState({ items: res });
+            if (res.message==="Bucketlist item updated successfully"){
+                this.state.notificationSystem.addNotification({
+                    message: res.message,
+                    level: 'success'
+                });
+                this.setState({ showUpdate: false });
+            } else {
+                this.state.notificationSystem.addNotification({
+                    message: res.message,
+                    level: 'error'
+                });
+            }
             },
         );
 }
@@ -93,6 +109,7 @@ export class BLIRow extends Component {
         <td>{this.props.bucketListItem[1]}</td>
         <td>{this.props.bucketListItem[2]}</td>
         <td><div className="pull-right">
+            <NotificationSystem ref="notificationSystem" />
           <form className="form-inline">
             <input
               type="hidden"
@@ -109,7 +126,7 @@ export class BLIRow extends Component {
             <Button type="submit" className="btn btn-xs btn-danger btn-circle" onClick={this.deleteBucketlistItem}>
               <i className="glyphicon glyphicon-trash" /></Button>
             </OverlayTrigger>
-            <Modal show={this.state.showUpdate} onHide={this.closeModal} {...this.props}
+            <Modal show={this.state.showUpdate} onHide={this.closeModal}
                    bsSize="small" aria-labelledby="contained-modal-title-sm" >
               <Modal.Header closeButton>
                 <Modal.Title>Update item: {this.props.bucketListItem[0]}</Modal.Title>
@@ -122,6 +139,7 @@ export class BLIRow extends Component {
                       type="text"
                       className="form-control"
                       id="name"
+                      required
                       defaultValue={this.props.bucketListItem[0]}
                       onChange={this.handleChange.bind(this, 'title')}
                     />
