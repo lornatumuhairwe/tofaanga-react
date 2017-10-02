@@ -4,7 +4,11 @@ import BLRow from "../components/Bucketlist/bucketlistTableRows";
 import {mount, shallow} from 'enzyme';
 import sinon, { spy, stub } from 'sinon';
 import sinonStubPromise from 'sinon-stub-promise';
+import fetchMock from 'fetch-mock';
+import NotificationSystem from 'react-notification-system';
+import TestUtils from 'react-addons-test-utils';
 sinonStubPromise(sinon);
+//jest.mock('NotificationSystem');
 
 global.localStorage = {
     setItem: () => {}, getItem: () => {},
@@ -21,18 +25,13 @@ describe('bucketlist row snapshot', () => {
 });
 
 describe('bucketlist table row and functions', () => {
-    let bltr;
-    let spy, stubb;
+    let bltr, wrapper;
+    let spy;
     beforeEach(() => {
         bltr = mount(<BLRow/>);
-        // stubb = stub(BLRow.prototype, "deleteAction").returns(true);
-
+        wrapper = shallow(<BLRow/>);
     });
 
-    afterEach(() => {
-        // spy.restore();
-        // stubb.restore();
-    });
     it("renders with expected state", () => {
         expect(bltr.state().bucketlist).toBe('');
         expect(bltr.state().showModal).toBe(false);
@@ -61,7 +60,6 @@ describe('bucketlist table row and functions', () => {
 
     it("calls the delete function", () => {
         spy = stub(BLRow.prototype, "delete").returns(true);
-        // let spy2 = stub(BLRow.prototype, "deleteAction").returns(true);
         const element = bltr.find('li');
         expect(element.length).toBe(1);
         const deleteBLButton = element.find('#delete');
@@ -75,35 +73,12 @@ describe('bucketlist table row and functions', () => {
         spy.restore();
     });
 
+    it('handle change works', () => {
+        wrapper.instance().handleChange('bname', { target: { value: 'Me' } });
+        expect(wrapper.state().bname).toBe('Me');
+    });
+
 });
-
-// describe('add item to bucketlist', () => {
-//     let stubedFetch;
-//     let bltr, spy;
-//     beforeEach(() => {
-//         bltr = mount(<BLRow/>);
-//         stubedFetch = sinon.stub(window, 'fetch');
-//         spy = sinon.spy(BLRow.prototype, 'addItemToBucketlistAction');
-//     });
-//
-//     it('it should work', () => {
-//         stubedFetch.returnsPromise().resolves({
-//             "buckelist Item": "get",
-//             "message": "Bucketlist item added successfully"
-//         });
-//         const element = bltr.dive().find('form.addItemForm');
-//         // const addItemForm = element.find('.pull-right').find("Modal").at(1).nodes[0];
-//         console.log(element.length);
-//         //addItemForm.simulate('submit');
-//         //expect(bltr.state().bucketlist).toBe('');
-//         //expect(spy.called).toBe(true);
-//         // expect(bltr.state().newname).toBe('');
-//         // expect(bltr.state().items).toEqual([]);
-//     });
-// });
-//jest.mock('addItemToBucketlistAction', () => jest.fn());
-
-//
 
 describe('bucketlist methods', () => {
     it('calls addItemToBucketlistAction method', () => {
@@ -139,21 +114,40 @@ describe('bucketlist methods', () => {
         wrapper.instance().getBucketlistItems({preventDefault:() => {}});
         expect(wrapper.instance().getBucketlistItemsAction).toHaveBeenCalled();
     })
+
+    it('updateActions is called', () => {
+        const wrapper = shallow(<BLRow />);
+        wrapper.instance().updateAction = jest.fn();
+        wrapper.instance().refs = {
+            bid: {value: ''}
+        };
+        wrapper.instance().editBucketlist({preventDefault:() => {}});
+        expect(wrapper.instance().updateAction).toHaveBeenCalled();
+    })
 });
 
-describe('test fetch', () => {
-    let wrapper;
+describe('notifications', () => {
+    let wrapper, fetchMock;
+    const getBucketlists = ()=> {};
+    //let notificationSystem;
     beforeEach(function() {
-        wrapper = shallow(<BLRow />);
-        global.fetch = jest.fn().mockImplementation(() => {
+        wrapper = shallow(<BLRow getBucketlists={getBucketlists} />);
+        wrapper.instance().addItemToBucketlistAction = jest.fn();
+        wrapper.instance().updateAction = jest.fn();
+        wrapper.instance().getBucketlistItemsAction = jest.fn()
+        fetchMock = stub(window, 'fetch').returnsPromise().resolves({message: 'success'});
+    });
+
+    it("adds bucketlist items", async function() {
+        global.fetch = wrapper.instance().addItemToBucketlistAction.mockImplementation(() => {
             let p = new Promise((resolve, reject) => {
                 resolve({
                     ok: true,
-                    Id: '123',
+                    Id: 1,
                     json: function() {
                         return {
-                            "buckelist Item": "get",
-                            "message": "Bucketlist item added successfully"
+                            ok: true,
+                            Id: '1',
                         }
                     }
                 });
@@ -161,11 +155,63 @@ describe('test fetch', () => {
 
             return p;
         });
+        wrapper.instance().setState({notificationSystem: {
+            addNotification: () => {}
+        }});
 
+            const response = await wrapper.instance().addItemToBucketlistAction('foo', 'bar');
+            // console.log(response);
+            expect(response.Id).toBe(1);
     });
 
-    // it("adds bucketlist items", async function() {
-    //     const response = await wrapper.instance().addItemToBucketlistAction('foo', 'bar');
-    //     expect(response.message).toBe("Bucketlist item added successfully");
-    // });
+    it("update bucketlist items", async function() {
+        global.fetch = wrapper.instance().updateAction.mockImplementation(() => {
+            let p = new Promise((resolve, reject) => {
+                resolve({
+                    ok: true,
+                    Id: 1,
+                    json: function() {
+                        return {
+                            ok: true,
+                            Id: 1,
+                        }
+                    }
+                });
+            });
+
+            return p;
+        });
+        wrapper.instance().setState({notificationSystem: {
+            addNotification: () => {}
+        }});
+
+        const response = await wrapper.instance().updateAction('foo', 'bar');
+        expect(response.Id).toBe(1);
+    });
+
+    it("getBucketlistItemsAction works", async function() {
+        global.fetch = wrapper.instance().getBucketlistItemsAction.mockImplementation(() => {
+            let p = new Promise((resolve, reject) => {
+                resolve({
+                    ok: true,
+                    Id: 1,
+                    json: function() {
+                        return {
+                            ok: true,
+                            Id: '1',
+                        }
+                    }
+                });
+            });
+
+            return p;
+        });
+        wrapper.instance().setState({notificationSystem: {
+            addNotification: () => {}
+        }});
+
+        const response = await wrapper.instance().getBucketlistItemsAction('foo', 'bar');
+        expect(wrapper.state().showItemPanel).toBe(false);
+    });
+
 });
