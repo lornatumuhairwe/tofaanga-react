@@ -43,11 +43,10 @@ describe('Reset password function', () => {
   });
 
   it('is fetch called', () => {
-    const spy = stub(ResetPasswordForm.prototype, 'fetchh').returns(true);
     stub(ResetPasswordForm.prototype, 'sendLogin').returns(true);
     const form = ResetPassword.find('form');
     const resetPwdButton = form.find('Button');
     resetPwdButton.simulate('submit');
-    expect(spy.called).toBe(false);
+
   });
 });
