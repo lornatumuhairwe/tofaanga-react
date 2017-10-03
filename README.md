@@ -24,19 +24,19 @@ The building blocks for this project are:
 1. Ensure you have [NodeJS](https://nodejs.org/en/docs/) installed on your local machine
 2. Clone the repository using:
 
- ```git clone https://github.com/lornatumuhairwe/tofaanga-react.git```
+        ```git clone https://github.com/lornatumuhairwe/tofaanga-react.git```
  
 3. Change directory to the project folder
 
-```cd tofaanga-react```
+        ```cd tofaanga-react```
 
 3. Install the project dependencies
 
-```npm install```
+        ```npm install```
 4. Run application
 
-```npm start```
+        ```npm start```
 
 5. Build the application
 
-```npm run build```
+        ```npm run build```

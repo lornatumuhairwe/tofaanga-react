@@ -44,9 +44,7 @@ export default class SignupForm extends Component {
     fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {
-        console.log(resjson);
         if (resjson.message === 'Registration Successful') {
-            console.log('Found 201');
             localStorage.setItem('token', resjson.auth_token);
           this.setState({ isLoggedIn: true,
               name: '',

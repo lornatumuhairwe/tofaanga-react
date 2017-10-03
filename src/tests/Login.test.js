@@ -35,7 +35,7 @@ describe('Button changes the text after click', () => {
     passwordInput.simulate('change', { target: { value: 'test' } });
     expect(Login.state().email).toEqual('ltt@gmail.com');
     expect(Login.state().pwd).toEqual('test');
-    loginButton.simulate('submit'); // submit
+    loginButton.simulate('submit');
     expect(Login.state().isLoading).toEqual(true);
     expect(loginButton.text()).toEqual('Loading...');
   });

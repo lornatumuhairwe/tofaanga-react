@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { BLIRow } from "../components/Bucketlist/bucketlistItems";
+import BLIRow from "../components/Bucketlist/BLIRow";
 import { mount, shallow } from 'enzyme';
 
 global.localStorage = {
@@ -22,7 +22,7 @@ describe('bucketlist items row snapshot', () => {
     );
 });
 
-describe('fxns', () => {
+describe('functions', () => {
     let BLIRowComponent;
     const getBucketlistItems = () => {
         return true;
