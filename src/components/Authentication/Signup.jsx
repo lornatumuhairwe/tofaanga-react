@@ -51,7 +51,6 @@ export default class SignupForm extends Component {
           this.setState({ isLoggedIn: true, name: '', email: '', dob: '', pwd: '', isLoading: true });
         }
         else if (resjson.message ){
-          console.log('Found 400');
             // this.state.notificationSystem.addNotification({
             //     message: resjson.message,
             //     level: 'error',

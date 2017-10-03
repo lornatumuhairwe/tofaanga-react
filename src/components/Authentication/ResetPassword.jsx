@@ -39,19 +39,14 @@ export default class ResetPasswordForm extends Component {
     this.setState(newState);
   }
 
-  fetchh() {
-    return true;
-  }
   sendLogin(url, data) {
     const postData = {
       method: 'POST',
       body: data,
     };
-    this.fetchh();
     return fetch(url, postData)
       .then(response => response.json())
       .then((resjson) => {
-        console.log(resjson);
         if (resjson.message === 'Password reset successful') {
           this.state.notificationSystem.addNotification({
             message: 'Password reset successful',

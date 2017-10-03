@@ -4,11 +4,7 @@ import BLRow from "../components/Bucketlist/bucketlistTableRows";
 import {mount, shallow} from 'enzyme';
 import sinon, { spy, stub } from 'sinon';
 import sinonStubPromise from 'sinon-stub-promise';
-import fetchMock from 'fetch-mock';
-import NotificationSystem from 'react-notification-system';
-import TestUtils from 'react-addons-test-utils';
 sinonStubPromise(sinon);
-//jest.mock('NotificationSystem');
 
 global.localStorage = {
     setItem: () => {}, getItem: () => {},
@@ -186,12 +182,10 @@ describe('notifications', () => {
         }});
 
         const response = await wrapper.instance().updateAction('foo', 'bar');
-        console.log(response);
         expect(wrapper.state().showModal).toBe(false)
     });
 
     it("getBucketlistItemsAction works", async function() {
-        // wrapper.instance().getBucketlistItemsAction = jest.fn();
         global.fetch = jest.fn().mockImplementation(() => {
             let p = new Promise((resolve, reject) => {
                 resolve({

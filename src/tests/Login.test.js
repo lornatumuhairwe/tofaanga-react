@@ -50,11 +50,9 @@ describe('Button changes the text after click', () => {
 
   it('displays signup form when link is clicked', () => {
     const Appi = mount(<App />);
-    // console.log(Appi.state());
     Login.instance().displaySignup = jest.fn();
     const signuplink = Login.find('#sp');
     signuplink.simulate('click');
-    // console.log(Appi.state());
   });
 });
 

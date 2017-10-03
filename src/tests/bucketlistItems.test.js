@@ -20,7 +20,6 @@ describe('bucketlist methods', () => {
         const blsi= { 24 : ["Lorna Tumuhairwe", "2017-09-23", "Complete"], 26:["y", "2017-10-01", "Incomplete"]};
         let rows = [];
         let bID=37;
-        //const blItems = shallow(<BucketlistItems blsi={blsi} bID={bID}/>);
 
         for (const key in blsi) {
             if (blsi.hasOwnProperty(key)) {

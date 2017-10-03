@@ -25,7 +25,6 @@ export default class Bucketlist extends Component {
         this.openModal = this.openModal.bind(this);
         this.addBucketlist = this.addBucketlist.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
-        // this.getName = this.getName.bind(this);
         this.getBucketlists = this.getBucketlists.bind(this);
         this.LogOut = this.LogOut.bind(this);
     }

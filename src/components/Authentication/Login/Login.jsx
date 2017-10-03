@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import '../../../styles/css/bootstrap.min.css';
-// import '../../../styles/font-awesome/css/font-awesome.min.css';
 import '../../../styles/css/login.css';
 import Bucketlist from '../../Bucketlist/bucketlist';
 import ResetPasswordForm from './../ResetPassword';
@@ -41,7 +40,6 @@ export default class extends Component {
     LoginFormData.append('password', this.state.pwd);
     this.sendLogin(`${baseUrl}/auth/login`, LoginFormData);
     this.setState({ isLoading: true });
-    // this.props.getToken(this.token);
   }
   handleChange(field, event) {
     const newState = {};
