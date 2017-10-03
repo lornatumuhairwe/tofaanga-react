@@ -50,20 +50,26 @@ export default class BLRow extends React.Component {
     deleteBucketlist(event) {
         event.preventDefault();
         const bID = this.refs.bid.value;
-        alert(`Do you really want to delete this item? : ${bID}`);
-        const BlData = new FormData();
-        BlData.append('bucketlistID', bID);
-
-        this.deleteAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
+        //eslint-disable-next-line
+        const getDeleteConfirmation = confirm('Do you really want to delete this? ');
+        if (getDeleteConfirmation === true){
+            const BlData = new FormData();
+            BlData.append('bucketlistID', bID);
+            this.deleteAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
+        }
     }
+
     editBucketlist(event) {
         event.preventDefault();
         const bID = this.refs.bid.value;
         const BlData = new FormData();
+        if (this.state.newname === ""){
+            const stateObject = this.state;
+            stateObject.newname = this.props.bucketlist;
+        }
         BlData.append('bucketlistID', bID);
         BlData.append('newname', this.state.newname);
         this.updateAction(`${baseUrl}/bucketlists/` + bID.toString(), BlData);
-        // this.setState({ newname: '', showModal: false });
     }
 
     updateAction(url, data) {
@@ -98,7 +104,6 @@ export default class BLRow extends React.Component {
         return fetch(url, data)
             .then(response => response.json()).then(res => {
                 this.props.getBucketlists(`${baseUrl}/bucketlists/`);
-                console.log(res)
             });
     }
 
@@ -227,6 +232,7 @@ export default class BLRow extends React.Component {
                             <Modal.Title>Update Bucketlist: {this.props.bucketlist}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
+
                             <form onSubmit={this.handleAdd}>
                                 <div className="form-group">
                                     <label htmlFor="name">New Name:</label>
@@ -240,6 +246,7 @@ export default class BLRow extends React.Component {
                                 </div>
                                 <button type="submit" className="btn btn-default" onClick={this.editBucketlist}>Update Bucketlist</button>
                             </form>
+
                         </Modal.Body>
                     </Modal>
                     <Modal show={this.state.showAdd} onHide={this.closeModal} bsSize="small" aria-labelledby="contained-modal-title-sm">
@@ -283,7 +290,7 @@ export default class BLRow extends React.Component {
                         </Modal.Body>
                     </Modal>
                 </div>
-                <NotificationSystem ref="notificationSystem" />
+                <NotificationSystem id="n" ref="notificationSystem" />
                 <BucketlistItems bID={this.props.id} items={this.state.items}
                                  token={this.props.token}
                                  showItemPanel={this.state.showItemPanel}

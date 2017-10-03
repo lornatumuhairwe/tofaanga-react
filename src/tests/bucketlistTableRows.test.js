@@ -10,6 +10,7 @@ global.localStorage = {
     setItem: () => {}, getItem: () => {},
 };
 
+global.confirm = () =>  true;
 
 describe('bucketlist row snapshot', () => {
     it('matches snapshot', () => {

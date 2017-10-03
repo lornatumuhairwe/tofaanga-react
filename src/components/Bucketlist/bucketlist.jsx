@@ -52,7 +52,7 @@ export default class Bucketlist extends Component {
                         this.setState({bucketlists: res['bucketlists'], details: res['details'], loading: false});
                     }
                     else{
-                        this.setState({bucketlists: '' });
+                        this.setState({bucketlists: '', loading: false });
                     }
                 }
             )

@@ -83,11 +83,6 @@ type="email" id="email" className="form-control"
                     required autoFocus onChange={this.handleChange.bind(this, 'email')}
                       />
                   <input
-type="date" id="bd" className="form-control"
-                    placeholder="Birth Date" value={this.state.dob}
-                    required autoFocus onChange={this.handleChange.bind(this, 'dob')}
-                      />
-                  <input
 type="password" className="form-control" id="pwd"
                     value={this.state.pwd} placeholder="Password" required
                     onChange={this.handleChange.bind(this, 'pwd')}

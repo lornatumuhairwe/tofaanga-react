@@ -111,7 +111,13 @@ exports[`bucketlist snapshot renders 1`] = `
       <ul
         className="list-group col-md-12"
         id="bucketlists"
-      />
+      >
+        <li
+          className="list-group-item col-md-12 item"
+        >
+          You don't have any bucketlists! Add some and start tracking.
+        </li>
+      </ul>
     </div>
   </div>
 </div>

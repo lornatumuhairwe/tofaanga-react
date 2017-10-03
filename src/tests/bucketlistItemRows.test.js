@@ -7,6 +7,8 @@ global.localStorage = {
     setItem: () => {}, getItem: () => {},
 };
 
+global.confirm = () =>  true;
+
 describe('bucketlist items row snapshot', () => {
     let bID=0;
     let id=0;

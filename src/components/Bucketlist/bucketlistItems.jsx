@@ -24,11 +24,14 @@ export class BLIRow extends Component {
 
   deleteBucketlistItem(event) {
     event.preventDefault();
-    alert('Delete Bucketlist item');
     const blitemID = this.refs.bid.value;
     const bID = this.props.bID;
-    this.deleteBucketlistItemsAction(`${baseUrl}/bucketlists/` + bID.toString() + '/items/' + blitemID.toString());
-    this.props.getBucketlistItems(event);
+      //eslint-disable-next-line
+    const getDeleteConfirmation = confirm('Do you really want to delete this? ');
+      if (getDeleteConfirmation === true) {
+          this.deleteBucketlistItemsAction(`${baseUrl}/bucketlists/` + bID.toString() + '/items/' + blitemID.toString());
+          this.props.getBucketlistItems(event);
+      }
   }
 
   deleteBucketlistItemsAction(url){
@@ -58,6 +61,18 @@ export class BLIRow extends Component {
     const blitemID = this.refs.bid.value;
     const bID = this.props.bID;
     const blItemData = new FormData();
+    if (this.state.title === ''){
+        const stateObject = this.state;
+        stateObject.title = this.props.bucketListItem[0];
+    }
+    if (this.state.deadline === ''){
+        const stateObject = this.state;
+        stateObject.deadline = this.props.bucketListItem[1];
+      }
+    if (this.state.status === ''){
+        const stateObject = this.state;
+        stateObject.status = this.props.bucketListItem[2];
+      }
     blItemData.append('title', this.state.title);
     blItemData.append('deadline', this.state.deadline);
     blItemData.append('status', this.state.status);
@@ -106,7 +121,7 @@ export class BLIRow extends Component {
     return (
       <tr>
         <td>{this.props.bucketListItem[0]}</td>
-        <td>{this.props.bucketListItem[1]}</td>
+          <td>{this.props.bucketListItem[2]!=='Complete' ? this.props.bucketListItem[1] : "Congrats!!"}</td>
         <td>{this.props.bucketListItem[2]}</td>
         <td><div className="pull-right">
             <NotificationSystem ref="notificationSystem" />

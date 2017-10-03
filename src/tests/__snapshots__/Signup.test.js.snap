@@ -50,16 +50,6 @@ exports[`Signup snapshot renders snapshot appropriately 1`] = `
             value=""
           />
           <input
-            autoFocus={true}
-            className="form-control"
-            id="bd"
-            onChange={[Function]}
-            placeholder="Birth Date"
-            required={true}
-            type="date"
-            value=""
-          />
-          <input
             className="form-control"
             id="pwd"
             onChange={[Function]}
