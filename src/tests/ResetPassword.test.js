@@ -4,7 +4,6 @@ import { mount } from 'enzyme';
 import { stub } from 'sinon';
 import ResetPasswordForm from '../components/Authentication/ResetPassword';
 
-
 describe('Reset password Form snapshot', () => {
   it('Login Form renders snapshot', () => {
     const Resetpasswordform = renderer.create(<ResetPasswordForm />);

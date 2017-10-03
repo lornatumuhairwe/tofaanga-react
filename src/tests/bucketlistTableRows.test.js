@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import BLRow from "../components/Bucketlist/bucketlistTableRows";
-import {mount, shallow} from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import sinon, { spy, stub } from 'sinon';
 import sinonStubPromise from 'sinon-stub-promise';
 sinonStubPromise(sinon);
@@ -126,14 +126,11 @@ describe('bucketlist methods', () => {
 describe('notifications', () => {
     let wrapper;
     const getBucketlists = ()=> {};
-    //let notificationSystem;
     beforeEach(function() {
         wrapper = shallow(<BLRow getBucketlists={getBucketlists} />);
-        //fetchMock = stub(window, 'fetch').returnsPromise().resolves({message: 'success'});
     });
 
     it("adds bucketlist items", async function() {
-        // wrapper.instance().addItemToBucketlistAction = jest.fn();
         global.fetch = jest.fn().mockImplementation(() => {
             let p = new Promise((resolve, reject) => {
                 resolve({
@@ -154,9 +151,7 @@ describe('notifications', () => {
             addNotification: () => {}
         }});
 
-            const response = await wrapper.instance().addItemToBucketlistAction('foo', 'bar');
-            // console.log(response);
-            // expect(response.Id).toBe(1);
+        const response = await wrapper.instance().addItemToBucketlistAction('foo', 'bar');
     });
 
     it("update bucketlist items", async function() {
@@ -208,7 +203,6 @@ describe('notifications', () => {
         }});
 
         const response = await wrapper.instance().getBucketlistItemsAction('foo', 'bar');
-        // expect(response.Id).toBe(1);
     });
 
 });

@@ -6,7 +6,6 @@ import BucketlistItems from './bucketlistItems';
 import { baseUrl } from "../../constants";
 import NotificationSystem from 'react-notification-system';
 
-
 export default class BLRow extends React.Component {
     constructor(props) {
         super(props);
@@ -108,18 +107,12 @@ export default class BLRow extends React.Component {
     }
 
     deleteAction(url, data) {
-        // console.log('URL', url);
         const deleteData = {
             method: 'DELETE',
             body: data,
             headers: { Authorization: localStorage.getItem('token') },
         };
         return this.delete(url, deleteData)
-        // return fetch(url, deleteData)
-        //     .then(response => response.json()).then(res => {
-        //         this.props.getBucketlists(`${baseUrl}/bucketlists/`);
-        //         // console.log(res)
-        //     });
     }
 
     getBucketlistItems(event) {
@@ -148,9 +141,7 @@ export default class BLRow extends React.Component {
                             message: 'Bucketlist is Empty!',
                             level: 'warning'
                         });
-                    } // else {
-                    // console.log(this.state.items);
-                    // }
+                    }
                 },
             );
     }

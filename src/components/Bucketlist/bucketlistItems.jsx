@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Panel, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
-import { baseUrl} from "../../constants";
+import { baseUrl } from "../../constants";
 import NotificationSystem from 'react-notification-system';
 
 export class BLIRow extends Component {
@@ -41,7 +41,6 @@ export class BLIRow extends Component {
       };
       return fetch(url, putData)
           .then(response => response.json()).then((res) => {
-                  // this.setState({ items: res });
               },
           );
   }
@@ -77,7 +76,6 @@ export class BLIRow extends Component {
     blItemData.append('deadline', this.state.deadline);
     blItemData.append('status', this.state.status);
     this.props.getBucketlistItems(event);
-    // this.setState({ showUpdate: false });
     this.updateBucketlistItemsAction(`${baseUrl}/bucketlists/` + bID.toString() + '/items/' + blitemID.toString(), blItemData);
   }
 

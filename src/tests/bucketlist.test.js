@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Bucketlist from '../components/Bucketlist/bucketlist';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
 global.localStorage = {

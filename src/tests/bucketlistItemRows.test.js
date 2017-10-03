@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {BLIRow} from "../components/Bucketlist/bucketlistItems";
-import {mount, shallow} from 'enzyme';
+import { BLIRow } from "../components/Bucketlist/bucketlistItems";
+import { mount, shallow } from 'enzyme';
 
 global.localStorage = {
     setItem: () => {}, getItem: () => {},
@@ -35,11 +35,6 @@ describe('fxns', () => {
                                         bucketListItem={bucketListItem}
                                         getBucketlistItems={getBucketlistItems} />);
     });
-
-    // it('captures fields in form', () => {
-    //     const updateForm = BLIRowComponent;
-    //     console.log(updateForm)
-    // });
 });
 
 describe('bucketlist methods', () => {
@@ -90,38 +85,3 @@ describe('bucketlist methods', () => {
         expect(wrapper.state().title).toBe('Me');
     });
 });
-
-// describe('test fetch', () => {
-//     let wrapper;
-//     let bID=0;
-//     let id=0;
-//     let key=0;
-//     let bucketListItem=0;
-//     //let getBucketlistItems = () => {};
-//     beforeEach(function() {
-//         wrapper = shallow(<BLIRow bID={bID} id={id} key={key} bucketListItem={bucketListItem} /> );
-//         global.fetch = jest.fn().mockImplementation(() => {
-//             let p = new Promise((resolve, reject) => {
-//                 resolve({
-//                     json: function() {
-//
-//                         return {
-//                             "Deadline": "1/1/2016",
-//                             "buckelist Item": "one",
-//                             "message": "Bucketlist item updated successfully",
-//                             "status": "COMplete"
-//                         }
-//                     }
-//                 });
-//             });
-//             return p;
-//         });
-//
-//     });
-//
-//     it("update bucketlist items", async function() {
-//         const response = await wrapper.instance().delete('foo', 'bar');
-//         console.log(response);
-//         expect(response.status).toBe("COMplete");
-//     });
-// });

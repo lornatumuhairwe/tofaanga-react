@@ -8,9 +8,9 @@ export default class BucketlistTable extends React.Component {
     const rows = [];
     const bls = this.props.bucketlists;
     if (Object.keys(bls).length === 0) {
-      rows.push(<li key={0} className="list-group-item col-md-12 item">You don't have any bucketlists! Add some and start tracking.</li>);
+      rows.push(<li key={0} className="list-group-item col-md-12 item">
+        You don't have any bucketlists! Add some and start tracking.</li>);
     } else {
-    // const details = this.props.details;
       for (const key in bls) {
         if (bls.hasOwnProperty(key)) {
           rows.push(<BLRow

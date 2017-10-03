@@ -2,7 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import BucketlistItems from "../components/Bucketlist/bucketlistItems";
 import BLIRow from "../components/Bucketlist/bucketlistItems";
-import {mount, shallow} from 'enzyme';
 
 describe('bucketlist items snapshot', () => {
     it('matches snapshot', () => {

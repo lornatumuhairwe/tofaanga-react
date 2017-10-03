@@ -5,10 +5,9 @@ import LoginForm from './components/Authentication/Login/Login';
 import './App.css';
 import Bucketlist from './components/Bucketlist/bucketlist';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
-    // this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.state = { signIn: true, signUp: false, resetPassword: false, isLoggedIn: false, token: localStorage.getItem('token') };
     this.displaySignup = this.displaySignup.bind(this);
     this.getToken = this.getToken.bind(this);
@@ -32,14 +31,17 @@ class App extends Component {
   changeLoggedin() {
     if (!this.state.isLoggedIn) {
       this.setState({ isLoggedIn: true });
-      return ( <Bucketlist token={localStorage.getItem('token')} /> );
+      return (<Bucketlist token={localStorage.getItem('token')} />);
     }
   }
 
   renderItems() {
-
     if (this.state.token) {
-      return (<Bucketlist token={localStorage.getItem('token')} isLoggedIn={!this.state.isLoggedIn} displaySignup={this.displaySignup} />);
+      return (<Bucketlist
+        token={localStorage.getItem('token')}
+        isLoggedIn={!this.state.isLoggedIn}
+        displaySignup={this.displaySignup}
+      />);
     } else if (this.state.signIn) {
       return (
         <LoginForm displaySignup={this.displaySignup} />
@@ -56,4 +58,3 @@ class App extends Component {
   }
 }
 
-export default App;

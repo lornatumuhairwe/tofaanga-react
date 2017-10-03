@@ -5,7 +5,7 @@ import Bucketlist from '../Bucketlist/bucketlist';
 import { Button } from 'react-bootstrap';
 import { baseUrl } from '../../constants';
 import NotificationSystem from 'react-notification-system';
-import Notifications, {notify} from 'react-notify-toast';
+import Notifications, { notify } from 'react-notify-toast';
 
 export default class SignupForm extends Component {
   constructor(props) {
@@ -48,13 +48,14 @@ export default class SignupForm extends Component {
         if (resjson.message === 'Registration Successful') {
             console.log('Found 201');
             localStorage.setItem('token', resjson.auth_token);
-          this.setState({ isLoggedIn: true, name: '', email: '', dob: '', pwd: '', isLoading: true });
+          this.setState({ isLoggedIn: true,
+              name: '',
+              email: '',
+              dob: '',
+              pwd: '',
+              isLoading: true });
         }
         else if (resjson.message ){
-            // this.state.notificationSystem.addNotification({
-            //     message: resjson.message,
-            //     level: 'error',
-            // });
             notify.show(resjson.message, 'success', 0);
             this.setState({ email: ''});
         }

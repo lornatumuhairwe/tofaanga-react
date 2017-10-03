@@ -1,9 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PaginationComp from "../components/Pagination/pagination";
-import {mount, shallow} from 'enzyme';
-import sinon, {spy} from 'sinon';
-
+import { mount, shallow } from 'enzyme';
 
 describe('pagination snapshot', () => {
     const details = [];

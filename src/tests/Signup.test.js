@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import SignupForm from '../components/Authentication/Signup';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 
 describe('Signup snapshot', () => {
   it('renders snapshot appropriately', () => {

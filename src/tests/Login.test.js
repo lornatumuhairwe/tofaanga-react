@@ -2,7 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import LoginForm from '../components/Authentication/Login/Login';
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
 import App from '../App';
 
 global.localStorage = {

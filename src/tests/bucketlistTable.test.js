@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
 import BucketlistTable from '../components/Bucketlist/bucketlistTable';
 
 it('should have no rows when no items are supplied', () => {

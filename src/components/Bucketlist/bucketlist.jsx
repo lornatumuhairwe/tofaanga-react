@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Modal, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import '../../styles/css/bootstrap.min.css';
 import '../../styles/css/bucketlist.css';
@@ -109,7 +109,6 @@ export default class Bucketlist extends Component {
         const BlData = new FormData();
         BlData.append('name', this.state.bname);
         this.addBucketlist(`${baseUrl}/bucketlists/`, BlData);
-        // this.setState({showModal: false});
         this.setState({bname: ''});
     }
 
