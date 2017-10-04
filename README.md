@@ -15,6 +15,10 @@ Users track their goals by allowing with the following features:
 
 ![app image](public/app.png)
 
+
+## Production
+The app is live here: https://tofaanga.herokuapp.com/
+
 ## Development
 The building blocks for this project are:
 - [React](https://reactjs.org/) for the frontend.
@@ -22,6 +26,7 @@ The building blocks for this project are:
 
 ## Installation
 1. Ensure you have [NodeJS](https://nodejs.org/en/docs/) installed on your local machine
+
 
 
 2. Clone the repository using:
