@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bucketlist items row snapshot matches snapshot 1`] = `
+<tr>
+  <td />
+  <td />
+  <td />
+  <td>
+    <div
+      className="pull-right"
+    >
+      <div
+        className="notifications-wrapper"
+        style={Object {}}
+      />
+      <form
+        className="form-inline"
+      >
+        <input
+          name="name"
+          required={true}
+          type="hidden"
+          value={0}
+        />
+        <button
+          className="btn btn-xs btn-primary btn-circle  btn btn-default"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+          type="submit"
+        >
+          <i
+            className="glyphicon glyphicon-edit"
+          />
+        </button>
+        <button
+          className="btn btn-xs btn-danger btn-circle btn btn-default"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+          type="submit"
+        >
+          <i
+            className="glyphicon glyphicon-trash"
+          />
+        </button>
+      </form>
+    </div>
+  </td>
+</tr>
+`;

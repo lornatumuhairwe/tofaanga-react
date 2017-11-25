@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`search snapshot matches snapshot 1`] = `
+<div>
+  <h1>
+    Error, route not found
+  </h1>
+  <p>
+    Back to 
+    <a
+      href="/"
+    >
+      Home
+    </a>
+  </p>
+</div>
+`;

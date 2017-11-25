@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Signup snapshot renders snapshot appropriately 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-sm-6 col-md-4 col-md-offset-4"
+    >
+      <h1
+        className="text-center login-title"
+      >
+        Sign up start keeping track of your bucketlists 
+      </h1>
+      <div
+        className="account-wall"
+      >
+        <div
+          id="notification-wrapper"
+        />
+        <div
+          className="notifications-wrapper"
+          style={Object {}}
+        />
+        <form
+          className="form-signin"
+          onSubmit={[Function]}
+        >
+          <input
+            autoFocus={true}
+            className="form-control"
+            id="name"
+            onChange={[Function]}
+            placeholder="Name"
+            required={true}
+            type="text"
+            value=""
+          />
+          <input
+            autoFocus={true}
+            className="form-control"
+            id="email"
+            onChange={[Function]}
+            placeholder="Email"
+            required={true}
+            type="email"
+            value=""
+          />
+          <input
+            className="form-control"
+            id="pwd"
+            onChange={[Function]}
+            placeholder="Password"
+            required={true}
+            type="password"
+            value=""
+          />
+          <button
+            className="btn btn-lg btn-primary btn-block btn btn-default"
+            disabled={false}
+            type="submit"
+          >
+            Sign up
+          </button>
+          <span
+            className="clearfix"
+          />
+        </form>
+      </div>
+      <a
+        className="text-center new-account"
+        href=""
+        onClick={undefined}
+      >
+        Already have an account? Sign in
+      </a>
+    </div>
+  </div>
+</div>
+`;
