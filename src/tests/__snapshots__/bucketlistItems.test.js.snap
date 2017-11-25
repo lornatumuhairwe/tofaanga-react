@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bucketlist items snapshot matches snapshot 1`] = `
+<div
+  className="panel"
+>
+  <div
+    className="panelpanel panel panel-default"
+    id={null}
+  >
+    <div
+      aria-expanded={null}
+      aria-hidden={true}
+      className="panel-collapse collapse"
+      id={undefined}
+      role={undefined}
+    >
+      <div
+        className="panel-body"
+      >
+        <table
+          className="table table-responsive table-hover"
+        >
+          <thead>
+            <tr>
+              <th>
+                Item
+              </th>
+              <th>
+                Deadline
+              </th>
+              <th>
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody />
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;

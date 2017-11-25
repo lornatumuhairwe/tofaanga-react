@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bucketlist snapshot renders 1`] = `
+<div>
+  <div
+    className="notifications-wrapper"
+    style={Object {}}
+  />
+  <nav
+    className="navbar navbar-inverse"
+  >
+    <ul
+      className="nav navbar-nav"
+    >
+      <li>
+        <a
+          href=""
+        >
+          TOFAANGA
+        </a>
+      </li>
+    </ul>
+    <ul
+      className="nav navbar-nav navbar-right"
+    >
+      <li
+        id="logoutBtn"
+      >
+        <a
+          onClick={[Function]}
+        >
+          Logout
+        </a>
+      </li>
+    </ul>
+    <div>
+      <form
+        className="navbar-form navbar-right search"
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-group"
+        >
+          <span
+            className="input-group"
+          >
+            <input
+              className="form-control"
+              id={undefined}
+              onChange={[Function]}
+              type="text"
+            />
+            <span
+              className="input-group-btn"
+            >
+              <button
+                className="btn btn-default"
+                disabled={false}
+                type="submit"
+              >
+                <i
+                  className="glyphicon glyphicon-search"
+                />
+              </button>
+            </span>
+          </span>
+        </div>
+      </form>
+    </div>
+  </nav>
+  <div
+    className="container"
+  >
+    <button
+      className="btn btn-lg btn-primary btn-circle fixed btn btn-default"
+      disabled={false}
+      id="addBucketlist"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+      type="button"
+    >
+      <i
+        className="glyphicon glyphicon-plus"
+      />
+    </button>
+    <div
+      className="loader"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 32 32\\">
+          <path opacity=\\".25\\" d=\\"M16 0 A16 16 0 0 0 16 32 A16 16 0 0 0 16 0 M16 4 A12 12 0 0 1 16 28 A12 12 0 0 1 16 4\\"/>
+          <path d=\\"M16 0 A16 16 0 0 1 32 16 L28 16 A12 12 0 0 0 16 4z\\">
+            <animateTransform attributeName=\\"transform\\" type=\\"rotate\\" from=\\"0 16 16\\" to=\\"360 16 16\\" dur=\\"0.8s\\" repeatCount=\\"indefinite\\" />
+          </path>
+        </svg>
+        ",
+        }
+      }
+      style={
+        Object {
+          "fill": "red",
+          "height": 50,
+          "width": 50,
+        }
+      }
+    />
+    <div>
+      <ul
+        className="list-group col-md-12"
+        id="bucketlists"
+      >
+        <li
+          className="list-group-item col-md-12 item"
+        >
+          You don't have any bucketlists! Add some and start tracking.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
